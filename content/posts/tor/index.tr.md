@@ -51,307 +51,150 @@ howto:
 ---
 
 > **TL;DR** - Bu rehberde öğrenecekleriniz:
-> - Tor ağının ne olduğu ve onion routing'in nasıl çalıştığı
-> - Evde barındırılan bir düğüm ile kiralık bir VPS arasındaki riskleri nasıl tartacağınız
-> - Otomatik script veya Tor Project'in resmi paketleri kullanarak bir Tor düğümünün (middle veya exit relay) nasıl kurulacağı
-> - Relay'inizin doğru çalıştığını nasıl doğrulayacağınız
+> - Tor ağının ne olduğu ve "onion routing" (soğan yönlendirmesi) sisteminin nasıl çalıştığını,
+> - Evde barındırılan bir düğüm ile kiralık bir VPS arasındaki riskleri nasıl değerlendireceğinizi,
+> - Otomatik kurulum betiği (script) veya Tor Project'in resmi paketlerini kullanarak bir Tor düğümünün (ara düğüm veya çıkış düğümü) nasıl kurulacağını,
+> - Kurduğunuz düğümün doğru çalışıp çalışmadığını nasıl doğrulayacağınızı.
 
 ## Özet
 
-Tor düğümü, Tor ağında trafiği ileten gönüllü bir sunucudur. Sorumlu bir şekilde katkıda bulunmak için bir VPS veya özel bir makine üzerinde middle relay ile başlamak, gerçekçi bant genişliği sınırları belirlemek, sistemi güncel tutmak ve relay'i loglar, Nyx ve Tor Metrics aracılığıyla doğrulamak en iyisidir.
+Tor düğümü, Tor ağında trafiği ileten gönüllü bir sunucudur. Ağa sorumlu bir şekilde katkıda bulunmak için bir VPS veya özel bir makine üzerinde ara düğüm (middle relay) ile başlamak, gerçekçi bant genişliği sınırları belirlemek, sistemi güncel tutmak ve düğüm durumunu günlük kayıtları (logs), Nyx ve Tor Metrics aracılığıyla doğrulamak en iyi yaklaşımdır.
 
-Tor ağı, çevrimiçi gizliliğin temel direklerinden biridir; gazeteciler, aktivistler ve gözetimden korunmak isteyen herkes tarafından kullanılır. Ancak Tor, yalnızca kendi düğümlerini sağlayan gönüllüler sayesinde çalışır. Ne kadar çok düğüm olursa, ağ o kadar hızlı, güvenli ve sansüre dirençli olur. Bu rehber, kendi relay düğümünüzü birkaç adımda kurarak Tor ağına nasıl aktif olarak katkıda bulunabileceğinizi gösterir.
+Tor ağı, çevrimiçi gizliliğin temel direklerinden biridir; gazeteciler, aktivistler ve gözetimden korunmak isteyen herkes tarafından kullanılır. Ancak Tor, yalnızca kendi düğümlerini sağlayan gönüllüler sayesinde çalışır. Ne kadar çok düğüm olursa, ağ o kadar hızlı, güvenli ve sansüre dirençli hale gelir. Bu rehber, kendi relay düğümünüzü birkaç adımda kurarak Tor ağına nasıl aktif olarak katkıda bulunabileceğinizi açıklamaktadır.
 
-Bu rehber, Tor ağını desteklemek için bir düğüm başlatmaya
-yönelik eksiksiz bir kılavuz olmayı hedefliyor. Başlamadan önce bu
-protokolün ne olduğunu kısaca açıklayalım:
+Bu rehber, Tor ağını desteklemek için bir düğüm başlatmaya yönelik kapsamlı bir kılavuzdur. Başlamadan önce bu protokolün çalışma prensibini kısaca açıklayalım:
 
-"The Onion Router"ın kısaltması olan Tor ağı, İnternet'te
-kullanıcıların gizliliğini ve güvenliğini artırmak için tasarlanmış
-anonim bir iletişim ağıdır. Adını, çalışma prensibinin bir soğanın
-katmanlarına benzer şekilde birden fazla şifreleme katmanına
-dayanmasından, yani "onion" (soğan) kavramından alır.
+"The Onion Router"ın kısaltması olan Tor ağı, internette kullanıcıların gizliliğini ve güvenliğini artırmak için tasarlanmış anonim bir iletişim ağıdır. Adını, çalışma prensibinin bir soğanın katmanlarına benzer şekilde birden fazla şifreleme katmanına dayanmasından, yani "onion" (soğan) kavramından alır.
 
-Tor'un temel amacı, kullanıcıların çevrimiçi etkinliklerinin takip
-edilmesini zorlaştırmak, kimliklerini ve konumlarını korumaktır. Ağ,
-İnternet trafiğini dünyanın dört bir yanındaki gönüllüler tarafından
-işletilen "Tor düğümleri" adı verilen bir dizi gönüllü sunucu üzerinden
-yönlendirerek çalışır. Her Tor düğümü bir şifreleme katmanını kaldırır
-ve yalnızca önceki düğümün IP adresini ortaya çıkarır, bu da trafiğin
-kaynağına ulaşmayı zorlaştırır.
+Tor'un temel amacı, kullanıcıların çevrimiçi etkinliklerinin takip edilmesini zorlaştırmak, kimliklerini ve konumlarını korumaktır. Ağ, internet trafiğini dünyanın dört bir yanındaki gönüllüler tarafından işletilen "Tor düğümleri" adı verilen bir dizi sunucu üzerinden yönlendirerek çalışır. Her Tor düğümü bir şifreleme katmanını kaldırır ve yalnızca önceki düğümün IP adresini ortaya çıkarır, bu da trafiğin kaynağına ulaşmayı zorlaştırır.
 
-Bu katmanlı yaklaşım sayesinde Tor, kullanıcılara önemli düzeyde
-anonimlik sağlar; ancak tam bir güvenlik sunmadığını ve belirli
-senaryolarda saldırılara karşı zayıf kalabileceğini belirtmek önemlidir.
-Buna rağmen Tor ağı, gazeteciler, insan hakları aktivistleri ve
-çevrimiçi gizliliklerini korumaya çalışan kullanıcılar tarafından
-yaygın olarak kullanılmaktadır.
+Bu katmanlı yaklaşım sayesinde Tor, kullanıcılara önemli düzeyde anonimlik sağlar; ancak tam bir güvenlik sunmadığını ve belirli senaryolarda saldırılara karşı zayıf kalabileceğini belirtmek önemlidir. Buna rağmen Tor ağı; gazeteciler, insan hakları aktivistleri ve çevrimiçi gizliliklerini korumaya çalışan kullanıcılar tarafından yaygın olarak kullanılmaktadır.
 
-Daha fazla bilgi için bu bölümü dinlemenizi şiddetle
-öneririm:
-
-
+Daha fazla bilgi için ilgili podcast bölümünü dinlemeniz önerilir:
 
 ## Hedef {#os style="color: greenyellow;"}
 
-Bu rehberin nihai hedefi, çeşitli fayda ve riskleri değerlendirerek bir
-Tor düğümünü (yerel olarak veya bir VPS üzerinde) barındırmaktır. Bu
-rehberin sonunda, ağı daha güvenli ve saldırılara karşı daha dirençli
-hale getirerek resmi olarak ağa yardım ediyor ve kendi katkınızı
-sunuyor olacaksınız.
-Bu rehberi takip etmek için 2 yol vardır:
+Bu rehberin nihai amacı, çeşitli fayda ve riskleri değerlendirerek yerel olarak veya bir VPS üzerinde bir Tor düğümü barındırmanızı sağlamaktır. Bu rehberi tamamladığınızda, ağı daha güvenli ve saldırılara karşı daha dirençli hale getirerek ağın gelişimine katkıda bulunmuş olacaksınız.
 
--   Benim tarafımdan oluşturulan otomatik script ile (önerilen)
--   Tor Project'in resmi paketlerinden manuel kurulum ile
+Bu rehber kapsamında iki farklı yöntem sunulmaktadır:
 
-Asıl kuruluma geçmeden önce, bir
-sonraki bölümde kendi ev ağınızda veya kiralık bir sunucuda düğüm
-kurmanın risklerini ve faydalarını inceleyeceğiz.
+- Hazırlanan otomatik kurulum betiği (script) ile (önerilen)
+- Tor Project'in resmi paketlerini kullanarak manuel kurulum ile
 
-## Risk değerlendirmesi {#set style="color: greenyellow;"}
+Asıl kuruluma geçmeden önce, bir sonraki bölümde kendi ev ağınızda veya kiralık bir sunucu üzerinde düğüm barındırmanın risklerini ve faydalarını inceleyeceğiz.
 
-Bir Tor düğümünün kurulumu, bir ev ağında ya da çevrimiçi
-kiralık bir sunucuda olsun, bireysel ihtiyaçların dikkatli bir şekilde
-değerlendirilmesini gerektirir. Ev ağı bağlamında, en önemli
-avantajlardan biri altyapı üzerinde tam kontrole sahip olmaktır; bu da
-yapılandırmaları kendi ihtiyaçlarınıza göre özelleştirmenize olanak
-tanır. Ayrıca, evde bir Tor düğümü çalıştırmak, özellikle gerekli
-donanıma zaten sahipseniz, daha ekonomik olabilir.
+## Risk Değerlendirmesi {#set style="color: greenyellow;"}
 
-Bununla birlikte, göz önünde bulundurulması gereken bazı dezavantajlar
-da vardır. Ev bağlantıları genellikle bant genişliği
-sınırlarına sahiptir, bu da Tor düğümünün genel hızını etkiler. Ayrıca,
-İnternet bağlantısı her zaman en iyi düzeyde güvenilirlik garanti
-etmeyebilir ve sağlayıcılar tarafından atanan dinamik IP adresleri
-düğümün zamanla daha az kararlı olmasına neden olabilir. Belirtilmesi
-gereken son bir dezavantaj da, düğümü kendi ev ağınızda çalıştırmanın,
-evde bir Tor düğümünüz olduğunu herkese açık şekilde göstermesidir; bu
-da gizliliğe önem veren bazı kişiler için sıkıntılı bir konu olabilir.
+Bir Tor düğümünün kurulumu, ev ağında ya da çevrimiçi kiralık bir sunucuda olsun, bireysel ihtiyaçların dikkatli bir şekilde değerlendirilmesini gerektirir. Ev ağı kullanmanın en önemli avantajlarından biri, altyapı üzerinde tam kontrole sahip olunmasıdır. Bu durum, yapılandırmaları kendi tercihlerinize göre özelleştirmenize olanak tanır. Ayrıca, evde bir Tor düğümü çalıştırmak, gerekli donanıma zaten sahipseniz daha ekonomik bir seçenek olabilir.
 
-Öte yandan, çevrimiçi kiralık bir sunucu kullanmak yüksek bant
-genişliği, daha fazla güvenilirlik ve statik bir IP adresine sahip
-olma gibi avantajlar sunar. Ancak bu seçenek daha yüksek aylık
-maliyetler getirir ve ev kurulumuna kıyasla donanım üzerindeki
-doğrudan kontrolünüzü sınırlayabilir.
+Bununla birlikte, göz önünde bulundurulması gereken bazı dezavantajlar da mevcuttur. Ev tipi internet bağlantıları genellikle bant genişliği sınırlarına sahiptir ve bu durum Tor düğümünün genel hızını etkileyebilir. Ayrıca ev interneti her zaman en yüksek düzeyde kesintisiz çalışmayı garanti etmeyebilir; servis sağlayıcılar tarafından atanan dinamik IP adresleri de düğümün ağdaki kararlılığını azaltabilir. Son bir dezavantaj ise düğümü kendi ev ağınızda çalıştırmanın, evinizde bir Tor düğümü barındırıldığını herkese açık şekilde ifşa etmesidir. Bu durum, gizliliğe üst düzeyde önem veren kişiler için istenmeyen bir durum olabilir.
 
-Ayrıca, kiralık bir sunucuyu uzaktan yönetmenin, sunucunun barındırıldığı
-ülkenin yasalarına ve politikalarına uyumu gerektirebileceği de göz
-önünde bulundurulmalıdır. Sonuç olarak, ev ağında ve çevrimiçi kiralık
-sunucuda Tor düğümü kurma arasındaki seçim, istenen yerel kontrol
-düzeyi, mevcut bütçe, gereken bant genişliği ve yerel yasalara uyum
-gibi çeşitli faktörlere bağlıdır.
+Öte yandan, kiralık bir sanal sunucu (VPS) kullanmak yüksek bant genişliği, daha yüksek kesintisiz çalışma (uptime) oranı ve statik bir IP adresine sahip olma gibi avantajlar sağlar. Ancak bu seçenek aylık ek maliyet getirir ve ev kurulumuna kıyasla donanım üzerindeki doğrudan kontrolünüzü sınırlar.
 
-Özetlemek gerekirse: evde barındırılan bir düğüm ağa daha fazla güvenlik
-ve merkeziyetsizlik sağlar; başlıca dezavantajları, evinizde bir Tor
-düğümü çalıştırdığınızın sızması ve yerel ağın izinlerini yönetirken
-biraz daha fazla zorlukla karşılaşabilmenizdir. Çevrimiçi kiralık
-sunuculardan bahsedildiğinde (rehberin ilerleyen kısımlarında bazılarını
-önereceğim) kurulum daha kolay ve hızlı olacaktır, ancak bunun karşılığında
-maliyetler daha yüksek olur ve donanım üzerindeki doğrudan kontrol azalır.
+Ayrıca, uzaktaki kiralık bir sunucuyu yönetirken, sunucunun barındırıldığı ülkenin yasal düzenlemelerine ve servis sağlayıcının politikalarına uyum sağlanması gerektiği göz önünde bulundurulmalıdır. Sonuç olarak, ev ağı ile kiralık sunucu arasında yapılacak seçim; kontrol düzeyi, bütçe, gereken bant genişliği ve yasal uyumluluk gibi çeşitli faktörlere bağlıdır.
 
-## Hosting sağlayıcısı seçimi {#store style="color: greenyellow;"}
+Özetlemek gerekirse: Evde barındırılan bir düğüm, ağa daha yüksek düzeyde merkeziyetsizlik kazandırır; ancak evinizde Tor düğümü çalıştırıldığının açığa çıkması ve yerel ağ yönlendirmelerini yaparken yaşanabilecek teknik zorluklar temel dezavantajlarıdır. Kiralık sanal sunucularda ise kurulum çok daha kolay ve hızlıdır; fakat bu durum maliyeti artırırken donanım üzerindeki doğrudan kontrolünüzü azaltır.
 
-Bir Tor düğümünü barındırmak için bir Virtual Private Server (VPS)
-kiralamaya hazırlanırken, güvenilir ve güvenli bir deneyim sağlamak
-için birçok parametreye dikkat etmek esastır:
+## Hosting Sağlayıcısı Seçimi {#store style="color: greenyellow;"}
 
-İlk olarak, VPS'in sağladığı bant genişliği, düğümün hızını ve
-kararlılığını doğrudan etkileyerek çok önemli bir rol oynar.
-Tor ağındaki trafiği verimli bir şekilde yönetmek için yeterli bant
-genişliği şarttır.
+Tor düğümü barındırmak amacıyla sanal özel sunucu (VPS) kiralarken, güvenilir ve güvenli bir çalışma ortamı sağlamak için bazı kriterlere dikkat etmek büyük önem taşır:
 
-Sunucunun konumu, dikkatle değerlendirilmesi gereken başka bir
-husustur. Stratejik bir coğrafi konum seçimi, düğüm üzerinden bağlanan
-kullanıcılar için gecikmeyi azaltarak düğümün genel performansını
-artırabilir. Bunun ayrıca önemli sonuçları vardır, çünkü yargı
-yetkisine bağlı olarak sağlayıcınızın uyması gereken bilgisayar
-yasaları da değişir.
+İlk olarak, sunucunun sunduğu bant genişliği, düğümün veri iletim hızını doğrudan etkiler. Tor ağındaki trafiği verimli bir şekilde yönetebilmek için yüksek limitli veya sınırsız bant genişliği tercih edilmelidir.
 
-VPS sağlayıcısının gizlilik politikası da aynı derecede kritiktir.
-Sağlayıcının kullanıcıların gizliliğine saygı duyduğunu ve hassas
-etkinlikleri kaydetmediğini veya izlemediğini doğrulamak, ağa faydalı
-bir düğüm sürdürmek için esastır.
-Ayrıca, statik bir IP adresine sahip bir VPS seçmek tavsiye edilir
-(neredeyse hepsi bunu sağlar), çünkü bu Tor düğümünün uzun vadede
-kararlı kalmasına yardımcı olacaktır.
+Sunucunun fiziksel konumu da dikkatle değerlendirilmelidir. Stratejik bir coğrafi konum seçimi, düğüm üzerinden bağlanan kullanıcılar için gecikme sürelerini (ping) azaltarak performansı artırır. Ayrıca sunucunun bulunduğu ülkenin yasal düzenlemeleri ve gizlilik kanunları da bu doğrultuda değişiklik gösterecektir.
 
-Son olarak, sağlayıcının sunduğu güvenlik duvarı ve şifreleme gibi
-güvenlik seçeneklerini incelemek, Tor düğümünü potansiyel dış
-tehditlerden korumak için temel bir husustur.
+VPS sağlayıcısının gizlilik politikası da kritik bir öneme sahiptir. Sağlayıcının kullanıcı gizliliğine saygı duyduğunu ve veri kaydı (log) tutmadığını doğrulamak, ağın yapısını korumak açısından gereklidir. Ek olarak, Tor düğümünün ağda kalıcı ve kararlı bir şekilde tanınması için statik bir IP adresi içeren bir paket seçilmesi önerilir.
 
-Bu parametrelerin dikkatli bir şekilde değerlendirilmesi sayesinde, bir
-Tor düğümünü güvenilir ve güvenli bir şekilde barındırmak için gereken
-gereksinimleri karşılayan bir VPS seçebilirsiniz.
+Son olarak, sunucunun güvenlik duvarı (firewall) yapılandırması ve sunucu güvenliği seçenekleri, düğümü dış tehditlere karşı korumak için incelenmelidir.
 
-İşte bana göre bir düğümü barındırmak için en iyi seçeneklerin listesi:
+Bu kriterleri göz önünde bulundurarak, bir Tor düğümünü güvenle çalıştırabileceğiniz en uygun VPS paketini belirleyebilirsiniz.
 
--   [VPSbG](https://www.vpsbg.eu/aff/1e5d9e), bana göre güç, bant
-    genişliği, gizlilik, kullanılabilirlik ve kabul edilen ödeme
-    yöntemleri arasında en iyi dengeyi sunuyor. En ucuzu değil ama en
-    iyi kullanım deneyimini sunan seçenek. Sunucuları Bulgaristan'da
-    ve hem middle hem de exit node'ları kabul ediyorlar (doğru
-    yapılandırıldığında, scriptim bunu zaten otomatik olarak yapıyor).
--   [UDN](https://www.urdn.com.ua/index.html), yani Ukrayna Veri Ağı
-    (Ukrainian Data Network), gerçekten son derece gizlilik odaklı
-    VPS'ler sunuyor; "son derece gizlilik odaklı" derken, bir VPS
-    satın almanın tek yolunun yöneticilerden biriyle XMPP üzerinden
-    yazışmak olduğunu kastediyorum — başka bir satın alma yolu yok ve
-    oluşturulması gereken bir hesap da yok. Uygun fiyatlı, çok güçlü
-    olmayan ama bol bant genişliğine sahip VPS'ler (10-15 TB).
--   [Trabia](https://www.trabia.com/), Moldova'da bir VPS sağlayıcısı;
-    çok iyi fiyatları var, VPS'ler çok güçlü değil ama bant genişliği
-    SINIRSIZ, bu fiyatlarda gerçek bir nadirlik. Gizlilik tarafında
-    iyi ama mükemmel değil; bitcoin kabul ediyorlar ama bazı kişisel
-    bilgiler girmenizi istiyorlar. Kişisel deneyimime göre bu bilgiler
-    tamamen sahte olabilir ama inandırıcı görünmesi gerekiyor (gerçekçi
-    görünen bir adres ve konum, inandırıcı ad ve soyadlar, vb.).
+Düğüm barındırmak için öne çıkan bazı güvenilir VPS sağlayıcıları şunlardır:
 
-Tor düğümleri için gereksinim olarak şunlara sahip olmak tavsiye edilir:
+- **[VPSbG](https://www.vpsbg.eu/aff/1e5d9e)**: Donanım performansı, bant genişliği, gizlilik politikası ve ödeme yöntemleri açısından oldukça dengeli bir seçenek sunmaktadır. Sunucuları Bulgaristan lokasyonludur ve hem ara düğüm (middle relay) hem de çıkış düğümü (exit relay) kurulumuna izin vermektedirler (otomatik kurulum betiği bunu uygun şekilde yapılandırmaktadır).
+- **[UDN (Ukrainian Data Network)](https://www.urdn.com.ua/index.html)**: Gizliliğe azami önem veren bir sağlayıcıdır. Öyle ki, bir sunucu kiralamak için yöneticilerle doğrudan XMPP üzerinden iletişime geçmeniz gerekir; web sitesinde klasik bir üyelik sistemi veya sepet adımı bulunmamaktadır. Performans olarak mütevazı ancak yüksek bant genişliği (10-15 TB) sunan ekonomik paketleri mevcuttur.
+- **[Trabia](https://www.trabia.com/)**: Moldova merkezli bu sağlayıcı, oldukça uygun fiyatlarla sınırsız bant genişliği sunmasıyla bilinir. Gizlilik hassasiyeti ortalama düzeydedir; Bitcoin ile ödeme kabul etseler de kayıt esnasında bazı kişisel bilgiler talep etmektedirler. Bu bilgilerin doğruluğu sıkı biçimde denetlenmese de gerçekçi yapıda olması sürecin onaylanması açısından önemlidir.
 
--   Middle relay: en az 1 çekirdek, 512MB RAM ve ayda 2 TB bant
-    genişliği, ancak en az 5 TB'a sahip olmak tavsiye edilir. Çok hızlı
-    relay'ler için (40mb/s'nin üzerinde bağlantı hızı) en az 1GB RAM
-    gerekir.
--   Exit node'lar: en az 1 çekirdek, 1GB RAM ve ayda 2 TB bant
-    genişliği, ancak en az 5 TB'a sahip olmak tavsiye edilir. Çok hızlı
-    relay'ler için (40mb/s'nin üzerinde bağlantı hızı) en az 2GB RAM
-    gerekir.
+Düğüm türlerine göre önerilen minimum sistem gereksinimleri şu şekildedir:
 
-Olası bir VPS'i satın aldıktan sonra doğrudan yapılandırmaya
-geçebiliriz!
+- **Ara Düğüm (Middle Relay)**: En az 1 CPU çekirdeği, 512 MB RAM ve aylık 2 TB bant genişliği (mümkünse 5 TB veya üzeri önerilir). Bağlantı hızı yüksek olan (40 MB/s üzeri) düğümler için en az 1 GB RAM tavsiye edilir.
+- **Çıkış Düğümü (Exit Relay)**: En az 1 CPU çekirdeği, 1 GB RAM ve aylık 2 TB bant genişliği. Yüksek hızlı çıkış düğümleri için ise en az 2 GB RAM gereklidir.
 
-## Otomatik script ile düğüm kurulumu (önerilen) {#shelter style="color: greenyellow;"}
+Sanal sunucunuzu (VPS) satın aldıktan sonra doğrudan yapılandırma adımına geçebilirsiniz!
 
-Rehbere, bana göre en hızlı ve verimli yöntemle, yani kendi geliştirdiğim
-bash scripti ile başlayalım. Gereksinimler: herhangi bir PC, VPS veya
-Raspberry Pi'nin hazır olması ve üzerinde Debian veya Ubuntu yüklü olması.
-Makinenizin shell'ine bağlandıktan sonra (bundan sonra ev donanımı veya
-VPS seçeneklerinden hangisini seçtiyseniz onu ifade edecek), eğer root
-erişimine sahip çevrimiçi bir VPS kullanıyorsanız aşağıdaki satırların
-başındaki sudo kelimesini atlamanız gerektiğini unutmayın. Şimdi
-aşağıdaki komutları çalıştırabilirsiniz:
-```
+## Otomatik Kurulum Betiği (Script) ile Kurulum {#shelter style="color: greenyellow;"}
+
+Rehberimize, kurulum için en hızlı ve verimli yöntem olan Bash betiği ile başlayalım. Gereksinimler: Debian veya Ubuntu yüklü bir bilgisayar, sanal sunucu (VPS) veya Raspberry Pi. Sunucunuzun veya makinenizin terminaline (shell) bağlandıktan sonra, eğer doğrudan root yetkisine sahip bir VPS kullanıyorsanız aşağıdaki komutların başındaki `sudo` ifadesini yazmanıza gerek olmadığını unutmayın. Kuruluma başlamak için aşağıdaki komutları çalıştırabilirsiniz:
+
+```bash
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt install git
 git clone https://github.com/b4lol/Tor-node-script.git
 cd Tor-node-script
 chmod +x tor.sh 
 sudo ./tor.sh
-```                            
-
-Bu kod satırları şu işlemleri gerçekleştirir: işletim sistemini
-(Ubuntu veya türevlerini) güncellerler, Git'i kurarlar, depoyu
-GitHub'dan klonlarlar, klonlanan dizine girerler, scripte çalıştırma
-izni verirler ve son olarak tor.sh'ı çalıştırırlar.
-
-Bu noktada tor scripti başlayacak, işletim sisteminizi güncelleyecek,
-tüm bağımlılıkları kuracak, pgp imzalarını doğrulayacak, tor'u kuracak
-ve deneyiminizi özelleştirmek için size bazı girdiler soracaktır:
-
-1.  **Middle Relay mi Exit mi?**\
-    Podcast bölümünde bu iki düğüm türü arasındaki farkları ele
-    alıyorum; middle relay yönetmesi daha kolaydır, özel bir risk
-    taşımaz ve sıradan kullanıcı için en önerilen seçenektir. Exit
-    relay, önceki relay türüne kıyasla biraz daha deneyimli kullanıcılar
-    için hardcore versiyondur. Deneyimli bir kullanıcı değilseniz,
-    kendisine atanan numarayı yazarak middle relay seçeneğini seçin.
-2.  **Nickname:**\
-    Bu bölümde Tor düğümümüze vermek istediğimiz adı yazmamız
-    gerekir. Çok uzun adlardan kaçının ve boşluk kullanmayın; izin
-    verilen tek karakterler harfler, sayılar ve alt çizgidir.
-3.  **Email:**\
-    Bu bölüm, düğümünüzde çok ciddi sorunlar olması durumunda Tor
-    Foundation'ın size ulaşabileceği bir iletişim bilgisi sağlamak
-    için kullanılmalıdır. Dikkat edin, bir Tor düğümüne bağlı bir
-    e-postayı çevrimiçi olarak ifşa ediyorsunuz. 3 seçenek şunlar
-    olabilir: kendi iletişim bilginizi, çevrimiçi botların bunu
-    e-posta olarak tanımaması için garip bir şekilde yazılmış olarak
-    koymak (örnek
-    [yourname][@][example].[com]), hiçbir veri koymamak için
-    "redacted" yazmak veya bağışlar için bir bitcoin/lightning
-    adresi bırakmak (büyük olasılıkla hiçbir bağış almayacaksınız).
-4.  **Bandwidth:**\
-    Bu alanda düğüme tahsis edilen haftalık bant genişliğini
-    belirtmemiz gerekecek. Kullanılabilecek birimler (MB / GB / TB)
-    şeklindedir; düğümünüzde 1 TB bant genişliğiniz varsa, bant
-    genişliği alanına (haftalık olarak anlaşılır) 250 GB yazabilirsiniz
-    (bu, 4 hafta için aylık 1 TB'a denk gelir). Sayı, boşluk, ölçü
-    birimi biçimlendirmesine uyun.
-
-Tebrikler, işiniz bitti! Script sırasında hata alırsanız [GitHub
-sayfamda](https://github.com/b4lol/Tor-node-script) bir issue
-açabilir veya etc/tor/torrc dosyasında yazılanların doğru olup
-olmadığını yeniden kontrol edebilirsiniz. Şimdi doğrudan [kurulum
-sonrası kontroller](#email) bölümüne geçebilirsiniz.
-
-## Resmi depodan manuel kurulum {#app style="color: greenyellow;"}
-
-Eğer bu yolu seçerseniz beni mazur görün ama size yardımcı olamayacağım,
-çünkü bu süreçte yapabileceğiniz olası hatalar çok fazla ve bulunması
-zor. Rehberin bu bölümünde, scriptimin otomatik olarak yaptığı her şeyi
-elle yeniden yapacağız; bu rehber Debian tabanlı işletim sistemleri için
-yazılmıştır, başka bir işletim sistemi kullanmak isterseniz [Tor
-Project'in sitesinde](https://community.torproject.org/relay/setup/)
-her sistem için rehberler bulunmaktadır.
-
-**Not:** Tor'u yerel kaynak koddan derlemiyoruz. Aşağıdaki yol, Tor
-Project'in **resmi paketlerini** kullanır; bunlar 2026'da Debian/Ubuntu
-üzerinde güncellemeler ve düzenli bakım almak için hâlâ en akılcı
-seçenektir.
-
-Ön gereksinimler:
-
--   Kullanıma hazır, shell'i açık bir Debian tabanlı PC'ye sahip olmak
--   Bilgisayarın otomatik güncellemelerini etkinleştirin; bunları
-    etkinleştirmek için [bu
-    rehberi](https://community.torproject.org/relay/setup/guard/debian-ubuntu/updates)
-    takip edebilirsiniz. Zorunlu bir adım değildir ama çok, çok,
-    çoooook tavsiye edilir. Bu bölümü atlarsanız, her 1-2 ayda bir
-    Tor düğümüne manuel olarak bağlanıp güncellemeniz gerekecektir.
--   depoyu ve PGP anahtarını ekleyerek tor'u kurmak:\
-    1.  Bağımlılıkları kurun:
 ```
+
+Bu komutlar sırasıyla; işletim sistemini günceller, Git sürüm kontrol sistemini yükler, ilgili depoyu GitHub'dan klonlar, klasörün içine girer, betiğe çalıştırma yetkisi verir ve son olarak `tor.sh` kurulum sihirbazını başlatır.
+
+Bu aşamada kurulum betiği çalışmaya başlayarak işletim sistemini güncelleyecek, gerekli tüm bağımlılıkları yükleyecek, PGP imzalarını doğrulayacak, Tor servisini kuracak ve yapılandırmayı kişiselleştirmeniz için size birkaç soru yöneltecektir:
+
+1. **Middle Relay mi Exit mi?**\
+   Ara düğüm (middle relay) yönetimi oldukça kolaydır, herhangi bir yasal veya teknik risk taşımaz ve ağa katkı sağlamak isteyenler için en ideal seçenektir. Çıkış düğümü (exit relay) ise ağ trafiğini doğrudan dış internete taşıdığı için daha çok deneyimli kullanıcılara hitap eden, yasal sorumluluğu yüksek bir düğüm türüdür. Eğer bu konuda tecrübeniz yoksa, ilgili numarayı girerek **Middle Relay** seçeneğini tercih edin.
+2. **Nickname (Takma Ad):**\
+   Tor düğümünüze vermek istediğiniz ismi yazın. Çok uzun isimlerden kaçının ve Türkçe karakter ya da boşluk kullanmayın. Yalnızca harf, rakam ve alt çizgi (`_`) karakterlerini kullanabilirsiniz.
+3. **Email (İletişim E-postası):**\
+   Düğümünüzde teknik bir sorun yaşanması durumunda Tor Vakfı'nın (Tor Foundation) size ulaşabilmesi için bir iletişim adres girmeniz önerilir. Gireceğiniz adresin halka açık şekilde yayınlanacağını unutmayın. Adresinizi botların taramasından korumak için `isim[at]eposta[dot]com` gibi maskelenmiş şekilde yazabilir, hiçbir bilgi paylaşmak istemiyorsanız `redacted` olarak bırakabilir ya da bağış almak istiyorsanız bir Bitcoin/Lightning adresi ekleyebilirsiniz.
+4. **Bandwidth (Bant Genişliği):**\
+   Düğümünüzün kullanabileceği haftalık veri limitini belirleyin. MB, GB veya TB birimlerini kullanabilirsiniz. Örneğin, aylık 1 TB trafik limitiniz varsa haftalık sınırı `250 GB` olarak belirtebilirsiniz. Sayı ve birim arasındaki boşluk kuralına uymaya özen gösterin.
+
+Tebrikler, kurulum tamamlandı! Betiğin çalışması sırasında bir hata ile karşılaşırsanız [GitHub sayfası üzerinden](https://github.com/b4lol/Tor-node-script) bir hata bildirimi (issue) açabilir veya `/etc/tor/torrc` dosyasını manuel kontrol edebilirsiniz. Şimdi doğrudan [kurulum sonrası kontroller](#email) bölümüne geçebilirsiniz.
+
+## Resmi Depolar Üzerinden Manuel Kurulum {#app style="color: greenyellow;"}
+
+Eğer manuel kurulum yolunu tercih ederseniz, bu süreçte hata yapma olasılığının yüksek olduğunu ve sorun gidermenin vakit alabileceğini belirtmek isterim. Rehberin bu bölümünde, kurulum betiğimizin arka planda otomatik olarak yaptığı işlemleri adım adım elle gerçekleştireceğiz. Bu rehber Debian tabanlı sistemler için hazırlanmıştır. Farklı bir işletim sistemi kullanıyorsanız [Tor Projesi resmi kurulum belgelerini](https://community.torproject.org/relay/setup/) inceleyebilirsiniz.
+
+**Not:** Tor'u kaynak koddan derlemek yerine, Debian/Ubuntu üzerinde düzenli güncellemeleri ve güvenlik yamalarını kolayca alabilmek için Tor Projesi'nin resmi paket depolarını kullanacağız.
+
+Ön Gereksinimler:
+
+- Kullanıma hazır, terminal bağlantısı kurulmuş Debian veya Ubuntu yüklü bir sunucu/bilgisayar.
+- Sistem güvenlik güncellemelerinin otomatik yüklenmesini sağlayın. (Bu işlem zorunlu olmasa da kararlılık için şiddetle tavsiye edilir; aksi halde belirli aralıklarla sunucuya bağlanıp güncellemeleri elle yapmanız gerekir).
+- Tor resmi depolarını ve PGP anahtarını ekleyerek kuruluma başlayın:
+
+    1. Gerekli sistem bağımlılıklarını yükleyin:
+```bash
 apt install apt-transport-https
- ```                                                           
-
-    2.  dağıtımınızın adını kontrol edin ve not edin
-        (örnekler: bookworm, focal-fossa, bullseye, vb.)
 ```
+
+    2. Dağıtımınızın adını kontrol edin ve not edin (örnekler: bookworm, focal, bullseye, vb.)
+```bash
 lsb_release -c
-```                                                     
-
-    3.  /etc/apt/sources.list.d/ klasöründe tor.list adında yeni bir
-        dosya oluşturun (bunu yapmak için şu komutu kullanın: nano
-        /etc/apt/sources.list.d/tor.list) ve distribution etiketini
-        az önce not ettiğiniz adla değiştirmeyi unutmadan aşağıdaki
-        satırları ekleyin.
 ```
+
+    3. `/etc/apt/sources.list.d/` klasöründe `tor.list` adında yeni bir dosya oluşturun (`nano /etc/apt/sources.list.d/tor.list`) ve dağıtım ismini az önce not ettiğiniz adla değiştirmeyi unutmadan aşağıdaki satırları ekleyin:
+```text
 deb     [signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org <distribution> main
 deb-src [signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org <distribution> main
-```                                                    
-
-    4.  PGP anahtarlarını ve tor deposunu şu komutla ekleyin:
 ```
+
+    4. PGP anahtarlarını ve Tor deposunu şu komutla ekleyin:
+```bash
 wget -qO- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --dearmor | tee /usr/share/keyrings/tor-archive-keyring.gpg >/dev/null
- ```                                                           
-
-    5.  Depoları güncelleyin ve tor'u kurun:
 ```
+
+    5. Depoları güncelleyin ve Tor'u kurun:
+```bash
 apt update
 apt install tor deb.torproject.org-keyring
-```                                                          
-
-Bu noktada, nano /etc/tor/torrc komutuyla tor'un yapılandırma
-dosyasını düzenlemeye geçiyoruz; middle mi yoksa exit relay mi
-yapmak istediğinize bağlı olarak aşağıdaki yapılandırmalardan
-birini kopyalayın.
-
-**Dikkat!!** Yapılandırmayı kopyalayıp yapıştırdıktan sonra
-değiştirilmesi gereken parametreler vardır; bunlar aşağıdaki iki
-örnekten sonra daha ileride listelenecektir.
-
--   **Middle relay**
 ```
+
+Bu noktada, `nano /etc/tor/torrc` komutuyla Tor'un yapılandırma dosyasını düzenlemeye geçiyoruz; ara düğüm mü yoksa çıkış düğümü mü yapmak istediğinize bağlı olarak aşağıdaki yapılandırmalardan birini kopyalayın.
+
+**Dikkat!!** Yapılandırmayı kopyalayıp yapıştırdıktan sonra değiştirilmesi gereken parametreler vardır; bunlar aşağıdaki iki örnekten sonra listelenecektir.
+
+- **Middle relay (Ara düğüm)**
+```text
 Nickname $nickname
 ContactInfo $contact_info
 AccountingRule sum
@@ -361,8 +204,8 @@ ORPort 443
 ExitRelay 0
 SocksPort 0 
 ```
--   **Exit relay**
-```
+- **Exit relay (Çıkış düğümü)**
+```text
 Nickname $nickname
 ContactInfo $contact_info
 AccountingRule sum
@@ -450,88 +293,57 @@ ExitPolicy accept *:50001-50002     # Electrum Bitcoin SSL
 ExitPolicy accept *:64738     # Mumble
 ExitPolicy reject *:*
 ```
-Her iki yapılandırmada da elle değiştirilmesi gereken 3 alan
-bulunmaktadır:
 
-1.  **$Nickname:**\
-    Bu bölümde Tor düğümümüze vermek istediğimiz adı yazmamız
-    gerekir. Çok uzun adlardan kaçının ve boşluk kullanmayın; izin
-    verilen tek karakterler harfler, sayılar ve alt çizgidir.\
-    örnek: "Nickname TORtaruga".
-2.  **$contact_info:**\
-    Bu bölüm, düğümünüzde çok ciddi sorunlar olması durumunda Tor
-    Foundation'ın size ulaşabileceği bir iletişim bilgisi sağlamak
-    için kullanılmalıdır. Dikkat edin, bir Tor düğümüne bağlı bir
-    e-postayı çevrimiçi olarak ifşa ediyorsunuz. 3 seçenek şunlar
-    olabilir: kendi iletişim bilginizi, çevrimiçi botların bunu
-    e-posta olarak tanımaması için garip bir şekilde yazılmış olarak
-    koymak.\
-    örnek: "[yourname][@][example].[com]" veya yayınlamak
-    istemiyorsanız "redacted" yazmak.
-3.  **$Bandwidth:**\
-    Bu alanda düğüme tahsis edilen haftalık bant genişliğini
-    belirtmemiz gerekecek. Kullanılabilecek birimler (MB / GB / TB)
-    şeklindedir; düğümünüzde 1 TB bant genişliğiniz varsa, bant
-    genişliği alanına (haftalık olarak anlaşılır) 250 GB yazabilirsiniz
-    (bu, 4 hafta için aylık 1 TB'a denk gelir). Sayı, boşluk, ölçü
-    birimi biçimlendirmesine uyun.\
-    örnekler: "700 GB", "2 TB", "1200 GB", vb.
+Her iki yapılandırmada da elle değiştirilmesi gereken 3 alan bulunmaktadır:
 
-Tamam, sevgili küçük Tor düğümümüz hazır!
+1. **$nickname:**\
+   Bu bölümde Tor düğümünüze vermek istediğimiz adı yazmanız gerekir. Çok uzun adlardan kaçının ve boşluk kullanmayın; izin verilen tek karakterler harfler, sayılar ve alt çizgidir.\
+   Örnek: `Nickname TORtaruga`
+2. **$contact_info:**\
+   Bu bölüm, düğümünüzde çok ciddi sorunlar olması durumunda Tor Vakfı'nın size ulaşabileceği bir iletişim bilgisi sağlamak için kullanılmalıdır. Gireceğiniz adresin halka açık olarak yayınlanacağını unutmayın. Botların e-posta adresinizi taramasını zorlaştırmak için maskeleme yapabilir (örneğin `isim[@]alanadi[.]com`) veya bilgi paylaşmak istemiyorsanız `redacted` yazabilirsiniz.
+3. **$bandwidth:**\
+   Bu alanda düğüme tahsis edilen haftalık bant genişliğini belirtmeniz gerekecektir. Kullanılabilecek birimler MB, GB veya TB şeklindedir. Örneğin aylık 1 TB bant genişliği sınırınız varsa, haftalık limit alanına `250 GB` yazabilirsiniz. Sayı, boşluk ve ölçü birimi biçimlendirmesine uymaya özen gösterin.
 
-## Kurulum sonrası kontroller {#email style="color: greenyellow;"}
+## Kurulum Sonrası Kontroller {#email style="color: greenyellow;"}
 
-Aferin sana, kahraman!\
-Her şeyi elle de yapsanız, otomatik scriptimi de kullansanız,
-resmi olarak bir Tor düğümü oluşturdunuz! İlgili tüm kontrolleri
-yapmadan önce, makinemizdeki Tor servisini yeniden başlatarak
-başlayalım (her /etc/tor/torrc dosyasını düzenlediğimizde
-değişikliklerin uygulanması için servisi yeniden başlatmamız gerekir):
+Tebrikler! İster otomatik betiği kullanmış olun ister kurulumu elle yapmış olun, resmi olarak bir Tor düğümü oluşturdunuz. Yapılandırma değişikliklerinin uygulanması için öncelikle sistemimizdeki Tor servisini yeniden başlatalım:
 
-` systemctl restart tor@default `
+```bash
+sudo systemctl restart tor@default
+```
 
-Bu işlem yapıldıktan sonra düğüm resmi olarak aktif olacaktır; bir
-sorun olması durumunda şu komutu kullanabilirsiniz:
+Bu işlemden sonra düğümünüz aktif hale gelecektir. Herhangi bir sorun oluşması durumunda, hata tespiti yapmak için günlük kayıtlarını şu komutla inceleyebilirsiniz:
 
-` journalctl -xeu tor@default `
+```bash
+journalctl -xeu tor@default
+```
 
-logları incelemek için; bu pek kolay bir iş değildir ama sorunu
-tespit etmek için faydalıdır: (vakaların %90'ında) /etc/tor/torrc
-dosyasının içinde bir hata vardır.
-Son olarak, ama önemi az değil, düğümünüzü htop'a benzer bir
-arayüzle izlemek isterseniz şu komutla nyx'i kurabilirsiniz:
+Logları incelemek bazen karmaşık görünse de sorunları gidermek için en güvenli yoldur (çoğu zaman `/etc/tor/torrc` dosyasındaki küçük bir yazım hatası servisin başlamasını engeller).
 
-` apt install nyx `
+Son olarak, düğümünüzün performans durumunu anlık olarak izlemek isterseniz `htop` benzeri bir terminal arayüzü sunan `nyx` aracını kurabilirsiniz:
 
-nyx komutuyla çalıştırarak istatistikleri buna benzer bir
-görünümle izleyebileceksiniz:
+```bash
+sudo apt install nyx
+```
 
+Ardından sadece `nyx` komutunu çalıştırarak düğüm istatistiklerini izlemeye başlayabilirsiniz.
 
+## Çalışma Testi {#cloud style="color: greenyellow;"}
 
-## Çalışma testi {#cloud style="color: greenyellow;"}
+Her şeyin yolunda gittiğini doğrulamak için son adım, düğümünüzün aktifleşmesinden **birkaç saat sonra** Tor Vakfı'nın tüm aktif düğümleri listelediği [resmi Tor Metrics web sitesini](https://metrics.torproject.org/rs.html) ziyaret etmektir. Arama kutusuna belirlediğiniz düğüm adını veya IP adresinizi yazarak arama yapabilirsiniz.
 
-İşlerin doğru gittiğine dair son kontrol, Tor Foundation'ın tüm
-relay'lerin bulunduğu [resmi
-sitesinde](https://metrics.torproject.org/rs.html) **birkaç saat
-sonra** kendi düğümünüzü, relay'inizin adını veya bir kısmını
-arayarak bulabilip bulamadığınızı görmektir.
-
-
-
-Doğru şekilde görünüyorsa, resmi olarak aktif bir Tor düğümünüz var!
+Düğümünüz arama sonuçlarında doğru şekilde listeleniyorsa, artık ağa aktif olarak katkı sunan bir Tor düğümünüz var demektir!
 
 ## Sonuç {#conc style="color: greenyellow;"}
 
-Bitirdiniz! Düğümünüz aktif ve efsanevi başarınızı tamamladınız!
-Okuduğunuz için çok teşekkürler! Bu rehberi beğendiyseniz, sosyal
-medyada ve arkadaşlarınızla paylaşın.
+Tebrikler! Düğümünüz aktif hale geldi ve ağa değerli bir katkı sağladınız. İlginiz ve emeğiniz için teşekkürler! Bu rehberi faydalı bulduysanız, diğer kullanıcılarla paylaşarak daha fazla kişinin ağa destek olmasına yardımcı olabilirsiniz.
 
-bir tor düğümü kurduysanız iyi bir kaplumbağasınız 🐢
+Ağa bir Tor düğümü kazandırarak harika bir katkıda bulundunuz! 🐢
 
 ---
 
 ## İlgili Rehberler
 
-- **[Wireguard ile Self-Hosted VPN](/tr/vpn)** - Reklam engelleme özelliği dahili kendi özel VPN'inizi oluşturun
-- **[Tehdit Modeli Nasıl Oluşturulur](/tr/threat-model)** - Gizliliğinizi korumanın ilk adımı
-- **[GrapheneOS Üzerine Nihai Rehber](/tr/graphene)** - Mobil gizlilik için en iyi işletim sistemi
+- **[WireGuard ile Self-Hosted VPN](/tr/vpn)** - Reklam engelleme özellikli, kendinize ait özel bir VPN oluşturun.
+- **[Tehdit Modeli Nasıl Oluşturulur](/tr/threat-model)** - Dijital güvenliğinizi sağlamanın ilk adımı.
+- **[GrapheneOS Hakkında Nihai Rehber](/tr/graphene)** - Mobil gizlilik ve güvenlik için en iyi mobil işletim sistemi.

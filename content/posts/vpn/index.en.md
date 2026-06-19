@@ -54,17 +54,19 @@ howto:
       url: "/vpn#test-di-funzionamento"
 ---
 
-> **TL;DR** - In this guide you'll learn:
-> - How to choose a privacy-conscious hosting provider
-> - How to install and configure WireGuard as a VPN server
-> - How to add Pi-hole to block ads and trackers at the DNS level
-> - How to configure Unbound to resolve DNS on your own, without third parties
+> **TL;DR** — In this guide, you will learn:
+> - How to select a privacy-conscious VPS hosting provider.
+> - How to install and configure WireGuard as a lightweight VPN server.
+> - How to integrate Pi-hole to block ads, telemetry, and trackers at the DNS level.
+> - How to configure Unbound as a recursive, local DNS resolver to eliminate third-party DNS dependencies.
 
 ## Summary
 
-A self-hosted VPN with WireGuard, Pi-hole and Unbound encrypts the traffic between your devices and a VPS, blocks a large share of ad and tracker requests at the DNS level, and resolves domains without relying on a commercial resolver. It doesn't make you anonymous: it just shifts trust from the VPN provider to the VPS provider.
+A self-hosted VPN combining WireGuard, Pi-hole, and Unbound encrypts the traffic between your local devices and your remote Virtual Private Server (VPS), blocks a significant portion of ads and tracking telemetry at the DNS level, and processes domain name resolution locally without relying on commercial third-party DNS providers. Note that a self-hosted VPN does not grant complete anonymity; it shifts your trust from a commercial VPN provider to your VPS host.
 
-Commercial VPNs promise privacy, but their business model is often based on collecting your data. The alternative? Build your own personal VPN. With WireGuard, Pi-hole and Unbound you get an encrypted connection, built-in ad/tracker blocking and fully independent DNS resolution — all under your own control. Here's how to do it.
+Commercial VPN services frequently monetize user metadata and logs. The alternative is hosting your own personal VPN tunnel. By deploying WireGuard, Pi-hole, and Unbound, you establish a secure connection with integrated ad blocking and independent recursive DNS resolution under your control.
+
+This guide provides a comprehensive walkthrough for deploying this integrated stack on a Debian-based system.
 
 This is meant to be a complete guide for setting up your own VPN using WireGuard, with ad and tracker filtering provided by an AdBlocking filter built with Pi-hole.
 
@@ -72,91 +74,104 @@ This guide is open to improvements and suggestions. I'll describe the configurat
 
 If you'd like to give me suggestions, contribute to the guide, or help with translations, you can open a pull request on [GitHub](https://github.com/b4lol/portfolio).
 
-## Goal
+## Objective
 
-The end goal of this guide is to self-host a VPN with ad and tracker filtering, completely on your own. This approach comes with advantages and disadvantages compared to using a regular commercial VPN:
+The objective of this deployment is to run a self-hosted VPN with DNS-level ad and tracker filtering. Consider these architectural trade-offs compared to commercial VPN solutions:
 
-### pros
+### Pros
 
-*   You don't have to trust a VPN provider whose business model, unfortunately, is often selling your personal data
-*   You can add filters for ads and trackers; some VPNs offer this, but often with rather poor quality
-*   Full customization of your experience: want a faster VPN? Specific ad filters? Want to share it with your whole family? With your own VPN you can manage it however you like
-*   You can choose the country — and therefore the legal jurisdiction — of the servers you rent (and pick the countries best suited for digital privacy)
+* **Data Sovereignty**: You eliminate the risk of a commercial VPN provider logging your browsing metadata or selling your profile.
+* **Custom Filtering**: You control the exact blocklists deployed on your DNS firewall.
+* **Administrative Control**: You can share access with family members, configure routing tables, and choose the server's physical hosting location.
+* **Jurisdiction Selection**: You can deploy the server in countries with strong legal protections for digital privacy (e.g., Iceland or Switzerland).
 
-### cons
+### Cons
 
-*   Smaller anonymity set on the IP address: unless you share your VPN with many family members and friends, you'll be the only one using the VPN's outgoing IP address; this is a disadvantage because, even though it's not directly tied to you, it's still a unique identifier that only you use. This isn't great for privacy, since it makes you easier to track
-*   Even though you're not handing data to a VPN provider, in most cases you'll be setting this up on a VPS (a rented server), so you'll just be shifting your trust from a commercial VPN provider to a server-hosting company (which will see your IP address whenever you use the VPN). It's therefore essential to choose your server provider carefully, or to run this setup on a machine connected to an internet connection that isn't registered in your name
+* **Unique IP Footprint**: Unlike commercial VPNs that pool thousands of users under a single public IP, a self-hosted VPN assigns you a dedicated public IP address. Because you are the sole user of that IP, tracking networks can easily correlate your activity back to your physical device.
+* **Shifting Trust**: You shift your trust from the VPN provider to your VPS hosting provider, who can monitor inbound traffic logs. To mitigate this, select a hosting provider that requires minimal personal data and supports anonymous payment methods.
 
-## Choosing the hosting provider {#scelta-dellhosting-provider}
+## Choosing a Hosting Provider {#scelta-dellhosting-provider}
 
-By hosting provider we mean the company that will provide the server on which you'll set up everything in this guide. It's essential to find a host with a legal jurisdiction that protects your privacy (interesting options are countries outside the Five Eyes, outside NATO, or with good data-protection policies — good examples include Iceland, Sweden, Switzerland, Gibraltar, etc.), that appears trustworthy (hasn't leaked data over trivial issues, or seems to genuinely try to hand over as little data as possible to authorities), and that requires as little personal data as possible to use its service (bitcoin payments, a Tor onion domain, login without phone verification, etc.).
+Select a VPS provider operating in a favorable legal jurisdiction (such as countries outside the Five Eyes alliance with robust data retention policies). Look for hosts that support anonymous registration (no phone verification) and cryptocurrency payments.
 
-In this guide I'll recommend a couple of hosting providers; often the smaller ones, or those with interesting privacy policies, are more expensive than the big hosting companies. It's also important to check what services are offered so you can pick the server best suited to your needs (power, storage and bandwidth speed, etc.).
+Recommended providers for personal VPN hosting:
 
-*   [VPSbG](https://www.vpsbg.eu/aff/1e5d9e): a long-standing provider that often offers a good balance of bandwidth, simplicity and payment options.
-*   [1984 Hosting](https://1984.hosting/): interesting if you value Icelandic jurisdiction and a fairly broad catalog of services.
-*   [Njalla](https://njal.la/): a well-known option in the privacy space, useful if you want to pay in bitcoin and minimize the data you share.
+* **[VPSbg](https://www.vpsbg.eu/aff/1e5d9e)**: A Bulgarian-based host with a strong reputation for privacy and support for Bitcoin payments.
+* **[1984 Hosting](https://1984.hosting/)**: Located in Iceland, utilizing green energy and operating under strict Icelandic data protection laws.
+* **[Njalla](https://njal.la/)**: A privacy-focused domain and hosting provider that acts as a proxy registration layer, requiring no personal identification.
 
-**Important:** prices, CPU, included traffic and policies can change frequently. Before buying, always check current pricing and make sure the provider genuinely allows the kind of traffic you intend to generate.
+Before purchasing, verify current pricing, monthly egress bandwidth limits, and confirm the provider's policies allow running personal VPN tunnels.
 
-There are plenty of other VPS services out there with different costs and trade-offs in terms of privacy, security, cost, etc. Feel free to do some research of your own and you're under no obligation to use the ones I mentioned above.
-Once you've chosen a hosting service, I strongly recommend proceeding by purchasing a machine running a Debian-based distribution (Debian or Ubuntu) and setting a strong login password.
+*Recommendation*: Purchase a Virtual Private Server (VPS) running a Debian-based distribution (Debian Stable or Ubuntu LTS).
 
-## Connecting to the VPS server via SSH {#connessione-al-server-vps-con-ssh}
+## Establishing an SSH Connection {#connessione-al-server-vps-con-ssh}
 
-As many of you already know, connecting to remote servers is usually done via SSH: a protocol built into the Linux terminal used to connect to remote servers or computers. To connect to our VPS, open a terminal on any of our computers and run:
+To configure your server, connect over SSH from your local terminal:
 
-`ssh [username]@[ip address]`
-
-an example might be: ssh root@192.34.33.25 (root is usually the username, and the following number is the server's IP address, which you can usually find in the machine's information on the hosting site). After running the command, just enter the password you set earlier to log in to the server.
-
-Once connected over SSH, we can run:
-
-`sudo apt update && sudo apt upgrade -y`
-
-to update all the packages on our operating system.
-In this guide we'll follow a simple, minimal security setup for our server (so that it suits all users); if you want a more advanced setup, I recommend searching online for how to log in to your server using an SSH public key.
-
-Finally, let's run:
-
-`sudo apt install fail2ban`
-
-to install this very lightweight piece of software that limits access after too many wrong password attempts on our server (thereby slightly improving its security).
-
-## Setting up the VPN {#setup-della-vpn}
-
-Now that we've completed all the preliminary steps to make our VPS more secure and up to date, we can move on to the actual setup. Let's install WireGuard with the following commands:
-
-This script is a convenience solution maintained by a third party: before running it, always verify that the repository is still active and consistent with the setup you want to achieve.
-
+```bash
+ssh root@<YOUR_VPS_IP>
 ```
+
+Enter your administrative password. Once connected, update the system package database:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+### Basic Security Hardening
+
+To mitigate automated brute-force attacks on your SSH port, install `fail2ban`:
+
+```bash
+sudo apt install fail2ban -y
+```
+
+*Note: For production environments, configure key-based SSH authentication and disable password login entirely inside `/etc/ssh/sshd_config`.*
+
+## System Configuration {#setup-della-vpn}
+
+### 1. WireGuard Installation
+Use an open-source installer script to automate the initial WireGuard network interface configuration and IP forwarding rules:
+
+```bash
 curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh
 chmod +x wireguard-install.sh
-./wireguard-install.sh
+sudo ./wireguard-install.sh
 ```
 
-at this point let's also install Pi-hole (the software we'll use as our ad, tracker and analytics filter):
+Follow the prompts to configure your public IP, interface name, and port.
 
-`curl -sSL https://install.pi-hole.net | bash`
+### 2. Pi-hole DNS Firewall Installation
+Run the official Pi-hole installation script:
 
-during installation, choose "wg0" as the network interface, use the custom DNS option (not too important, since we'll overwrite it later anyway) and complete the wizard. Once installation is done, let's set the password to access the web interface:
-
-`pihole setpassword`
-
-Save the password you chose, we'll need it later.
-
-Now let's install Unbound, software that gives us a fast local DNS resolver (to simplify things, this is what will give us a complete, efficient and fast final setup).
-
-`sudo apt install unbound`
-
-and let's configure it with:
-
-`nano /etc/unbound/unbound.conf.d/pi-hole.conf`
-
-Paste this configuration into the file:
-
+```bash
+curl -sSL https://install.pi-hole.net | bash
 ```
+
+During the wizard configuration:
+* Set the active interface to **`wg0`** (the WireGuard interface).
+* Choose a temporary upstream DNS provider (e.g., Cloudflare). We will configure our local recursive resolver next.
+
+Once the setup completes, set a password for the web administrative dashboard:
+```bash
+pihole setpassword
+```
+
+### 3. Unbound Recursive Resolver Installation
+Install Unbound to handle DNS resolution recursively directly from root name servers, eliminating dependencies on third-party resolvers:
+
+```bash
+sudo apt install unbound -y
+```
+
+Create a new configuration file `/etc/unbound/unbound.conf.d/pi-hole.conf`:
+```bash
+sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf
+```
+
+Paste the following configuration:
+
+```text
 server:
     verbosity: 0
     interface: 127.0.0.1
@@ -190,32 +205,33 @@ server:
     private-address: fe80::/10
 ```
 
-now let's restart Unbound:
-
-`sudo systemctl restart unbound`
-
-at this point we've correctly set up the local DNS. Let's configure Pi-hole to use Unbound as its upstream DNS. In Pi-hole v6 this is managed through the `/etc/pihole/pihole.toml` file, the web interface, or the CLI. The simplest way is to use the FTL CLI:
-
+Restart Unbound to apply:
+```bash
+sudo systemctl restart unbound
 ```
+
+Configure Pi-hole to route all upstream requests to Unbound locally on port `5335`:
+
+```bash
 sudo pihole-FTL --config dns.upstreams '["127.0.0.1#5335"]'
 sudo pihole-FTL --config dns.listeningMode 'local'
 sudo pihole-FTL --config dns.dnssec 'false'
 ```
 
-These commands tell Pi-hole to use Unbound (port 5335) as its only upstream DNS and to listen only on local interfaces. If you prefer, you can set the same values from the web UI, but in Pi-hole v6 the old `pihole --config` syntax is no longer correct.
-
 ## Configuring Pi-hole and Adlists {#configurazione-pihole-e-adlists}
 
-The command-line part is now done — you made it, warrior! 🎉
-In theory, everything is already working at this point, but before using the VPN, let's add some ad filters!
-Open any browser and in the address bar type:
-
-`http://{vpn ip address}/admin`
-example: http://84.177.121.221/admin
-
-At this point you should see Pi-hole's login page (our ad, tracker and analytics filtering system). Use the password you set with `pihole setpassword`. Once logged in, go to the **Domains / Adlists** section (in the side menu) and add some lists of domains to block. This topic could fill hours of discussion; the basic idea is that if we add dozens of random sources we'll block a huge amount... too much, breaking many websites or app features on our devices. It's better to use a few lists, ideally from people we trust at least somewhat. Below are some of the main, most well-known ones; if you want to expand this section, I'll leave that up to you, since depending on the configuration there can be various pros and cons.
-
+Log into your administrative dashboard by navigating to:
+```text
+http://<YOUR_VPS_IP>/admin
 ```
+
+Enter your administrative password.
+
+### Adding Blocklists
+1. Navigate to **Adlists** in the dashboard settings.
+2. Add lists containing known tracking and advertising domains. The following lists are recommended for a balanced configuration:
+
+```text
 https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 https://adaway.org/hosts.txt
 https://v.firebog.net/hosts/AdguardDNS.txt
@@ -223,52 +239,49 @@ https://v.firebog.net/hosts/Easyprivacy.txt
 https://winhelp2002.mvps.org/hosts.txt
 ```
 
-Once you've added the various blocklists, go to **Tools → Gravity** and start the update to activate the lists. If you run into problems with certain sites (for example, I've had issues in the past with some lists and Twitter's "t.co" links), just add the site to the **Domains → Whitelist** section to exclude it from blocking. Every time you make changes, run a Gravity update afterward to apply them.
+3. Apply the lists by running the update command under **Tools → Gravity**.
 
-## Exporting the configurations
+## Connecting Client Devices
 
-Now let's activate the configuration on our devices. Let's start with phones:
+### 1. Mobile Devices (Android & iOS)
+1. Install the official **WireGuard** app from your store.
+2. On the VPS terminal, run the installer script to create a client profile:
+    ```bash
+    sudo ./wireguard-install.sh
+    ```
+3. Choose **Add new client** and name the profile.
+4. The terminal will output a QR code. Scan the QR code using your mobile WireGuard application.
+5. Edit the client tunnel in your app: set the **DNS server** to the internal IP address of your VPS (e.g., `10.0.0.1` or the default gateway assigned by the script).
 
-Install the [WireGuard](https://www.wireguard.com/install/) app on your device; once that's done, open your VPS terminal and run:
+### 2. Desktop Clients (Windows & Linux)
+1. Generate a new client profile via the installer script.
+2. Copy the resulting `.conf` profile file to your desktop client.
+3. On Linux systems, save the configuration file under `/etc/wireguard/vpn.conf` and control the tunnel using `wg-quick`:
 
-`bash wireguard-install.sh`
+```bash
+# Enable the tunnel connection
+sudo wg-quick up vpn
 
-select "add new client," give it any name you like, and select "current system resolver" as DNS. You'll now be shown a QR code; using the WireGuard mobile app, scan it, and afterward you should see a screen like this:
+# Disable the tunnel connection
+sudo wg-quick down vpn
+```
 
+## Verification and Testing {#test-di-funzionamento}
 
+Once connected, run the following verification checks:
 
-In the "DNS servers" section, enter your VPS's IP address, and check that the "Endpoint" section shows the same IP address followed by ":51820," which indicates the port. Once that's done, just save and activate the VPN!
-
-For PCs the procedure is similar: just install WireGuard, generate the configuration on the VPS (use the command explained above, in the Android procedure), and then copy it to your PC:
-
-*   On Windows, the configuration should be entered in WireGuard's graphical interface
-*   On Linux, the configuration should be saved as a file with a .conf extension in the /etc/wireguard folder (for example, vpn.conf), and then the VPN can be activated from the terminal with:
-
-    `sudo wg-quick up {name of the .conf file}`
-
-    and to turn it off:
-
-    `sudo wg-quick down {name of the .conf file}`
-
-on PCs too, make sure you've updated the 'DNS server' and 'Endpoint' sections with your server's IP address.
-
-## Testing that everything works {#test-di-funzionamento}
-
-Now that our VPN is set up and active, let's test that everything works correctly. First, in any browser, visit [VPN testing](https://vpntesting.com/) and run a test. Check that all the IP addresses and locations shown on screen are not those of your home country, but of the VPN server.
-
-If everything checks out, let's test — not the VPN itself, but the adblocker — by visiting [AdBlock test](https://d3ward.github.io/toolz/adblock.html). If the final result is above 70-80%, it means everything is working correctly (adding more or fewer blocklists to Pi-hole may change this test's results). Be sure to temporarily disable any AdBlock browser extensions so you don't get skewed results. The browser you use can also affect the test results.
-
-If you pass both tests successfully, you're a true dragon and you've managed to follow this guide perfectly!! 🐉
+1. **IP Leak Audit**: Visit [vpntesting.com](https://vpntesting.com/) to verify that your visible public IP matches your remote VPS server rather than your physical network location.
+2. **Ad-Blocker Audit**: Visit [d3ward.github.io/toolz/adblock.html](https://d3ward.github.io/toolz/adblock.html) with local browser ad-blockers disabled. A success rate above 70-80% confirms that the DNS firewall is blocking advertising hosts correctly.
 
 ## Conclusions
 
-This is just one of many possible setups for building a VPN server. As with any configuration, you can make changes to adapt the service to your own trade-offs. The one presented in this guide is, in my opinion, a good balance of security, functionality and privacy. If you have suggestions for improvement or have found mistakes, you can help out and make your voice heard on the [GitHub repository](https://github.com/b4lol/portfolio).
+This configuration provides a balanced baseline for secure, self-hosted web transit. You can add or modify DNS blocks and firewall rules to tailor the environment to your operational needs.
 
 ---
 
 ## Related Guides
 
-- **[Tor Node: Full Setup](/tor)** - Contribute to the Tor network by running your own relay
-- **[How to Build a Threat Model](/threat-model)** - The first step to protecting your privacy
-- **[Privacy on Android](/android)** - A complete setup for a de-googled phone
-- **[The Ultimate GrapheneOS Guide](/graphene)** - The best operating system for mobile privacy
+- **[Tor Node: Setup Guide](/tor)** — Host a Tor relay to support the anonymous routing network.
+- **[How to Build a Threat Model](/threat-model)** — Define your privacy parameters.
+- **[GrapheneOS Guide](/graphene)** — Deep-dive into secure mobile environments.
+- **[De-Google Android: Complete Privacy Guide](/android)** — Set up a secure mobile platform.

@@ -68,33 +68,33 @@ howto:
 
 macOS'ta gizlilik ve güvenliği korumak için bir tehdit modeliyle başlamak, ardından FileVault'u, otomatik güncellemeleri, güvenlik duvarını, şifrelenmiş DNS'i, sertleştirilmiş bir tarayıcıyı, parola yöneticisini, şifrelenmiş yedeklemeleri ve yazılım kurulum kurallarını etkinleştirmek en doğrusudur. Kilitleme Modu veya VM ile yalıtım gibi daha aşırı önlemler ise sadece yüksek riskli profiller için gereklidir.
 
-Mac'iniz kutudan çıktığı haliyle aşılamaz bir kale değildir. macOS sağlam bir işletim sistemidir, elbette, ama doğru yapılandırmalar olmadan düşündüğünüzden daha fazla açık kapı bırakır... ve her açık kapı, işlerinize burnunu sokmak isteyen biri için bir davettir.
+Mac'iniz kutudan çıktığı haliyle aşılamaz bir kale değildir. macOS sağlam bir işletim sistemidir, elbette, ama doğru yapılandırmalar olmadan düşündüğünüzden daha fazla açık kapı bırakır... ve her açık kapı, işlerinize erişmek isteyen yetkisiz kişiler için bir davettir.
 
-Bu kılavuz, Mac'inizin gizliliğini ve güvenliğini ciddiye almak isteyen sizler için, kaplumbağalar için hazırlandı. Bilgisayar mühendisi olmanıza gerek yok: sadece öğrenme isteği ve biraz sabır yeterli. Donanım seçiminden ileri düzey sistem izlemesine kadar adım adım ilerleyeceğiz.
+Bu kılavuz, Mac cihazlarının gizliliğini ve güvenliğini artırmak isteyen tüm kullanıcılar için hazırlanmıştır. Bu işlemleri gerçekleştirmek için bilgisayar mühendisi olmaya gerek yoktur; öğrenme isteği ve sabırlı bir yaklaşım yeterli olacaktır. Donanım seçiminden ileri düzey sistem izlemesine kadar adım adım ilerlenecektir.
 
-**UYARI!!** Bu kılavuz olduğu gibi sunulmaktadır, hiçbir türden garanti içermez. Sisteminizde yaptığınız değişikliklerden tamamen siz sorumlusunuz. Dikkatli ilerleyin ve şüpheye düştüğünüzde her zaman önce bir yedek alın.
+**UYARI!!** Bu kılavuz olduğu gibi sunulmaktadır, hiçbir türden garanti içermez. Sisteminizde yapacağınız değişikliklerden tamamen kendiniz sorumlusunuz. Dikkatli ilerleyin ve şüpheye düştüğünüzde her zaman önce bir yedek alın.
 
 
 
 ## Tehdit Modellemesi: Nereden Başlamalı {#threat-modeling style="color: white;"}
 
-İlk ve en önemli adım bir **tehdit modeli** (threat model) oluşturmaktır. Nasıl korunacağınızı bilmek için kime karşı korunduğunuzu anlamanız gerekir. Her kişinin ihtiyaçları farklıdır, dolayısıyla tehdit modeliniz de size özel olacaktır.
+İlk ve en önemli adım bir **tehdit modeli** (threat model) oluşturmaktır. nasıl korunacağınızı belirlemek için kime karşı korunduğunuzun belirlenmesi gerekir. Her kişinin ihtiyaçları farklıdır, bu nedenle tehdit modelinin de kişisel gereksinimlere göre şekillendirilmesi önem taşır.
 
-### Korumak istediğiniz varlıkları belirleyin
+### Korumak İstediğiniz Varlıkları Belirleyin
 
-Korumak istediğiniz her şeyin bir listesini yapın: dizüstü bilgisayarınız, parolalarınız, gezinme geçmişiniz, finansal belgeleriniz, kişisel fotoğraflarınız... Bunları önem sırasına göre kategorize edin: **genel**, **hassas** veya **gizli**.
+Korumak istediğiniz tüm verilerin bir listesini hazırlayınız (örneğin dizüstü bilgisayar, parolalar, tarayıcı geçmişi, finansal belgeler, kişisel fotoğraflar vb.). Bunları önem sırasına göre genel, hassas veya gizli şeklinde kategorize ediniz.
 
-### Düşmanlarınızı belirleyin
+### Düşmanlarınızı Belirleyin
 
-Kime karşı korunuyorsunuz? Meraklı bir ev arkadaşına mı? Bir hırsıza mı? Verilerinizi pazarlama için isteyen bir şirkete mi? Bir devlete mi? Düşmanın motivasyonu, saldırının karmaşıklık düzeyini belirler.
+Kimlere karşı koruma hedefliyorsunuz? (Örneğin fiziksel yakınlığı olan kişiler, hırsızlar, veri toplayan ticari şirketler veya devlet destekli aktörler). Olası düşmanların motivasyonu, saldırıların karmaşıklık düzeyini doğrudan etkiler.
 
-### Yeteneklerini belirleyin
+### Yeteneklerini Belirleyin
 
-Düşmanınız ne yapabilir? Sıradan bir hırsız bir parola ve disk şifrelemesiyle durdurulabilir. Devlet destekli bir aktör ise kullanılmadığında cihazı tamamen kapatarak RAM'deki anahtarları silmek gibi aşırı önlemler gerektirebilir.
+Olası saldırganların yetenekleri nelerdir? Sıradan bir hırsız, güçlü bir ekran parolası ve disk şifrelemesiyle durdurulabilir. Devlet destekli sofistike aktörler ise cihaz kullanılmadığında RAM üzerindeki anahtarların silinmesi amacıyla cihazın tamamen kapatılması gibi gelişmiş önlemleri gerektirebilir.
 
-### Önlemleri belirleyin
+### Önlemleri Belirleyin
 
-Şimdi her bir tehdidi nasıl karşılayacağınıza karar verme zamanı. Güvenlik ile kullanılabilirlik arasında denge kurmak çok önemlidir: her önlem, düşmanlarınızın gerçek bir yeteneğine karşı koymalı, aksi halde hayatınızı sebepsiz yere zorlaştırırsınız.
+Bu aşamada her bir tehdide karşı hangi adımların atılacağı belirlenmelidir. Güvenlik ile kullanım kolaylığı arasında denge kurmak oldukça önemlidir; zira gereksiz her önlem günlük kullanımı zorlaştıracaktır.
 
 
 
@@ -110,25 +110,25 @@ Düşmanınız ne yapabilir? Sıradan bir hırsız bir parola ve disk şifreleme
 
 ## Donanım: Doğru Mac'i Seçmek {#hardware style="color: white;"}
 
-macOS, **Apple Silicon'a sahip Apple donanımında** (M1, M2, M3, M4 ve sonrası) çalışırken daha güvenlidir. Intel işlemcili Mac'lerde Apple'ın yazılım güncellemeleriyle düzeltemediği [donanım açıkları](https://checkm8.info/blog/apple-t2-chip-vulnerability) bulunur. Çip ne kadar yeniyse o kadar iyidir.
+macOS, **Apple Silicon'a sahip Apple donanımında** (M1, M2, M3, M4 ve sonrası) çalışırken daha güvenlidir. Intel işlemcili Mac'lerde Apple'ın yazılım güncellemeleriyle düzeltemediği [donanım açıkları](https://checkm8.info/blog/apple-t2-chip-vulnerability) bulunur. İşlemci mimarisi ne kadar güncelse, sağlanan güvenlik seviyesi de o derece yüksek olacaktır.
 
 Hackintosh'lardan ve macOS'un en son sürümünü desteklemeyen Mac'lerden kaçının: Apple eski sürümlerdeki her açığı düzeltmez.
 
-Tehdit modelinize bağlı olarak, Mac'inizi **nakit ve şahsen** satın almak isteyebilirsiniz; çevrimiçi sipariş veya kart ödemesinden kaçınarak, satın alma işlemine herhangi bir kimliğe ilişkin bilgi bağlanmamış olur.
+Tehdit modelinize bağlı olarak, cihazı nakit ve fiziksel mağazadan satın almayı tercih edebilirsiniz. Böylece çevrim içi sipariş ve kart ödemesi gibi iz bırakabilecek yöntemlerden kaçınarak satın alma işlemine kimlik bilgisi bağlanmasını engellemiş olursunuz.
 
-Kablosuz aksesuarlar (klavye, fare, kulaklık) için, bana göre en iyileri Apple'ın kendi ürünleridir: sistem tarafından otomatik olarak güncellenir ve Bluetooth donanım adresini takip edilmeyi önlemek için rastgeleleştiren **BLE Privacy** gibi en son Bluetooth özelliklerini destekler.
+Kablosuz aksesuarlar (klavye, fare, kulaklık) için, Apple'ın kendi kablosuz aksesuarlarının tercih edilmesi önerilmektedir; zira bu ürünler sistem tarafından otomatik güncellenir ve Bluetooth donanım adresinin izlenmesini engelleyen BLE Privacy gibi güncel güvenlik protokollerini destekler.
 
 ## macOS Kurulumu {#installazione style="color: white;"}
 
-Mac'inizle uyumlu **her zaman** macOS'un en son sürümünü kurun. Daha yeni sürümler, eski sürümlerde bulunmayan güvenlik yamalarına ve iyileştirmelere sahiptir.
+Mac cihazınızla uyumlu olan en güncel macOS sürümü kurulmalıdır. Yeni sürümler, eski versiyonlarda bulunmayan kritik güvenlik yamalarını ve sistem iyileştirmelerini barındırmaktadır.
 
 ### Sistem etkinleştirmesi
 
-Apple'ın hırsızlık önleme sisteminin bir parçası olarak, Apple Silicon Mac'ler macOS'u her yeniden kurduğunuzda, cihazın çalıntı veya kilitli olmadığını doğrulamak için Apple sunucularıyla etkinleştirme yapmak zorundadır.
+Apple'ın hırsızlık önleme sisteminin bir parçası olarak, Apple Silicon macOS her yeniden yüklendiğinde, cihazın çalıntı veya uzaktan kilitlenmiş olmadığını doğrulamak amacıyla Apple sunucuları üzerinden etkinleştirme yapılması gerekmektedir.
 
 ### Apple Hesabı
 
-macOS'u kullanmak için bir Apple Hesabı oluşturmak **zorunlu değildir**. Ancak bilmeniz gerekir ki bir Apple Hesabı varsayılan olarak çok fazla veriyi iCloud ile senkronize eder. Senkronizasyonu daha sonra devre dışı bırakabilir veya [Advanced Data Protection](https://support.apple.com/guide/security/advanced-data-protection-for-icloud-sec973254c5f) aracılığıyla **uçtan uca şifrelemeyi** etkinleştirebilirsiniz.
+macOS kullanımı için bir Apple Hesabı (Apple ID) oluşturulması zorunlu değildir. Apple Hesabı kullanıldığında varsayılan olarak birçok verinin iCloud ile senkronize edileceği unutulmamalıdır. Bu senkronizasyon ayarları sonradan kapatılabilir veya Gelişmiş Veri Koruma (Advanced Data Protection) özelliğiyle veriler uçtan uca şifrelenebilir.
 
 Bir Apple Hesabı yalnızca App Store'a ve iCloud, Apple Music gibi Apple hizmetlerine erişmek için gereklidir.
 
@@ -142,11 +142,11 @@ Apple Silicon'da sanallaştırma, Apple'ın Virtualization framework'ü sayesind
 - **tart** - Homebrew ile kurulabilen komut satırı VM kontrolü. [tart.run](https://tart.run)
 - **Parallels** (ücretli) - Güçlü entegrasyona sahip ticari bir seçenek. [Web sitesi](https://www.parallels.com)
 
-Güvenlik yapılandırmalarınızı önce bir VM üzerinde denemenizi şiddetle öneririm; böylece risksiz bir şekilde deneyebilirsiniz.
+Güvenlik yapılandırmalarının öncelikle sanal bir makine (VM) üzerinde test edilmesi, ana sistemin kararlılığını riske atmamak adına tavsiye edilir.
 
 ## İlk Açılış {#primo-avvio style="color: white;"}
 
-İlk açılışta, Kurulum Yardımcısı sizden bir hesap oluşturmanızı isteyecek. **Güçlü bir parola** kullanın ve parola ipucu ayarlamayın: Mac'inize erişimi olan herkes bunu görebilir.
+İlk açılışta kurulum sihirbazı bir kullanıcı hesabı oluşturmanızı isteyecektir. Güçlü bir parola tercih ediniz ve parola ipucu (hint) eklemeyiniz; zira cihaza fiziksel erişimi olan herkes bu ipucunu görebilir.
 
 Dikkat: girdiğiniz gerçek ad, bilgisayar adında ve yerel ağ hostname'inde görünecektir. Daha sonra değiştirmek için:
 
@@ -159,7 +159,7 @@ sudo scutil --set LocalHostName adiniz
 
 Oluşturulan ilk hesap her zaman bir **yönetici** (admin) hesabıdır. Yönetici hesapları `sudo` erişimine sahiptir, bu da sistemde her şeyi değiştirebilecekleri anlamına gelir. Bu önemli bir güvenlik riskidir.
 
-İyi uygulama, günlük işler için **ayrı bir standart hesap** kullanmak ve yönetici hesabını yalnızca gerçekten gerektiren işlemler için saklamaktır.
+Günlük kullanım için ayrı bir standart kullanıcı hesabı açılması ve yönetici yetkilerinin yalnızca sistem yapılandırma işlemlerinde kullanılması önerilen bir güvenlik yöntemidir.
 
 ### Nasıl yapılandırılır
 
@@ -182,7 +182,7 @@ Firmware güvenliğinin varsayılan değer olan **"Tam Güvenlik"** (Full Securi
 
 ### FileVault
 
-Apple Silicon Mac'ler varsayılan olarak şifrelidir, ancak **FileVault** ek bir katman ekler: açılışta verilere erişmek için parola ister. FileVault parolası ayrıca firmware parolası olarak da işlev görür; diğer disklerden açılışı ve Recovery moduna erişimi engeller.
+Apple Silicon Mac'ler varsayılan olarak şifrelidir, ancak **FileVault** ek bir koruma katmanı sağlar: Cihazın her açılışında verilerin çözülmesi için parola girişi gerektirir. FileVault şifresi aynı zamanda ürün yazılımı (firmware) güvenliğine katkı sağlayarak harici disklerden sistem açılmasını ve Recovery moduna erişilmesini engeller.
 
 Etkinleştirmek için: **Sistem Ayarları > Gizlilik ve Güvenlik > FileVault > Etkinleştir**
 
@@ -190,7 +190,7 @@ Etkinleştirmek için: **Sistem Ayarları > Gizlilik ve Güvenlik > FileVault > 
 
 ## Kilitleme Modu {#lockdown style="color: white;"}
 
-**Kilitleme Modu** (Lockdown Mode), saldırı yüzeyini büyük ölçüde azaltmak için çok sayıda özelliği devre dışı bırakan güçlü bir macOS özelliğidir. Karmaşık saldırılara hedef olabilecek kullanıcılar (gazeteciler, aktivistler, muhalifler) için tasarlanmıştır, ancak herkes etkinleştirebilir.
+**Kilitleme Modu** (Lockdown Mode), saldırı yüzeyini büyük ölçüde azaltmak için çok sayıda özelliği devre dışı bırakan güçlü bir macOS özelliğidir. Hedefli ve karmaşık siber saldırılara maruz kalma riski yüksek olan kullanıcılar (gazeteciler, aktivistler vb.) için tasarlanmış olsa da dileyen tüm kullanıcılar tarafından etkinleştirilebilir.
 
 Safari'de tek tek web siteleri için devre dışı bırakılabilir, böylece güvendiğiniz sitelerde işlevsellik kaybetmezsiniz.
 
@@ -198,7 +198,7 @@ Etkinleştirmek için: **Sistem Ayarları > Gizlilik ve Güvenlik > Kilitleme Mo
 
 ## Güvenlik Duvarı {#firewall style="color: white;"}
 
-### Uygulama düzeyinde güvenlik duvarı
+### Uygulama Düzeyinde Güvenlik Duvarı
 
 macOS, **gelen bağlantıları** engelleyen yerleşik bir güvenlik duvarı içerir. Etkinleştirmek önemlidir:
 
@@ -214,9 +214,9 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off
 ```
 
-### Üçüncü taraf güvenlik duvarları
+### Üçüncü Taraf Güvenlik Duvarları
 
-Yerleşik güvenlik duvarı yalnızca gelen bağlantıları engeller. **Giden trafiği** de kontrol etmek (ve hangi uygulamaların "eve telefon ettiğini" görmek) için bunlardan birini şiddetle öneririm:
+Giden bağlantıları da denetlemek (ve hangi uygulamaların arka planda veri gönderdiğini gözlemlemek) amacıyla üçüncü taraf bir giden trafik güvenlik duvarı kullanılması tavsiye edilir:
 
 - **[Little Snitch](https://www.obdev.at/products/littlesnitch/)** - En eksiksiz olanı, ücretli
 - **[LuLu](https://objective-see.org/products/lulu.html)** - Açık kaynaklı ve ücretsiz, Objective-See tarafından
@@ -277,7 +277,7 @@ Belirli bir servisin ne yaptığını incelemek için, `.plist` dosyasını şu 
 
 ## Homebrew {#homebrew style="color: white;"}
 
-[Homebrew](https://brew.sh), macOS'ta en çok kullanılan paket yöneticisidir, ancak gözünüz açık olsun: **App Management** veya **Full Disk Access** gerektirir, bu da TCC (Transparency, Consent and Control) korumalarını devre dışı bırakmaya neredeyse eşdeğerdir.
+[Homebrew](https://brew.sh), macOS'ta en çok kullanılan paket yöneticisidir. Ancak bu aracın Uygulama Yönetimi (App Management) veya Tam Disk Erişimi (Full Disk Access) gibi geniş yetkiler talep ettiği ve bunun da yerleşik TCC (Şeffaflık, Onay ve Kontrol) güvenlik katmanını zayıflatabileceği unutulmamalıdır.
 
 ```zsh
 # Düzenli olarak güncelle (güvenilir ağlarda!)
@@ -291,7 +291,7 @@ Kalıcı hale getirmek için `export HOMEBREW_NO_ANALYTICS=1` satırını `~/.zs
 
 ## DNS: Sorgularınızı Korumak {#dns style="color: white;"}
 
-DNS sorguları posta kartı gibidir: ağdaki herkes onları okuyabilir. Nasıl koruyacağımızı görelim.
+DNS sorguları şifresiz iletildiğinde açık bir kartpostala benzer; ağ üzerindeki üçüncü şahıslar tarafından izlenebilir. Şimdi bu sorguların nasıl korunacağını inceleyelim.
 
 
 
@@ -350,11 +350,11 @@ Bir CA'dan güveni manuel olarak kaldırmak için: **Anahtar Zinciri Erişimi**'
 
 ## Tarayıcı: Dünyaya Açılan Pencereniz {#browser style="color: white;"}
 
-Tarayıcı, sisteminizin **en büyük saldırı yüzeyidir**. Dikkatlice seçin ve uzantıları kesinlikle gerekli olanla sınırlı tutun.
+Tarayıcı, işletim sisteminizin en geniş saldırı yüzeyidir. Tarayıcı seçimi özenle yapılmalı ve eklentiler yalnızca zorunlu ihtiyaçlarla sınırlandırılmalıdır.
 
 ### Firefox
 
-Bana göre, yaygın olarak kullanılanlar arasında gizlilik için en iyi tarayıcı:
+Yaygın kullanılan tarayıcılar arasında gizlilik standartları en yüksek olan seçenek Firefox'tur:
 
 - Bellek güvenliği için Rust kullanımının artmasıyla birlikte **açık kaynak**
 - Yerleşik **izleme koruması**
@@ -373,7 +373,7 @@ Google'ın tescilli bileşenleriyle Chromium tabanlı:
 - **uBlock Origin Lite**'ı (Manifest V3 sürümü) kullanın
 - `chrome://settings/privacy` içinde DNS prefetching'i devre dışı bırakın
 
-**Eksileri:** Google. Tarayıcı veri toplamak üzere tasarlanmıştır. Gizlilik önceliğinizse, Firefox veya Safari daha iyi seçimlerdir.
+Dezavantajları: Google tarafından geliştirilmiş olması nedeniyle veri toplama odaklı bir altyapıya sahiptir. Gizlilik hassasiyetiniz varsa Firefox veya Safari daha doğru tercihler olacaktır.
 
 ### Safari
 
@@ -389,7 +389,7 @@ macOS'un WebKit tabanlı yerel tarayıcısı:
 
 ### Tarayıcı gizliliği
 
-Hangi tarayıcıyı seçerseniz seçin, unutmayın:
+Hangi tarayıcı tercih edilirse edilsin, şu hususlar göz önünde bulundurulmalıdır:
 
 - **Navigator API**, sisteminiz hakkında bilgi açığa çıkarır
 - **Canvas fingerprinting**, sizi tek başına benzersiz şekilde tanımlayabilir
@@ -424,7 +424,7 @@ codesign -dvv /Applications/Tor\ Browser.app
 - Tor, trafiği **çıkış düğümüne** kadar şifreler, ancak Tor kullanımı TLS hostname'leri üzerinden tespit edilebilir
 - **Pluggable transports**, Tor trafiğini normal trafik gibi gizleyerek maskeleyebilir
 - Ekstra güvenlik için Tor'u **bir VM içinde** kullanın
-- Tor, **anonimliği** (kim olduğunuzu) korur, mutlaka **gizliliği** (ne yaptığınızı) korumaz - kendi hesabınızla giriş yaparsanız, Tor sizi korumaz
+- Tor, anonimliği (kimliğinizi) korur ancak gizliliğinizi (yaptığınız işlemleri) doğrudan korumaz. Örneğin Tor üzerinden kişisel bir hesaba giriş yapıldığında anonimlik ortadan kalkar.
 - Tor, ağın büyük bölümlerini kontrol eden düşmanların yapacağı **küresel trafik analizine** karşı zayıftır
 
 > **Uyarı:** anonimlik ve gizliliği birbirine karıştırmayın. Tor sizi anonim yapar, ancak bir sitede kişisel bilgilerinizi girerseniz, bu anonimlik ortadan kalkar.
@@ -440,7 +440,7 @@ Bir VPN, sizinle VPN sunucusu arasındaki trafiği şifreler. Bazı temel noktal
 - VPN bağlantısı kesildiğinde **trafik sızıntısına** dikkat edin - bir kill switch (acil durum anahtarı) yapılandırın
 - VPN sağlayıcısının **yargı bölgesini** (jurisdiction) göz önünde bulundurun
 
-Maksimum kontrol istiyorsanız, **kendi VPN'inizi barındırmanızı** şiddetle öneririm. Bir VPS üzerinde WireGuard + Pi-hole mükemmel bir kombinasyondur.
+Maksimum kontrol sağlamak için kişisel bir sanal sunucu (VPS) üzerinde WireGuard ve Pi-hole servislerinin kurulması önerilir.
 
 İşte tüm trafiği VPN üzerinden zorlamak için örnek **pf** kuralları:
 
@@ -467,7 +467,7 @@ gpg --full-generate-key
 gpg --armor --export eposta_adresiniz@ornek.com
 ```
 
-Maksimum güvenlik için, özel anahtarlarınızı bir **YubiKey** üzerinde saklayın: anahtarlar donanım cihazını asla terk etmez.
+En üst düzey güvenlik için özel anahtarların bir donanım anahtarında (örneğin YubiKey) saklanması önerilir; bu sayede anahtarlar fiziksel cihazın dışına sızdırılamaz.
 
 `gpg.conf` dosyası için [drduh'un önerilen yapılandırmasını](https://github.com/drduh/config/blob/master/gpg.conf) kullanmanızı şiddetle öneririm.
 
@@ -479,17 +479,17 @@ Açık, federe ve çoklu platform destekleyen bir protokol. Varsayılan olarak u
 
 ### Signal
 
-Bana göre anlık mesajlaşma için en iyi şifreleme protokolü. Gelişmiş uçtan uca şifreleme için **Double Ratchet Protocol**'ü kullanır. Kayıt için bir telefon numarası gerektirir.
+Anlık mesajlaşma alanında gelişmiş uçtan uca şifreleme sunan Double Ratchet protokolünü kullanmaktadır. Kayıt için telefon numarası gerektirir.
 
 ### iMessage
 
 Bir Apple Hesabı gerektirir. Kullanıyorsanız, kişilerinizin kimliğini doğrulamak için **Contact Key Verification**'ı (Kişi Anahtarı Doğrulaması) etkinleştirin.
 
-**!UYARI!** Advanced Data Protection **olmadan** iCloud yedeklemesi kullanırsanız, Apple mesajlarınızın şifreleme anahtarlarını saklar. iMessage kullanıyorsanız bunu hemen etkinleştirin.
+**!UYARI!** Gelişmiş Veri Koruma (Advanced Data Protection) etkinleştirilmeden iCloud yedeklemesi yapıldığında şifreleme anahtarları Apple sunucularında saklanır. Güvenlik için bu özelliğin açılması önerilir.
 
 ## Virüsler ve Kötü Amaçlı Yazılımlar {#malware style="color: white;"}
 
-Mac'ler kötü amaçlı yazılımlara karşı **bağışık değildir**. Tehdit sayısı sürekli artmaktadır. Kendinizi nasıl koruyacağınızı görelim.
+Mac cihazları zararlı yazılımlardan tamamen muaf değildir. Şimdi bu tehditlere karşı nasıl önlem alınacağını inceleyelim.
 
 ### Yazılımı güvenli şekilde indirmek
 
@@ -523,7 +523,7 @@ codesign --display --verbose /Applications/UygulamaAdi.app
 - Şüpheli dosyaları çalıştırmadan önce taramak için [VirusTotal](https://www.virustotal.com/)'ı kullanın
 - macOS, arka planda otomatik olarak güncellenen **XProtect**'i içerir
 - **[BlockBlock](https://objective-see.org/products/blockblock.html)**, kalıcı kötü amaçlı yazılım bileşenlerini tespit eder
-- Yerel bir antivirüs iki uçlu bir kılıçtır: saldırı yüzeyini artırır ve genellikle verilerinizle "eve telefon eder"
+- Yerel bir antivirüs yazılımı kullanmak ek bir saldırı yüzeyi oluşturabilir ve veri toplama eğilimleri barındırabilir.
 
 ### Gatekeeper
 
@@ -786,9 +786,9 @@ sudo launchctl config user umask 077
 
 ---
 
-Aferin kahraman! Buraya kadar geldiyseniz, Mac'inizi "kutudan çıktığı haliyle" bir sistemden gerçek bir dijital kaleye dönüştürdünüz. Kolay bir yolculuk değildi, ama buna değdi. Şimdi çok az Mac kullanıcısının ulaştığı bir gizlilik ve güvenlik seviyesiyle gezinmek, çalışmak ve iletişim kurmak için gereken araçlara ve bilgiye sahipsiniz.
+Tebrikler, sertleştirme işlemlerini başarıyla tamamladınız! Bu adımların ardından Mac cihazınızı standart bir yapılandırmadan güvenli bir dijital kaleye dönüştürmüş bulunmaktasınız.
 
-Okuduğunuz için çok teşekkürler! Bu kılavuz size yardımcı olduysa, Mac'lerini korumak isteyen diğer kaplumbağalarla paylaşın. Gizlilik bir haktır, gizlenecek bir şey değildir.
+Okuduğunuz için teşekkür ederiz. Bu rehberin yararlı olduğunu düşünüyorsanız, kendi cihazlarını korumak isteyen diğer kullanıcılarla da paylaşabilirsiniz.
 
 ## İlgili Kılavuzlar
 

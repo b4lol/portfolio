@@ -56,311 +56,202 @@ howto:
       url: "/linux-hardening#verifica"
 ---
 
-> **TL;DR** - In this guide you will learn:
-> - How to choose the right Linux distribution for your security and privacy needs
-> - How to configure disk encryption, firewall, and kernel hardening right from installation
-> - How to isolate applications with Flatpak, Firejail, and advanced sandboxing
-> - How to verify that your system is actually protected with hands-on tests
+> **TL;DR** — In this guide, you will learn:
+> - How to choose the right Linux distribution for your security and privacy objectives.
+> - How to configure disk encryption, firewalls, and kernel hardening from initial installation.
+> - How to isolate applications using Flatpak, Firejail, and advanced sandboxing techniques.
+> - How to verify and audit your security posture using system verification tools.
 
 ## Summary
 
-Linux hardening means reducing the attack surface and the impact of a compromise: an up-to-date distro, disk encryption, firewall, secure DNS, kernel hardening, app sandboxing, Secure Boot, service control, and periodic audits. Linux isn't secure automatically: it becomes more robust when these measures are configured consistently.
+Linux hardening reduces your system's attack surface and limits the blast radius of a potential compromise. Achieving a secure desktop requires an up-to-date distribution, full-disk encryption, a restrictive firewall, secure DNS resolution, kernel hardening, application sandboxing, Secure Boot verification, service management, and periodic audits. Linux is not secure by default; it becomes secure only through consistent and intentional configuration.
 
-The Linux world is often painted as a security paradise: just install any distro and you're magically safe from everything. The reality is a bit different. A desktop Linux system, without the right configuration, can be surprisingly vulnerable. The good news? With the right knowledge and a bit of patience, you can turn your setup into a real fortress.
+The Linux ecosystem is often portrayed as a security paradise: just install any distribution and you are magically protected from all threats. The reality is far more nuanced. A desktop Linux installation left in its default configuration can be surprisingly vulnerable. Fortunately, with the right knowledge and a little patience, you can transform your setup into a secure digital fortress.
 
-This guide will walk you through it step by step: from choosing the right distribution to configuring every aspect of security. It won't be a walk in the park, but in the end you'll have a system you can actually trust.
+This guide walks you through the hardening process step-by-step, covering everything from distribution selection to local filesystem overrides. 
 
-Remember that security is a process, not a product. There's no perfect setup, but there is a setup that's *right for you*. Every section of this guide lays out pros and cons, so you can decide what makes sense for your specific case.
+Security is a continuous process, not a static state. There is no single "perfect" configuration; there is only the configuration that meets your specific threat model. Every section in this guide weighs the trade-offs of each mitigation so you can make informed decisions.
 
-This guide is open to improvements and suggestions. If you want to contribute, report errors, or propose additions, open a pull request on [GitHub](https://github.com/b4lol/portfolio).
+This guide is open to improvements and suggestions. If you want to contribute, report errors, or propose additions, feel free to open a pull request on [GitHub](https://github.com/b4lol/portfolio).
 
-
+---
 
 ## Why use Linux for security? {#perche-linux style="color: white;"}
 
-First of all: why should you use Linux? Not out of bias, but for concrete reasons.
+Using Linux provides concrete advantages for security and privacy, though it comes with limitations you must understand.
 
-### Transparency and control
+### Transparency and Control
 
-Linux is open source. This means the source code is visible, verifiable, and modifiable by anyone. When Microsoft or Apple say "we don't collect your data," you have to take their word for it. With Linux, you can verify it. It's not an absolute guarantee (nobody reads millions of lines of code for fun), but the possibility of an audit is a huge advantage.
+Linux is open source. The codebase is transparent and verifiable by anyone. When proprietary operating systems claim they do not collect telemetry or access your data, you must trust their claims blindly. On Linux, you can verify this behavior. While no single developer audits millions of lines of code daily, the public nature of the code makes backdoors difficult to hide.
 
-Control is total: you decide what runs on your system, which services are active, what communicates with the outside world. No forced updates, no hidden telemetry, no preinstalled bloatware.
+Furthermore, control is absolute: you decide exactly what runs on your system, which ports are open, and what telemetry is allowed. There are no forced updates, hidden background services, or pre-installed bloatware.
 
-### Limits you should know about
+### Inherent Desktop Security Gaps
 
-Eyes open: desktop Linux is not automatically more secure than Windows or macOS. In fact, in some respects it's *less* protected out of the box:
+Out-of-the-box, desktop Linux installations often lack modern endpoint security mitigations present in macOS or Windows 11:
 
-- **Application sandboxing**: macOS and Windows have much more mature app isolation mechanisms. On a traditional Linux desktop, an application has almost complete access to your system
-- **Secure Boot**: the implementation on Linux is still maturing compared to Windows
-- **Drivers and firmware**: hardware support can be more limited, and unofficial drivers can introduce vulnerabilities
-- **Desktop attack surface**: X11 (the old graphics protocol, now replaced by Wayland on most distros) was a sieve from a security standpoint, since any window could record the screen, capture input, and inject commands into other windows
+*   **Application Sandboxing**: By default on a standard Linux desktop, user-installed applications have read/write access to your entire home directory and system sockets. Sandboxing is not enforced natively at the OS level.
+*   **Secure Boot Integration**: While Linux supports Secure Boot, the default configuration relies on Microsoft's third-party keys rather than local, user-managed cryptographic signatures.
+*   **Wayland vs. X11**: The historical X11 graphics protocol is insecure; any running graphical application can capture keystrokes, inject input, and record screen activity from other windows. Upgrading to Wayland is essential to enforce graphical app isolation.
 
-That said, Linux gives you the tools to fix all of these problems. You just have to configure them yourself. And that's exactly what we'll do in this guide.
+The strength of Linux is that it provides the raw tools to resolve these gaps. The responsibility for configuring these protections rests with you.
 
-## Choosing a secure Linux distribution {#scelta-distro style="color: white;"}
+---
 
-Choosing the distribution is the foundation of everything. A wrong choice here can make all the subsequent work pointless. Let's look at the criteria that really matter.
+## Choosing a Secure Linux Distribution {#scelta-distro style="color: white;"}
 
-### Rolling release vs fixed release
+Selecting your distribution is the foundation of your security architecture. An incorrect choice here can undermine all subsequent hardening efforts.
 
-This is a point with a lot of confusion around it. Many think "stable" distributions (like Debian stable) are more secure because they change less. In reality it's often the opposite.
+### Release Models: Rolling vs. Fixed
 
-Fixed release distributions (like Debian) freeze package versions and apply only security patches via backporting. The problem? Not all security fixes get a CVE (an official identifier), and so they're never ported into the distribution. Furthermore, the backporting process itself can introduce bugs. Debian itself has had cases where a backported patch created a vulnerability (the famous DSA-1571 case with OpenSSL).
+A common misconception is that "stable" distributions (like Debian Stable) are more secure because their packages change less frequently. In practice, the opposite is often true for security patches.
 
-Rolling or semi-rolling distributions (like Fedora, openSUSE Tumbleweed, Arch) update packages to the upstream version. This means you receive security fixes exactly as the original developer wrote them, without intermediate changes.
+Fixed-release distributions freeze package versions and backport security patches. The problem is that many security fixes are merged upstream without receiving an official CVE identifier, meaning they are rarely backported to legacy packages. Additionally, backporting complex patches can introduce regression vulnerabilities.
 
+Rolling-release or rapid-release distributions (like Fedora, Arch, or openSUSE Tumbleweed) pull directly from upstream releases, ensuring you receive security fixes immediately as written by the original developers.
 
+> [!TIP]
+> If you are concerned about stability on a rolling-release system, select a distribution that supports transactional file systems (like openSUSE Aeon) or configure system rollbacks using Btrfs snapshots. This gives you the latest security updates with the ability to revert changes if an update causes issues.
 
-**My advice**: if you're afraid of frequent updates, choose a distribution that offers rollback mechanisms (like Fedora with dnf history or openSUSE with Btrfs snapshots). That way you get the best of both worlds: up-to-date packages and the ability to roll back if something breaks.
+### Desktop Environments: The Wayland Requirement
 
-### Desktop environment: why GNOME
+The primary security requirement for your desktop environment is native support for the **Wayland** graphics protocol. The two recommended desktop environments are **GNOME** and **KDE Plasma**.
 
-The two desktop environments I recommend from a security standpoint are **GNOME** and **KDE Plasma**, and the main reason is that both fully support **Wayland**.
+Wayland isolates graphical applications from one another. Under Wayland, applications cannot record the screen, capture keystrokes from other windows, or inject inputs without explicit user consent mediated by the desktop compositor.
 
-The good news is that most major distributions (Fedora, Ubuntu, openSUSE, etc.) now use Wayland as the default graphics protocol. Wayland is the successor to X11 and solves one of the most serious security problems of the Linux desktop: with the old X11, any window could record the screen, capture keystrokes, and inject input into other windows, making any attempt at sandboxing practically useless.
+*   **GNOME**: A minimal, opinionated environment that integrates tightly with core security APIs. It is the default on Fedora Workstation and Ubuntu.
+*   **KDE Plasma**: Highly customizable and feature-rich. Wayland support in modern KDE Plasma is stable and serves as the default on openSUSE and Fedora KDE Spin.
 
-With Wayland, applications are isolated from each other at the graphics level. Both GNOME and KDE Plasma implement a permission system for privileged protocols (like screen capture): apps must request permission and the user must explicitly authorize them.
-
-**GNOME** is the more minimal, opinionated choice: fewer configuration options but a coherent experience well integrated with security technologies. It's the default on Fedora Workstation and Ubuntu.
-
-**KDE Plasma** is the alternative for those who prefer a more customizable, feature-rich desktop. Wayland support in KDE Plasma is now mature and stable, and it's the default on Fedora KDE Spin and openSUSE. If you like having total control over the look and behavior of your desktop, KDE is a great choice with no security compromises.
-
-**WARNING!** If for some reason you're still using a desktop environment with X11 (some less up-to-date distros or custom configurations), many of the protections described in this guide (especially sandboxing) will be significantly less effective. Verify you're using Wayland with the command `echo $XDG_SESSION_TYPE` (it should return `wayland`).
-
-### Recommended distributions
-
-After analyzing dozens of distributions, here are the ones I recommend based on different user profiles.
-
-#### Fedora Workstation: the balanced choice
-
-Fedora is a semi-rolling distribution: the kernel and key packages are updated frequently, while GNOME follows the official release cycle. Each version is supported for about a year, with new releases every six months.
-
-**Why Fedora:**
-- "Upstream first" approach: patches are minimal and sensible
-- Among the first to adopt modern technologies (Wayland, PipeWire)
-- The `dnf` package manager supports rollback and undo of operations
-- SELinux active and in enforcing mode by default
-- Huge community and excellent documentation
-
-**Cons:**
-- Requires a reinstall (or upgrade) every 6-12 months to stay supported
-- Some proprietary packages require additional repositories (RPM Fusion)
-
-#### Debian: the solid, ready-to-use base
-
-If Fedora is the balance, Debian is the solidity. It's the "boring" system in the best sense of the term: you install it, it works, and it keeps working for years with minimal maintenance. It's the secure, always-ready-to-use base to recommend to anyone who wants a reliable desktop without having to constantly tinker with it.
-
-**Why Debian:**
-- Legendary stability: packages are thoroughly tested before entering stable, surprises are rare
-- Debian's Security Team is among the most responsive in releasing updates for tracked vulnerabilities
-- Maintenance kept to a minimum: no frequent reinstalls, no updates that break the system overnight
-- AppArmor active by default and one of the largest, best-documented communities in the Linux world
-- It's the base of countless other projects (Ubuntu, Whonix, Tails), so security profiles and guides abound
-
-**Cons:**
-- As explained in the [rolling vs fixed](#scelta-distro) section, the frozen-package model means some security fixes without a CVE never make it into stable
-- Packages are older: if you need the latest version of some software you'll have to rely on backports or Flatpak
-
-To smooth over the lag on upstream fixes, install your most exposed applications (browsers above all) via Flatpak: that way they stay up to date independently of Debian's release cycle, while the base system gives you the stability you're looking for.
-
-#### Fedora Atomic Desktops: the immutable future
-
-Fedora's Atomic variants (Silverblue for GNOME, Kinoite for KDE) use an immutable approach: the base system is read-only and updates are downloaded as complete images before being applied.
-
-This means an update can't fail halfway through and leave you with a broken system. If something goes wrong, a single reboot takes you back to the previous state. Applications are installed mainly via Flatpak (sandboxed) or containers (Toolbox/Distrobox).
-
-**Cons:**
-- Different workflow from traditional Linux (requires adjustment)
-- Some software not available as Flatpak requires workarounds
-- The dependency on GRUB prevents the use of Unified Kernel Images (limiting advanced Secure Boot)
-
-#### SecureBlue: automatic hardening
-
-SecureBlue is based on Fedora Atomic and adds a significant hardening layer:
-
-- **Trivalent**: a hardened Chromium browser with GrapheneOS Vanadium patches
-- **Hardened Malloc**: GrapheneOS's memory allocator applied to the whole system
-- Pre-applied kernel security configurations
-- Blacklist of unnecessary kernel modules
-
-It's the distribution I recommend if you want maximum security with minimal manual configuration effort. The only trade-off is that you have to trust an additional project on top of Fedora.
-
-#### openSUSE Aeon: rolling and immutable
-
-The rolling release alternative in the immutable world. It uses Btrfs with transactional snapshots: updates are applied to a snapshot and activated only on reboot, with the ability to roll back at any time.
-
-It has a minimal base package set (reduces the attack surface) and the system is mounted read-only.
-
-#### Qubes OS: security through compartmentalization
-
-Qubes OS starts from a different premise than all the others: instead of hardening a single system, it isolates every activity into separate virtual machines (called "qubes") thanks to the Xen hypervisor. The browser for banking, work, personal activities, and untrusted downloads run in distinct compartments that can't see each other.
-
-If a qube is compromised, the damage stays confined there: the malware can't reach the other compartments or the underlying system. Disposable qubes destroy themselves on closing, ideal for opening a suspicious attachment without risk. It's the secure "ready-to-use" base for those who put isolation above everything: it ships with preconfigured templates and Whonix integration to route entire qubes through Tor.
-
-**Why Qubes:**
-- Compartmentalization by design: isolation isn't an add-on, it's the heart of the system
-- Ready-to-use templates (Fedora, Debian) that you update once for all derived qubes
-- Native Whonix integration for Tor traffic
-- It's the recommended system for those with the most extreme security needs
-
-**Cons:**
-- Significant hardware requirements: you need a lot of RAM (16 GB the reasonable minimum) and a CPU with virtualization support
-- Steep learning curve: the qube model requires a mindset shift
-- Hardware support (especially GPUs and particular peripherals) can cause problems
-
-#### Whonix: for anonymity
-
-If your goal is anonymity (not just privacy), Whonix is the reference. It works as two virtual machines: a Workstation where you work and a Gateway that routes all traffic through Tor.
-
-Even if malware compromises the Workstation, it can't discover your real IP address because all networking goes through the Gateway. It also includes keystroke anonymization, boot clock randomization, encrypted swap, and hardened kernel parameters.
-
-
-
-**Cons:**
-- Based on Debian (older packages)
-- Requires virtualization (reduced performance)
-- Not suitable as a primary operating system
-
-
-
-### Distributions to avoid
-
-Some distributions are often recommended for the wrong reasons:
-
-- **Kali Linux, BlackArch, Parrot OS**: these are penetration testing tools, *not* secure systems for everyday use. They have offensive tools preinstalled and often run as root. Using them as a daily desktop is like driving an ambulance to go grocery shopping
-- **Distributions with the Linux-libre kernel**: they remove security mitigations for proprietary microcode and suppress CPU vulnerability warnings. For ideological reasons they sacrifice your actual security
-- **Manjaro**: holds packages back compared to Arch without a real stability advantage, creating an unnecessary vulnerability window
-
-## Secure Linux installation with disk encryption {#installazione style="color: white;"}
-
-Okay, you've chosen your distribution. Now let's see how to install it correctly from the start. Some of these configurations can't be done afterward, so keep your eyes open and pay maximum attention!
-
-### Full disk encryption (LUKS)
-
-It's essential to enable full disk encryption during installation. With LUKS (Linux Unified Key Setup) all the data on your disk gets encrypted: if someone steals your laptop, without the password they won't be able to read anything.
-
-**WARNING!** If you don't enable encryption during installation, you'll have to back up all your data and reinstall from scratch. It's not possible to encrypt a disk already in use without losing the data.
-
-During installation, when you reach partitioning:
-
-1. Choose the disk encryption option (on Fedora it's called "Encrypt my data")
-2. Set a long, complex passphrase (this is the key to your kingdom)
-3. If your installer supports it, use the `--integrity` option with cryptsetup to get authenticated encryption
-
-For those who want the most: authenticated encryption verifies that the data hasn't been tampered with, not just that it's unreadable. It's an additional protection layer against sophisticated physical attacks.
-
-
-
-### Encrypted swap
-
-Swap is an area of the disk used as additional memory when RAM is full. The problem? It can contain sensitive data (passwords, encryption keys, open documents) in plaintext.
-
-There are two options:
-
-- **Encrypted swap**: configure it during partitioning together with LUKS
-- **ZRAM**: uses compressed RAM instead of disk. Fedora uses it by default and it's the preferable option, faster and no sensitive data ever ends up on disk
-
-### Partitioning with secure mount options
-
-For additional hardening, you can configure restrictive mount options on some partitions:
-
-| Partition | Options | Effect |
-|-----------|---------|---------|
-| `/boot` | `nodev,noexec,nosuid` | Prevents code execution on the boot partition |
-| `/boot/efi` | `nodev,noexec,nosuid` | Protects the EFI partition |
-| `/var` | `nodev,nosuid` | Limits permissions on the variable data partition |
-
-> **Warning!** Don't add `noexec` to `/home` or `/root` because it would break Flatpak and Snap. Likewise, avoid `noexec` on `/var/tmp` if you use Arch (AUR builds would fail).
-
-These options aren't foolproof (`noexec` is relatively easy to bypass), but they add a defense-in-depth layer that can block automated attacks.
-
-### Generic username and hostname
-
-A detail many overlook: your username and hostname get transmitted in various ways over the network and can be used to identify you.
-
-- Use a generic username like `user` instead of your name
-- Set the hostname to `localhost`:
-
+Verify your active display protocol by running:
 ```bash
-sudo hostnamectl hostname "localhost"
+echo $XDG_SESSION_TYPE
 ```
+The output must return `wayland`. If it returns `x11`, application sandboxing cannot be enforced securely.
 
-## Post-installation hardening: updates and basic configuration {#post-installazione style="color: white;"}
+### Recommended Distributions
 
-Installation complete, disk encrypted, partitions configured. Now the real hardening work begins.
+#### 1. Fedora Workstation (Recommended)
+Fedora offers a rapid-release cycle with up-to-date kernels, SELinux enabled in enforcing mode by default, and quick adoption of modern security technologies (Wayland, PipeWire). It is the most balanced choice for everyday development.
 
-### Updates and microcode
+#### 2. Debian Stable
+Debian provides an incredibly stable, low-maintenance base. While packages are older, the Debian Security Team is highly responsive. To mitigate the lag on upstream package updates, run user-facing applications (like browsers) via Flatpak to keep them updated independently of the core OS.
 
-First of all, update the system:
+#### 3. Fedora Atomic Desktops (Silverblue/Kinoite)
+An immutable operating system variant where the root filesystem is mounted read-only. Updates are applied atomically as system images, ensuring you can roll back the entire OS to a prior state on boot if a failure occurs. Applications are isolated using containerization and Flatpak.
+
+#### 4. SecureBlue
+A hardened downstream variant of Fedora Atomic. It integrates `hardened_malloc` globally, enforces restrictive kernel configurations, blacklists unnecessary kernel modules, and packages security-hardened browsers (like Trivalent, featuring Vanadium patches). This is the best choice if you want pre-applied hardening out-of-the-box.
+
+#### 5. Qubes OS (Advanced)
+Qubes OS achieves security through virtualization-based compartmentalization using the Xen hypervisor. Instead of securing a single operating system, Qubes isolates activities (e.g., banking, work, untrusted downloads) into separate virtual machines ("qubes"). If an application in a specific qube is compromised, the malware cannot access other qubes or the host system.
+
+#### 6. Whonix
+Whonix is a specialized distribution focused on anonymity. It consists of two virtual machines: a Gateway that routes all traffic through Tor, and an isolated Workstation. Even if a local exploit compromises the Workstation, the malware cannot leak your public IP address because the Workstation has no direct access to the host network interface.
+
+### Distributions to Avoid
+
+*   **Pentesting OS (Kali, Parrot, BlackArch)**: These are offensive security distributions designed to run tools as root from a live environment. They are not hardened for daily desktop use.
+*   **Libre Kernels (Guix, Parabola)**: Removing proprietary microcode updates prevents your CPU from receiving hardware-level security mitigations (such as patches for Spectre or Meltdown), leaving your physical hardware vulnerable.
+*   **Manjaro**: Artificially holds back packages compared to Arch Linux, creating unnecessary windows of vulnerability for disclosed exploits.
+
+---
+
+## Secure Installation with Disk Encryption {#installazione style="color: white;"}
+
+Several critical security configurations must be applied during the initial installation process.
+
+### 1. Full Disk Encryption (LUKS)
+
+Always encrypt your disk using LUKS (Linux Unified Key Setup) during installation. If your laptop is lost or stolen, your data remains unreadable without your decryption passphrase.
+
+*   Select the encryption option in your installer's partitioning manager.
+*   Configure a long, cryptographically strong passphrase.
+*   If partitioning manually via the CLI, use the `--integrity` flag with `cryptsetup` to enable authenticated encryption, protecting against physical sector tampering.
+
+### 2. Swap Space Security
+
+Swap space can leak sensitive memory contents (including plaintext credentials and decryption keys) to your physical disk.
+
+*   Ensure swap partitions are encrypted under the same LUKS volume.
+*   Alternatively, disable disk swap entirely and use **ZRAM** (compressed swap inside RAM), which is the default on Fedora.
+
+### 3. Restrictive Partition Mount Options
+
+If configuring custom partition mounts, apply security flags in `/etc/fstab` to limit execution privileges:
+
+| Partition | Mount Flags | Objective |
+|-----------|-------------|-----------|
+| `/boot` | `nodev,noexec,nosuid` | Prevents binary execution on the boot volume. |
+| `/boot/efi` | `nodev,noexec,nosuid` | Prevents execution on the EFI partition. |
+| `/var` | `nodev,nosuid` | Limits device creation and SUID execution on variable data. |
+
+> [!WARNING]
+> Do not apply `noexec` to `/home` or `/root`, as this will break Flatpak runtimes, local compilers, and virtual environments.
+
+### 4. Generic Hostname and Usernames
+
+Your username and hostname are transmitted in network requests and logs, which can be used to track you across networks.
+
+*   Set a generic username (e.g., `user`).
+*   Set your hostname to `localhost` using:
+    ```bash
+    sudo hostnamectl hostname "localhost"
+    ```
+
+---
+
+## Post-Installation Hardening: Firmware & Updates {#post-installazione style="color: white;"}
+
+### Update Firmware & Microcode
+
+Ensure your CPU microcode is up-to-date to patch processor-level hardware vulnerabilities.
 
 ```bash
-# Fedora
-sudo dnf upgrade --refresh
-
-# Debian/Ubuntu
-sudo apt update && sudo apt upgrade -y
-
-# Arch
-sudo pacman -Syu
-```
-
-Then make sure you have the CPU microcode installed. Microcode is firmware that fixes bugs and vulnerabilities directly in the processor. Without it, you're vulnerable to a whole range of hardware attacks (Spectre, Meltdown, and friends).
-
-```bash
-# Fedora (included by default)
-# Verify with:
+# Verify microcode on Fedora
 dnf list installed | grep microcode
 
-# Debian
-sudo apt install intel-microcode   # for Intel CPUs
-sudo apt install amd64-microcode   # for AMD CPUs
+# Install microcode on Debian
+sudo apt install intel-microcode     # Intel CPUs
+sudo apt install amd64-microcode     # AMD CPUs
 
-# Arch
-sudo pacman -S intel-ucode   # for Intel CPUs
-sudo pacman -S amd-ucode     # for AMD CPUs
+# Install microcode on Arch
+sudo pacman -S intel-ucode           # Intel CPUs
+sudo pacman -S amd-ucode             # AMD CPUs
 ```
 
-### Firmware updates
-
-Many devices have updatable firmware that can contain security fixes. Use `fwupd`:
-
+Update system peripheral firmware (e.g., UEFI, SSD, controllers) using `fwupd`:
 ```bash
 sudo fwupdmgr refresh
 sudo fwupdmgr update
 ```
 
-### Disabling telemetry
+### Telemetry Deprecation
 
-Some distributions collect anonymous usage data. Even if the intentions are good, the less data you share the better:
+Disable analytics and tracking identifiers implemented by your distribution:
 
 ```bash
-# Fedora — disables the install counting
+# Disable DNF install counting on Fedora
 echo "countme=false" | sudo tee -a /etc/dnf/dnf.conf
 
-# openSUSE — empties the anonymous identifier
+# Reset unique client ID on openSUSE
 sudo truncate -s 0 /var/lib/zypp/AnonymousUniqueId
 ```
 
-### Configuring a restrictive umask
+### Restrictive Global Permissions (Umask)
 
-The umask controls the default permissions of new files. The default value (`022`) creates files readable by all users on the system. With `077`, only your user can read the files you create:
-
+Set a default umask of `077` so that files created by your user are not readable by other local accounts:
 ```bash
-# Add to /etc/profile or /etc/bash.bashrc
+# Append to /etc/profile or /etc/bash.bashrc
 umask 077
 ```
 
-> **Warning!** On openSUSE this can break Snapper. On Ubuntu, the repository files in `/etc/apt/sources.list.d/` need permissions of 644, not 600. Check after applying.
+---
 
-## Network hardening: firewall, DNS, and MAC randomization {#rete style="color: white;"}
+## Network Hardening {#rete style="color: white;"}
 
-The network is one of the most common attack vectors. Let's see how to lock it down.
+### 1. MAC Address Randomization
 
-### MAC address randomization
-
-The MAC address is a unique identifier of your network card. Every time you connect to a WiFi network, the router sees it and can track your presence. By randomizing it, every connection appears as a different device.
-
-Create the file `/etc/NetworkManager/conf.d/00-macrandomize.conf`:
+Prevent physical tracking across Wi-Fi networks by randomizing your MAC address. Create `/etc/NetworkManager/conf.d/00-macrandomize.conf`:
 
 ```ini
 [device]
@@ -371,37 +262,30 @@ wifi.cloned-mac-address=random
 ethernet.cloned-mac-address=random
 ```
 
-Then restart NetworkManager:
-
+Restart NetworkManager to apply:
 ```bash
 sudo systemctl restart NetworkManager
 ```
 
-### Firewall
+### 2. Restrictive Firewall
 
-A firewall is absolutely mandatory. The configuration I recommend is restrictive: block all incoming traffic except what's explicitly authorized.
+Configure your firewall to drop all incoming connections by default.
 
-#### Fedora/openSUSE (firewalld)
-
+#### Using firewalld (Fedora/openSUSE):
 ```bash
-# Set the default zone to "drop" (blocks everything)
+# Route incoming traffic to drop zone
 sudo firewall-cmd --set-default-zone=drop
 
-# Allow ICMPv6 (needed for IPv6 to work)
+# Permit essential IPv6 handshake protocols
 sudo firewall-cmd --add-protocol=ipv6-icmp --permanent
-
-# Allow DHCPv6 (needed to obtain the IPv6 address)
 sudo firewall-cmd --add-service=dhcpv6-client --permanent
-
-# Apply the rules
 sudo firewall-cmd --reload
 
-# Enable lockdown (prevents bypass via polkit)
+# Enable lockdown to block unauthorized polkit updates
 sudo firewall-cmd --lockdown-on
 ```
 
-#### Debian/Ubuntu (ufw)
-
+#### Using ufw (Debian/Ubuntu):
 ```bash
 sudo apt install ufw
 sudo ufw default deny incoming
@@ -409,45 +293,27 @@ sudo ufw default allow outgoing
 sudo ufw enable
 ```
 
-`ufw` is simpler than firewalld but less flexible. It doesn't support zones and has no lockdown mode. For a desktop it's still more than sufficient.
+### 3. DNSSEC and DNS-over-TLS (DoT)
 
+Secure your DNS queries against spoofing and interception. If using `systemd-resolved`, configure `/etc/systemd/resolved.conf`:
 
-
-**Remember that** a software firewall can't protect against malware running with elevated privileges on your system. It's a defense layer, not a complete solution.
-
-### DNSSEC
-
-Traditional DNS is plaintext and unauthenticated: anyone in the path between you and the DNS server can see your queries and potentially modify the responses. DNSSEC adds a cryptographic signature to DNS responses.
-
-If you use `systemd-resolved`:
-
-```bash
-# Edit /etc/systemd/resolved.conf
-# Set:
+```ini
+[Resolve]
+DNS=1.1.1.1#cloudflare-dns.com 9.9.9.9#dns.quad9.net
 DNSSEC=yes
-
-# Restart the service
+DNSOverTLS=yes
+```
+Restart systemd-resolved:
+```bash
 sudo systemctl restart systemd-resolved
 ```
 
-Make sure to use a DNS provider that supports DNSSEC. For an additional privacy layer, consider using DNS-over-TLS or DNS-over-HTTPS.
+### 4. Network Time Security (NTS)
 
-### Secure time synchronization
+Standard NTP queries are unauthenticated, allowing attackers to perform time-spoofing attacks to invalidate TLS certificates. Secure your synchronization using Chrony with NTS enabled.
 
-NTP, the standard protocol for time synchronization, transmits in plaintext and without authentication. An attacker could manipulate your system's clock, compromising TLS certificates and logs.
-
-The solution is **Network Time Security (NTS)** with chronyd:
-
-```bash
-# Install chrony (if not already present)
-# Fedora: already included
-# Debian/Ubuntu:
-sudo apt install chrony
-```
-
-Edit `/etc/chrony.conf` and use NTS servers. A good reference is GrapheneOS's configuration:
-
-```
+Edit `/etc/chrony.conf`:
+```text
 server time.cloudflare.com iburst nts
 server ntppool1.time.nl iburst nts
 server nts.netnod.se iburst nts
@@ -455,28 +321,26 @@ server ptbtime1.ptb.de iburst nts
 minsources 2
 ```
 
-The `minsources 2` parameter requires at least 2 independent sources to agree on the time, making an attack much harder.
-
-Enable the seccomp filter for chrony:
-
+Enable the seccomp system call filter for the Chrony daemon:
 ```bash
-# Fedora/Arch — edit /etc/sysconfig/chronyd
+# Add to /etc/sysconfig/chronyd (Fedora/Arch)
 OPTIONS="-F 1"
-
-# Then restart
+```
+Restart chronyd:
+```bash
 sudo systemctl restart chronyd
 ```
 
-## Linux kernel hardening: sysctl, boot, and modules {#kernel style="color: white;"}
+---
 
-The kernel is the heart of the operating system. Hardening it means drastically reducing the attack surface available to potential malware.
+## Kernel Hardening {#kernel style="color: white;"}
 
-### sysctl parameters
+### 1. Runtime sysctl Hardening
 
-sysctl parameters control kernel behavior at runtime. Create a file `/etc/sysctl.d/99-hardening.conf` with the following essential configurations:
+Configure `/etc/sysctl.d/99-hardening.conf` to restrict system calls, protect memory, and mitigate network attacks:
 
 ```ini
-# Network protection
+# Network Security
 net.ipv4.conf.all.accept_redirects = 0
 net.ipv4.conf.default.accept_redirects = 0
 net.ipv6.conf.all.accept_redirects = 0
@@ -493,7 +357,7 @@ net.ipv4.icmp_echo_ignore_all = 1
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_timestamps = 0
 
-# Kernel protection
+# Kernel Protections
 kernel.sysrq = 0
 kernel.core_uses_pid = 1
 kernel.kptr_restrict = 2
@@ -503,81 +367,55 @@ kernel.yama.ptrace_scope = 2
 kernel.unprivileged_bpf_disabled = 1
 net.core.bpf_jit_harden = 2
 
-# Memory protection
+# Memory & ASLR Enhancements
 vm.mmap_rnd_bits = 32
 vm.mmap_rnd_compat_bits = 16
 vm.swappiness = 1
-
-# Maximum ASLR
 kernel.randomize_va_space = 2
 ```
-
-Apply with:
-
+Apply the configurations:
 ```bash
 sudo sysctl --system
 ```
 
-Let's say these parameters cover the basics. For a more complete configuration, you can refer to [TommyTran732's repository](https://github.com/TommyTran732/Linux-Setup-Scripts/blob/main/etc/sysctl.d/99-workstation.conf), which maintains an up-to-date sysctl configuration for workstations.
+### 2. Kernel Boot Parameters
 
-### Kernel boot parameters
+Add these flags to your bootloader configuration (e.g., `/etc/default/grub` under `GRUB_CMDLINE_LINUX` or via `rpm-ostree kargs`):
 
-These parameters need to be added to the bootloader configuration (GRUB or systemd-boot). On systems with rpm-ostree (Fedora Atomic), use `rpm-ostree kargs` instead of editing GRUB.
-
-#### CPU mitigations
-
-```
+#### CPU Mitigations:
+```text
 mitigations=auto,nosmt spectre_v2=on spectre_bhi=on spec_store_bypass_disable=on tsx=off kvm.nx_huge_pages=force nosmt=force l1d_flush=on spec_rstack_overflow=safe-ret gather_data_sampling=force reg_file_data_sampling=on
 ```
+*Note: Disabling Simultaneous Multi-Threading (`nosmt=force`) provides protection against side-channel exploits but reduces CPU performance on multi-core workloads.*
 
-**WARNING!** Disabling SMT (Simultaneous Multi-Threading / Hyper-Threading) has a significant performance impact. If you work with heavy workloads (compiling, video editing, gaming), you might want to remove `nosmt=force`, accepting a slightly higher risk.
-
-#### Memory and kernel protection
-
-```
+#### Memory Protection Parameters:
+```text
 slab_nomerge init_on_alloc=1 init_on_free=1 pti=on vsyscall=none page_alloc.shuffle=1 randomize_kstack_offset=on debugfs=off oops=panic quiet loglevel=0
 ```
+*   `init_on_alloc=1` / `init_on_free=1`: Overwrites allocated and freed memory pages with zeroes, preventing data reuse leaks.
+*   `slab_nomerge`: Blocks slab cache merging, reducing the exploitability of heap vulnerabilities.
 
-These parameters:
-- `slab_nomerge`: prevents merging of slab caches (reduces the effectiveness of heap exploits)
-- `init_on_alloc=1 init_on_free=1`: zeroes memory when it's allocated and freed (prevents data leaks)
-- `pti=on`: isolates kernel page tables from user ones (Meltdown mitigation)
-- `vsyscall=none`: disables legacy vsyscalls (a known attack vector)
-- `debugfs=off`: disables the debug filesystem (reduces the attack surface)
-
-#### DMA mitigations
-
-```
+#### Direct Memory Access (DMA) Mitigations:
+```text
 intel_iommu=on amd_iommu=force_isolation efi=disable_early_pci_dma iommu=force iommu.passthrough=0 iommu.strict=1
 ```
+Protects against physical DMA attacks via external ports (like Thunderbolt).
 
-These protect against DMA attacks from hardware devices (like Thunderbolt or PCIe). Remember that they don't offer complete protection: an attack during early boot can still compromise the kernel before the IOMMU is active.
-
-#### How to apply on Fedora (GRUB)
-
+Update your bootloader config:
 ```bash
-# Edit /etc/default/grub
-# Add the parameters to GRUB_CMDLINE_LINUX
+# Update GRUB configuration
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-```
 
-#### How to apply on Fedora Atomic (rpm-ostree)
-
-```bash
+# Or if using Fedora Atomic
 rpm-ostree kargs --append="slab_nomerge" --append="init_on_alloc=1" --append="init_on_free=1" --append="pti=on"
-# Add each parameter individually
 ```
 
-### Kernel module blacklist
+### 3. Kernel Module Blacklist
 
-Many kernel modules get loaded automatically but aren't necessary for your hardware. Every loaded module is extra code running with maximum privileges — a potential attack surface.
+Prevent the loading of unused legacy filesystems and network protocols to reduce kernel attack surface. Create `/etc/modprobe.d/blacklist.conf`:
 
-Create a file `/etc/modprobe.d/blacklist.conf`. A good starting point is [SecureBlue's blacklist](https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf).
-
-The most important modules to disable if you don't use them:
-
-```bash
-# Unnecessary filesystems
+```text
+# Unused Filesystems
 install cramfs /bin/false
 install freevxfs /bin/false
 install hfs /bin/false
@@ -585,74 +423,49 @@ install hfsplus /bin/false
 install jffs2 /bin/false
 install udf /bin/false
 
-# Unnecessary network protocols
+# Unused Protocols
 install dccp /bin/false
 install sctp /bin/false
 install rds /bin/false
 install tipc /bin/false
 
-# Bluetooth (comment out if you use it)
+# Bluetooth (comment out if required)
 install bluetooth /bin/false
 install btusb /bin/false
 
-# Thunderbolt (comment out if you use it)
+# Hardware Sensors & Accessories
 install thunderbolt /bin/false
-
-# Webcam (comment out if you use it)
 install uvcvideo /bin/false
 ```
 
-> **Warning!** Before disabling `hfsplus`, check the filesystem of your EFI partition. If it's HFS+, disabling it would prevent booting. Check with `df -T /boot/efi`.
+### 4. Hardened Memory Allocator
 
-### Hardened Memory Allocator
-
-The default memory allocator (glibc malloc) has no advanced protections against memory-corruption-based exploits. GrapheneOS's **hardened_malloc** is an alternative that adds guard pages, randomization, and integrity checks.
+Replace the standard glibc memory allocator with GrapheneOS's `hardened_malloc` to mitigate memory-corruption vulnerabilities.
 
 ```bash
-# Fedora — from SecureBlue's Copr repository
+# Install on Fedora
 sudo dnf copr enable secureblue/hardened_malloc
 sudo dnf install hardened_malloc
 
-# Arch — from AUR
+# Install on Arch
 yay -S hardened_malloc-git
 ```
 
-To enable it globally, add to `/etc/ld.so.preload`:
-
-```
+Enable it globally by appending it to `/etc/ld.so.preload`:
+```text
 /usr/lib64/libhardened_malloc.so
 ```
 
-Or for a single application:
+---
+
+## Application Sandboxing {#sandboxing style="color: white;"}
+
+### Flatpak Permission Hardening
+
+Flatpak runs applications inside sandbox namespaces. However, many desktop packages request permissive defaults. Use `flatpak override` to strip dangerous defaults globally:
 
 ```bash
-LD_PRELOAD=/usr/lib64/libhardened_malloc.so firefox
-```
-
-### Alternative kernels
-
-For those who want to go further, there are kernels with additional hardening patches:
-
-- **linux-hardened** (Arch Linux): includes security patches, disables unprivileged user namespaces by default (can break Podman/LXC/Flatpak — check compatibility)
-- **grsecurity**: the gold standard of kernel hardening, but it's proprietary and requires a paid subscription
-
-## Application sandboxing: Flatpak, Firejail, and SELinux {#sandboxing style="color: white;"}
-
-On a traditional Linux desktop, every application has access to almost everything: your files, the network, peripherals, the other running applications. Sandboxing limits this access to the bare minimum necessary.
-
-### Flatpak: the recommended option
-
-Flatpak is the most mature app distribution system for sandboxing on the Linux desktop. Each app runs in a sandbox with explicit permissions.
-
-The problem? Many Flatpak apps request overly broad permissions by default. Here's how to restrict them.
-
-
-
-#### Global permission restriction
-
-First apply a restrictive policy to all apps, then grant specific permissions where necessary:
-
-```bash
+# Harden system installations
 sudo flatpak override --system \
   --nosocket=x11 --nosocket=fallback-x11 \
   --nosocket=pulseaudio --nosocket=session-bus \
@@ -663,11 +476,8 @@ sudo flatpak override --system \
   --no-talk-name=org.freedesktop.systemd1 \
   --no-talk-name=ca.desrt.dconf \
   --no-talk-name=org.gnome.Shell.Extensions
-```
 
-Then do the same for the user-level installation:
-
-```bash
+# Harden user space overrides
 flatpak override --user \
   --nosocket=x11 --nosocket=fallback-x11 \
   --nosocket=pulseaudio --nosocket=session-bus \
@@ -680,138 +490,72 @@ flatpak override --user \
   --no-talk-name=org.gnome.Shell.Extensions
 ```
 
-#### Critical permissions to understand
-
-Here's what the most dangerous permissions mean:
-
-| Permission | Risk |
-|----------|---------|
-| `--socket=session-bus` / `--socket=system-bus` | Allows sandbox escape via D-Bus |
-| `--talk-name=org.freedesktop.Flatpak` | Allows sandbox escape via Flatpak's D-Bus |
-| `--talk-name=org.freedesktop.systemd1` | Allows loading arbitrary systemd services |
-| `--talk-name=ca.desrt.dconf` | Allows modifying keybindings (command execution) |
-| `--device=all` | Access to all devices (webcam, microphone, etc.) |
-| `--filesystem=host` | Access to the entire filesystem |
-| `--share=network` | Network access |
-
-**The strategy is**: revoke everything first, then test if the app works. If it doesn't work, grant one permission at a time until you find the minimum necessary.
-
-#### Flatseal: visual permission management
-
-To manage permissions without going crazy on the command line, install Flatseal:
-
+#### Manage Sandbox Overrides Visually (Flatseal)
+Install Flatseal to configure individual overrides via a graphical interface:
 ```bash
 flatpak install flathub com.github.tchx84.Flatseal
-
-flatpak --user override com.github.tchx84.Flatseal \
-  --filesystem=/var/lib/flatpak/app:ro \
-  --filesystem=xdg-data/flatpak/app:ro \
-  --filesystem=xdg-data/flatpak/overrides:create
 ```
 
-Flatseal will show you all the permissions of every Flatpak app with a clear, simple graphical interface.
+#### Dangerous Flatpak Permissions to Revoke:
+*   `--socket=session-bus` / `--socket=system-bus`: Allows D-Bus communication, which can be exploited to escape the sandbox.
+*   `--filesystem=host`: Grants full read/write access to the host file system.
+*   `--device=all`: Grants raw hardware access, including camera and microphone.
 
-**WARNING!** Don't enable unattended automatic Flatpak updates. When an app updates, new permissions get granted automatically without notification. Update manually and check the changelogs.
+### Firejail Sandbox (Fallback)
 
-### Firejail: for native apps
-
-For applications installed from the distribution's repositories (not Flatpak), Firejail can provide sandboxing based on namespaces and seccomp:
-
+For traditional applications that are not containerized via Flatpak, use Firejail to restrict their runtime access:
 ```bash
-# Installation
-sudo apt install firejail    # Debian/Ubuntu
 sudo dnf install firejail    # Fedora
+sudo apt install firejail    # Debian
 sudo pacman -S firejail      # Arch
 
-# Automatic activation for all apps with a profile
+# Enable globally for supported CLI/GUI tools
 sudo firecfg
 ```
 
-`firecfg` creates symlinks that automatically route applications through Firejail when you launch them from the menu.
+---
 
-**Firejail's limitations:**
-- It's a very large SUID binary, with a significant attack surface (elevated privileges)
-- The sandboxing can be bypassed if you launch the app directly from `/usr/bin/app_name` instead of from the menu
-- Its main advantage over Flatpak: it can confine X11 windows using Xpra/Xephyr
+## Secure Boot & Physical Protection {#sicurezza-fisica style="color: white;"}
 
-In my opinion, if you can use Flatpak, prefer it. Use Firejail only for apps not available as Flatpak.
+### Custom Secure Boot Signing (sbctl)
 
-### Mandatory Access Control (MAC)
+Instead of relying on Microsoft's third-party keys, generate and enroll your own Secure Boot keys to sign your kernel and bootloader.
 
-MAC systems like SELinux and AppArmor add an access control layer that goes beyond traditional Unix permissions. Even if an application runs as root, MAC can prevent it from accessing resources not authorized by policy.
+On **Arch Linux**:
+1.  Enter your BIOS/UEFI configuration page and toggle Secure Boot to **Setup Mode** (this clears Microsoft keys).
+2.  Boot into Linux and generate your signature databases:
+    ```bash
+    sudo pacman -S sbctl
+    sudo sbctl create-keys
+    sudo sbctl enroll-keys
+    ```
+3.  Sign your boot files:
+    ```bash
+    sudo sbctl sign -s /boot/vmlinuz-linux
+    sudo sbctl sign -s /boot/EFI/BOOT/BOOTX64.EFI
+    ```
+4.  Re-enable Secure Boot in the UEFI settings. The system will now boot only packages signed by your personal keys.
 
-- **Fedora**: SELinux is active and in enforcing mode by default. Don't disable it
-- **openSUSE**: you can choose between SELinux and AppArmor during installation
-- **Arch**: you have to install and configure AppArmor manually
+### BadUSB Protection (USBGuard)
 
-Remember that on traditional desktop distributions, MAC only confines some system daemons, not all applications. It's an important defense layer but not a complete one.
-
-## Secure Boot and physical system security {#sicurezza-fisica style="color: white;"}
-
-All the software hardening in the world is useless if someone can physically access your machine and tamper with it.
-
-### Secure Boot with custom keys
-
-Standard Secure Boot verifies that the bootloader and kernel are signed by trusted keys (usually Microsoft's). The problem? Microsoft's keys have a huge attack surface because they sign third-party drivers and bootloaders.
-
-
-
-On **Arch Linux**, with **sbctl** you can enroll your own personal keys:
-
-1. Enter UEFI firmware and put Secure Boot into "setup mode"
-2. Boot Linux and install sbctl
-3. Generate and enroll your keys:
-
-```bash
-# Installation (Arch)
-sudo pacman -S sbctl
-
-# Key generation
-sudo sbctl create-keys
-
-# Key enrollment
-sudo sbctl enroll-keys
-
-# Signing the kernel and bootloader
-sudo sbctl sign -s /boot/vmlinuz-linux
-sudo sbctl sign -s /boot/EFI/BOOT/BOOTX64.EFI
-```
-
-On Fedora the procedure requires different paths and packaging: check your distribution's up-to-date documentation before following equivalent steps.
-
-**WARNING!** This procedure can brick some non-conformant UEFI implementations. Research your specific hardware before proceeding. Have an EEPROM reprogramming method ready as a fallback.
-
-### Unified Kernel Image (UKI)
-
-A UKI combines the kernel, initramfs, and microcode into a single signed image. This prevents tampering with the initramfs (an attack vector that standard Secure Boot doesn't cover).
-
-The configuration is specific to each distribution and bootloader. On Fedora with systemd-boot and dracut, the process involves:
-
-1. Configuring dracut to generate the UKI
-2. Signing the UKI with the sbctl keys
-3. Binding the encryption keys to the TPM's PCRs (minimum PCR 7, ideally PCRs 0,1,2,3,5,7,14)
-
-**Note**: UKIs don't currently work well with Fedora Silverblue/Kinoite. This is a known limitation.
-
-### Post-setup protections
-
-- **UEFI password**: set a supervisor/administrator password in the UEFI firmware to prevent changes to boot settings
-- **Disable USB boot**: prevents someone from booting a live system from your hardware
-- **USBGuard**: protects against BadUSB and Rubber Ducky attacks by controlling which USB devices are authorized
+Configure USBGuard to prevent unauthorized USB devices (such as malicious keystroke injection tools) from executing code when connected.
 
 ```bash
 sudo dnf install usbguard    # Fedora
-sudo apt install usbguard    # Debian/Ubuntu
+sudo apt install usbguard    # Debian
 
-# Generate a policy based on currently connected devices
+# Generate a policy containing currently connected devices
 sudo usbguard generate-policy > /etc/usbguard/rules.conf
+
+# Start and enable the service
 sudo systemctl enable --now usbguard
 ```
 
-### Disabling media auto-mount
+### Disabling Media Auto-Mount
 
-Auto-mounting USB drives and other removable media is a classic attack vector. On GNOME:
+Ensure your desktop environment does not automatically execute files or parse directory contents upon USB connection.
 
+On **GNOME**:
 ```bash
 echo '[org/gnome/desktop/media-handling]
 automount=false
@@ -823,145 +567,84 @@ org/gnome/desktop/media-handling/automount-open' | sudo tee /etc/dconf/db/local.
 sudo dconf update
 ```
 
-## SSH hardening, authentication, and access {#autenticazione style="color: white;"}
+---
 
-### SSH hardening
+## Access & SSH Hardening {#autenticazione style="color: white;"}
 
-If you have SSH active (maybe for remote access to your desktop), it's essential to configure it correctly. Edit `/etc/ssh/sshd_config`:
+### SSH Configuration Security
 
-```bash
-# Disable root login
+If running an SSH daemon, edit `/etc/ssh/sshd_config` to secure remote entry:
+
+```text
 PermitRootLogin no
-
-# Public key authentication only
 PasswordAuthentication no
 PubkeyAuthentication yes
-
-# Limit login attempts
 MaxAuthTries 3
-
-# Disable unnecessary forwarding
 X11Forwarding no
 AllowTcpForwarding no
 AllowAgentForwarding no
-
-# Timeout for inactive sessions
 ClientAliveInterval 300
 ClientAliveCountMax 2
-
-# Limit which users can connect
 AllowUsers your_username
 ```
-
-After the changes:
-
+Restart the SSH daemon:
 ```bash
 sudo systemctl restart sshd
 ```
 
-I strongly recommend using **only SSH keys** for authentication (disabling passwords completely). To generate a key pair:
-
+Generate secure, modern keys using Ed25519:
 ```bash
 ssh-keygen -t ed25519 -a 100
 ```
 
-### Two-factor authentication with FIDO2
+### Hardware Authentication (pam-u2f)
 
-For local login and sudo, you can add a second factor using a FIDO2 key (like a YubiKey):
+Integrate FIDO2 hardware keys into your PAM stack to require physical verification for `sudo` commands and local logins.
 
 ```bash
-# Installation
 sudo dnf install pam-u2f      # Fedora
-sudo apt install libpam-u2f   # Debian/Ubuntu
+sudo apt install libpam-u2f   # Debian
 
-# Registering the key
+# Bind your physical key
 mkdir -p ~/.config/Yubico
 pamu2fcfg > ~/.config/Yubico/u2f_keys
 ```
 
-> **Warning!** When configuring pam-u2f, always use hardcoded values for `origin` and `appid` as described in the ArchWiki documentation. Don't use the `pam://$HOSTNAME` defaults, because if you change the hostname, login will stop working.
+Configure PAM files under `/etc/pam.d/` (such as `system-auth` or `sudo`) to require the `pam_u2f.so` module for successful authentication.
 
-### PAM hardening (Fedora/RHEL)
+---
 
-On Red Hat-based distributions, `authselect` simplifies PAM hardening:
+## Disabling Unnecessary Services {#servizi style="color: white;"}
 
+Minimize your local listening ports. Review active services:
 ```bash
-# Replace "profile_name" with the authselect profile currently in use
-sudo authselect select profile_name with-faillock without-nullok with-pamaccess
-```
-
-This enables:
-- **faillock**: locks the account after too many failed attempts
-- **without-nullok**: prevents login with an empty password
-- **with-pamaccess**: enables access control via `/etc/security/access.conf`
-
-### User and privilege management
-
-Some basic rules that are often ignored:
-
-- **Don't use root directly**: always use `sudo` for privileged commands
-- **Limit the sudo/wheel group**: only users who actually need it
-- **Password policy**: set a reasonable minimum length and complexity
-- **Audit accounts**: remove or disable unused accounts
-
-```bash
-# Check users with a login shell
-grep -v '/nologin\|/false' /etc/passwd
-
-# Lock an unused account
-sudo usermod -L username
-
-# Check who's in the sudo/wheel group
-getent group sudo    # Debian/Ubuntu
-getent group wheel   # Fedora/Arch
-```
-
-## Reducing the attack surface: disabling unnecessary services {#servizi style="color: white;"}
-
-Every running service is a potential entry point. The principle is simple: if you don't use it, turn it off.
-
-```bash
-# List all active services
 systemctl list-units --type=service --state=running
-
-# Disable an unnecessary service
-sudo systemctl disable --now service_name
+```
+Disable services that are not required for your system:
+```bash
+sudo systemctl disable --now cups              # Printing daemon
+sudo systemctl disable --now avahi-daemon      # Multicast DNS (mDNS) discovery
+sudo systemctl disable --now sshd              # Remote access SSH daemon
 ```
 
-Services commonly unnecessary on a desktop:
-
-| Service | Function | When to disable |
-|----------|----------|---------------------|
-| `cups` | Printing | If you don't have printers |
-| `avahi-daemon` | Network service discovery (mDNS) | If you don't use Bonjour/zeroconf |
-| `bluetooth` | Bluetooth | If you don't use Bluetooth devices |
-| `sshd` | SSH server | If no one connects to your PC remotely |
-| `rpcbind` | RPC/NFS | If you don't use NFS shares |
-
-To check which ports are listening:
-
+Verify active listening sockets:
 ```bash
 sudo ss -tulnp
 ```
 
-If you see listening services you don't recognize, investigate before disabling them.
+---
 
-## Wayland vs X11: display server security {#wayland style="color: white;"}
+## Display Server Security: XWayland Isolation {#wayland style="color: white;"}
 
-As mentioned earlier, Wayland is now the default graphics protocol on most modern distributions. This is a huge step forward for security, because the old X11 had no concept of isolation between windows at all.
+While Wayland is secure, legacy applications running via the **XWayland** compatibility layer are not isolated from one another. A compromised XWayland application can monitor keystrokes or scrape screen buffers from other legacy applications.
 
-That said, you might still have **XWayland** active on your system. XWayland is a compatibility layer that lets old X11 applications run under Wayland. The problem is that it reintroduces some of X11's security flaws: apps running under XWayland can potentially capture the input and screen of other XWayland apps (though not of native Wayland ones).
-
-To check if XWayland is active:
-
+To audit if XWayland is active:
 ```bash
-# If it returns results, XWayland is in use
 xlsclients 2>/dev/null
 ```
+If it returns output, applications are executing inside XWayland.
 
-For most users, the current situation is already good: the main apps (browsers, file managers, terminals, editors) all support native Wayland. The few apps that still require XWayland are generally older or specialized ones.
-
-If you want maximum security and you're sure all your apps run on native Wayland, you can completely disable XWayland on GNOME. Create the file `/etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf`:
+For maximum security on native Wayland desktops, completely disable X11 fallback support in GNOME. Create `/etc/systemd/user/org.gnome.Shell@wayland.service.d/override.conf`:
 
 ```ini
 [Service]
@@ -969,171 +652,63 @@ ExecStart=
 ExecStart=/usr/bin/gnome-shell --no-x11
 ```
 
-Electron apps (VS Code, Discord, Slack, etc.) generally work with Wayland using the `--ozone-platform=wayland` flag.
-
-## Logging and auditing: monitoring system security {#logging style="color: white;"}
-
-A secure system also needs to be observable. If something goes wrong, logs are your only source of information for understanding what happened.
-
-### journald configuration
-
-Systemd journal is the default logging system. Make sure it's configured to persist logs across reboots:
-
-```bash
-# Make sure the directory exists
-sudo mkdir -p /var/log/journal
-
-# Edit /etc/systemd/journald.conf
-# Set:
-Storage=persistent
-Compress=yes
+For Electron applications (VS Code, Slack, Discord), force native Wayland execution by appending these arguments:
+```text
+--ozone-platform=wayland
 ```
 
-### Auditd
+---
 
-For more detailed auditing of system operations, install and configure auditd:
+## Auditing and System Audits {#verifica style="color: white;"}
 
+### Manual Audits
+
+1.  **Encryption Verification**:
+    ```bash
+    sudo cryptsetup status /dev/mapper/volume_name
+    ```
+2.  **Firewall Verification**:
+    ```bash
+    sudo firewall-cmd --list-all      # firewalld
+    sudo ufw status verbose           # ufw
+    ```
+3.  **Kernel Settings Verification**:
+    ```bash
+    cat /proc/cmdline
+    sysctl kernel.yama.ptrace_scope   # Must return 2
+    ```
+
+### Automated Audits (Lynis)
+
+Run a comprehensive security audit using Lynis to inspect configurations, directory permissions, and system services:
 ```bash
-sudo dnf install audit        # Fedora
-sudo apt install auditd       # Debian/Ubuntu
-
-sudo systemctl enable --now auditd
-```
-
-Useful audit rules for a desktop:
-
-```bash
-# Monitor changes to authentication files
-sudo auditctl -w /etc/passwd -p wa -k identity
-sudo auditctl -w /etc/shadow -p wa -k identity
-sudo auditctl -w /etc/group -p wa -k identity
-sudo auditctl -w /etc/sudoers -p wa -k sudoers
-
-# Monitor execution of privileged commands
-sudo auditctl -w /usr/bin/sudo -p x -k privileged
-sudo auditctl -w /usr/bin/su -p x -k privileged
-```
-
-To make the rules persistent, add them to `/etc/audit/rules.d/hardening.rules`.
-
-## Verifying the setup: security tests and audits {#verifica style="color: white;"}
-
-Never trust a setup you haven't tested. Here's how to verify everything works.
-
-### Verification checklist
-
-After applying the configurations in this guide, verify each component:
-
-**1. Disk encryption**
-```bash
-# Verify that LUKS is active
-sudo cryptsetup status /dev/mapper/volume_name
-# Should show "active" and the encryption details
-```
-
-**2. Firewall**
-```bash
-# Fedora
-sudo firewall-cmd --list-all
-# The default zone must be "drop"
-
-# Ubuntu
-sudo ufw status verbose
-# Should show "deny (incoming)"
-```
-
-**3. Kernel parameters**
-```bash
-# Check the boot parameters
-cat /proc/cmdline
-# You should see the parameters you added
-
-# Check the sysctls
-sudo sysctl kernel.kptr_restrict
-# Should return 2
-sudo sysctl kernel.dmesg_restrict
-# Should return 1
-```
-
-**4. SELinux/AppArmor**
-```bash
-# SELinux (Fedora)
-getenforce
-# Should return "Enforcing"
-
-# AppArmor (Debian/Ubuntu/openSUSE)
-sudo aa-status
-# Shows the loaded and active profiles
-```
-
-**5. Flatpak permissions**
-```bash
-# Check the global overrides
-flatpak override --show
-# Should show the restrictions you applied
-```
-
-**6. SSH**
-```bash
-# Test the SSH configuration
-sudo sshd -t
-# Should not return any errors
-
-# Verify that root login is disabled
-grep "PermitRootLogin" /etc/ssh/sshd_config
-# Should show "no"
-```
-
-**7. Listening services**
-```bash
-sudo ss -tulnp
-# Verify there are no unexpected services listening
-```
-
-**8. MAC address**
-```bash
-# Check that the MAC is randomized
-ip link show
-# The MAC should change with every connection
-```
-
-### Automated audit tools
-
-For a more thorough check, you can use:
-
-```bash
-# Lynis — complete security audit
 sudo dnf install lynis    # Fedora
-sudo apt install lynis    # Debian/Ubuntu
+sudo apt install lynis    # Debian
 
 sudo lynis audit system
 ```
 
-Lynis will give you a security score and a detailed list of suggestions to further improve your setup.
+Review the output warnings and recommendations to further harden your system.
+
+---
 
 ## Conclusions {#conclusioni style="color: white;"}
 
-You made it, great heroes! 🛡️
+Your Linux workstation is now hardened with:
+- **Full Disk Encryption** to secure data at rest.
+- **Strict Local Firewall Rules** to block inbound connection vectors.
+- **Hardened Sysctls and Boot Parameters** to mitigate kernel exploits.
+- **Granular Flatpak Permissions** to run desktop apps securely.
+- **Hardware-based U2F Keys** to secure logins and sudo access.
+- **Audit Logging (auditd)** to monitor filesystem tampering.
 
-You've turned a standard Linux install into a hardened system with:
-
-- **Disk encryption** to protect data at rest
-- **Restrictive firewall** to control network traffic
-- **Hardened kernel** with advanced security parameters
-- **Sandboxing** to isolate applications
-- **MAC** to control access at the system level
-- **Custom Secure Boot** to protect the boot process
-- **Logging and auditing** to monitor the system
-
-Remember: security isn't a destination, it's a journey. Keep the system updated, check the logs periodically, review configurations whenever you add new software. And above all, never stop learning.
-
-Thanks so much for reading! If this guide was useful to you, share it with anyone you think could benefit from it. The more aware turtles there are, the safer the sea is for everyone.
+Keep your system updated, monitor logs, and regularly audit application permissions to maintain your security posture. 🛡️
 
 ---
 
 ## Related Guides
 
-- **[Self-Hosted VPN: Wireguard + Pi-Hole + Unbound](/vpn)** - Build your own private VPN for an encrypted, ad-free connection
-- **[How to Create a Threat Model](/threat-model)** - The first step to understanding what to protect and from whom
-- **[The Complete Guide to macOS Security](/macos-security)** - Hardening for those who also use macOS
-- **[The Definitive Guide to GrapheneOS](/graphene)** - The most secure mobile operating system in the world
+- **[Self-Hosted VPN: WireGuard + Pi-hole + Unbound](/vpn)** — Secure your internet connection on public networks.
+- **[How to Build a Threat Model](/threat-model)** — Identify assets and potential vulnerabilities.
+- **[macOS Security Guide](/macos-security)** — Hardening steps for macOS development.
+- **[GrapheneOS: The Definitive Guide](/graphene)** — Secure your mobile operating system.

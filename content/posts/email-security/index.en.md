@@ -53,15 +53,15 @@ howto:
       url: "/email-security#passkey-e-il-futuro-dellautenticazione"
 ---
 
-> **TL;DR** - In this guide you will learn:
-> - How email encryption works and why STARTTLS isn't enough
-> - What SPF, DKIM and DMARC are and how they protect against spoofing
-> - Why email is the weak link in the security of all your accounts
-> - What the future holds: end-to-end encryption, DKIM2, and the end of plaintext email
+> **TL;DR** — In this guide, you will learn:
+> - How email encryption works and why STARTTLS is insufficient.
+> - How SPF, DKIM, and DMARC prevent spoofing.
+> - Why email is the single point of failure (weakest link) for account security.
+> - Future developments: native end-to-end encryption, DKIM2, and the deprecation of plaintext email.
 
 ## Summary
 
-Email is not secure by default: it protects metadata poorly, often uses only hop-by-hop encryption, and remains the password-recovery point for almost every account. To reduce the risk you need hardware 2FA, a trustworthy provider, remote images disabled, separate account recovery, and domain authentication with SPF, DKIM and DMARC.
+Email is not secure by design. It fails to protect metadata, relies on hop-by-hop encryption rather than end-to-end security, and acts as the master password-recovery key for almost all online accounts. To mitigate these risks, you should enable hardware-based multi-factor authentication (MFA), choose a secure provider, disable HTML and remote images in your email client, configure offline backup codes for third-party accounts, and secure your email domains using SPF, DKIM, and DMARC.
 
 Email is the invisible backbone of your digital life. Every account you create, every password you reset, every important communication... almost always passes through email. But have you ever wondered how secure it actually is?
 
@@ -71,208 +71,175 @@ In this guide we'll go through the current state of email security together, fro
 
 ## Email Encryption {#crittografia-delle-email}
 
-Let's start with the basics: how are your emails protected during transport and at rest? Let's just say the situation is... complicated.
+How are your emails protected in transit and at rest? The current standards are complex and often fall short of modern security expectations.
 
-### STARTTLS: the lock you can remove
+### STARTTLS: The Removable Lock
 
-STARTTLS is the most common mechanism for encrypting email in transit. The idea is simple: the mail client negotiates a TLS (encrypted) connection with the server before sending the message.
+STARTTLS is the most common protocol for securing email in transit. It commands a plaintext SMTP connection to upgrade to a secure TLS tunnel.
 
-The problem? The negotiation phase happens **in plaintext**. This means an attacker positioned on the network can literally strip the STARTTLS command out of the traffic, forcing the connection to stay unencrypted. It's called a *downgrade attack*, and your client might not notice at all.
+The vulnerability is that the upgrade negotiation occurs **in plaintext**. An attacker positioned on your local network or path (MitM) can strip the STARTTLS command from the handshake, forcing the servers to fallback to unencrypted communication. This is known as a **downgrade attack**, and most clients will fail to warn you.
 
-Think of it this way: it's like knocking on an armored door, except someone could remove the door before you walk in, leaving you facing an unprotected opening.
+Furthermore, even when negotiation succeeds, STARTTLS only secures the connection **hop-by-hop** (from your client to your provider's server, then from server to server). Because the email is decrypted and re-encrypted at each hop, it is not end-to-end encrypted; any server in the transit path can access its contents.
 
-Furthermore, even when STARTTLS works correctly, the encryption is only *hop-by-hop*: the message is decrypted and re-encrypted at every intermediate server. It is not end-to-end encryption — every server in the chain can read the content.
+### SMTPS (Implicit TLS)
 
+SMTPS (Implicit TLS) fixes the downgrade vulnerability. Instead of starting in plaintext and upgrading, SMTPS establishes an encrypted TLS session immediately at connection startup, similar to HTTPS.
 
-
-### SMTPS: the improved version
-
-SMTPS (Implicit TLS) solves the downgrade problem. Instead of negotiating encryption after the connection is established, it starts directly with an encrypted connection, exactly like HTTPS does for websites.
-
-The standard port for SMTPS is **465**, while **587** remains for STARTTLS. In theory this is a clear improvement; in practice, years of confusion between ports (25, 465, 587, 2525) have created quite a mess of standardization across providers.
+By default, SMTPS operates on port **465**, whereas STARTTLS uses port **587**. Despite being a superior security standard, legacy configurations and historic confusion over ports have slowed its universal adoption.
 
 ### POP3S and IMAPS
 
-The protocols used to *download* mail from servers also support encryption:
+The retrieval protocols used to download mail from servers also support transport encryption:
 
-- **POP3S** uses TLS on port **995**
-- **IMAPS** uses TLS on port **993**
+*   **POP3S** enforces TLS on port **995**.
+*   **IMAPS** enforces TLS on port **993**.
 
-These guarantee that retrieving email from the server happens over an encrypted channel. Good, but they don't solve the problem of encrypting the content itself.
+These protocols ensure that your mail client downloads messages over a secure channel, but they do not secure the emails themselves on the servers or in transit across third-party relays.
 
-### OpenPGP: powerful but impractical
+### OpenPGP: Secure but Complex
 
-Pretty Good Privacy (PGP) is the grandfather of email encryption. Created in 1991 by Phil Zimmermann, it was later standardized as OpenPGP.
+Pretty Good Privacy (PGP), created in 1991, remains the standard for true end-to-end email encryption. Using asymmetric cryptography, the sender encrypts the message using the recipient's public key, and the recipient decrypts it using their private key. No intermediate relay can read the message body.
 
-The concept is solid: asymmetric encryption with public and private keys. The sender encrypts with the recipient's public key, and the recipient decrypts with their own private key. No intermediary can read the message.
+However, PGP has major usability and design issues:
 
-**The problem?** Key management is a nightmare. You have to:
-- Generate a key pair
-- Distribute your public key
-- Verify other people's keys (the famous *key signing parties*)
-- Guard your private key with extreme care
+*   **Key Management Complexity**: Generating, distributing, and verifying public keys remains difficult for non-technical users.
+*   **Lack of Forward Secrecy**: If your private key is compromised, an adversary who has recorded your network traffic can decrypt **all historical messages** encrypted with that key.
+*   **Plaintext Metadata**: OpenPGP does not encrypt headers. The sender, recipient, date, and subject line remain visible to network observers.
 
+### S/MIME: Corporate Verification
 
+S/MIME uses X.509 digital certificates (similar to TLS web certificates) to sign and encrypt emails. It is integrated natively into many corporate email clients, making certificate handling automated.
 
-If your private key is compromised, **every past message** becomes readable. That's because OpenPGP does not support *forward secrecy*, a property that, in my opinion, should be table stakes in 2026.
+However, S/MIME certificates are expensive, expire annually, and rely on centralized Certificate Authorities (CAs). Like OpenPGP, S/MIME does not support forward secrecy.
 
-Another critical point: OpenPGP **does not encrypt metadata**. Sender, recipient, date, subject... all remain in plaintext. An observer can't read the content, but knows exactly who is talking to whom, when, and on what topic.
+### Web Key Directory (WKD)
 
-### S/MIME: better UX, worse for your wallet
-
-S/MIME uses X.509 digital certificates (the same ones used on the web) to encrypt and authenticate emails. It's more user-friendly than PGP because certificate management is partially automated through certificate authorities (CAs).
-
-The downside? Certificates cost money, expire, and need renewal. Like PGP, S/MIME doesn't support forward secrecy. In practice, it's used almost exclusively in corporate environments where IT manages everything centrally.
-
-### Web Key Directory
-
-WKD is an elegant solution to the problem of distributing PGP keys. Instead of looking up keys on unreliable public key servers, your email client queries the recipient's domain directly to get their public key.
-
-It's like an automatic phone book for cryptographic keys. Simple, decentralized, and it works. Unfortunately, adoption is still limited.
+WKD is a decentralized standard for PGP public key discovery. Instead of searching key servers, your email client queries the recipient's domain directly (e.g., `https://example.com/.well-known/openpgpkey/...`) to fetch their public key automatically. While convenient, it requires domain-level configuration, and adoption remains low.
 
 ## Email Authentication {#autenticazione-delle-email}
 
-If encryption protects the *content*, authentication protects the *identity*. How do you know that an email from `bank@example.com` actually comes from your bank and not from a scammer?
+If encryption secures your content, authentication verifies your identity. How can you verify that an email claiming to be from `bank@example.com` is legitimate?
 
-### SPF: the guest list
+### SPF: The Sender Guest List
 
-SPF (Sender Policy Framework) works like a guest list at a party. The owner of a domain publishes a DNS record listing all the servers authorized to send email for that domain.
+Sender Policy Framework (SPF) is a DNS record where the domain owner lists all IP addresses and servers authorized to send emails on their behalf.
 
-When the recipient's server receives an email, it checks: "Is this server on the authorized list?" If not, the email is suspicious.
+When a server receives an email, it looks up the SPF record of the sender's domain. If the sending IP is not on the list, the email fails authentication.
 
-**SPF's limitations:**
-- It relies on DNS, which has no authentication mechanisms of its own
-- It doesn't verify the individual user, only the server
-- It has optional enforcement modes: a domain can configure `-all` (reject anything not on the list), `~all` (accept anyway with a warning), or even `+all` (accept everything). Security depends entirely on the configuration
+**Limitations**:
+*   SPF does not verify the individual sender, only the sending server's IP address.
+*   It breaks when emails are forwarded, as the forwarding server's IP will not match the original sender's domain SPF record.
+*   Domain owners can configure varying enforcement flags: `~all` (soft fail, warning only) or `-all` (hard fail, reject). Many domains use soft fail, reducing the security benefit.
 
-### DKIM: the digital signature
+### DKIM: Cryptographic Signature
 
-DKIM (DomainKeys Identified Mail) adds a cryptographic signature to emails. The provider generates a key pair, publishes the public one in DNS, and signs every outgoing email with the private one.
+DomainKeys Identified Mail (DKIM) adds a cryptographic signature to the headers of outgoing emails. The domain owner publishes a public key in their DNS record and signs emails with a private key.
 
-The receiving server verifies the signature: if the message was altered in transit, the signature no longer matches. It's an effective system for detecting tampering.
+The receiving server fetches the public key and verifies the signature. If any part of the email body or headers was altered in transit, the signature validation fails.
 
-**Be careful though:** the keys are held by your email provider, not by you. Your provider could theoretically modify a message before signing it. Also, DKIM doesn't encrypt anything — it only verifies the integrity and authenticity of the domain.
+*Note: DKIM signatures are applied by your mail provider, not by your client. While it guarantees domain integrity, it does not encrypt your message content.*
 
-### DMARC: the bouncer
+### DMARC: The Policy Enforcer
 
-DMARC (Domain-based Message Authentication, Reporting and Conformance) is the piece that ties SPF and DKIM together. It tells receiving servers: "If an email fails SPF and DKIM checks, here's what to do."
+Domain-based Message Authentication, Reporting, and Conformance (DMARC) coordinates SPF and DKIM. It tells receiving mail servers how to handle emails that fail SPF and DKIM checks.
 
-The possible policies are:
-- **none**: do nothing (monitoring only)
-- **quarantine**: send to spam
-- **reject**: reject completely
+DMARC policy options include:
+*   `p=none`: Monitor and log failed delivery reports only.
+*   `p=quarantine`: Route failed emails to the spam folder.
+*   `p=reject`: Block delivery of failed emails entirely.
 
-A well-configured DMARC record looks like this:
-
-```
+A secure DMARC configuration looks like this:
+```text
 v=DMARC1; p=reject; adkim=s; aspf=s;
 ```
+Here, `p=reject` blocks unauthenticated mail, and `adkim=s` / `aspf=s` enforce strict domain alignment for DKIM and SPF checks.
 
-Where `p=reject` says to reject unauthenticated emails, and `adkim=s` / `aspf=s` enforce strict alignment.
+### DNSSEC: Securing the DNS Chain
 
+Because SPF, DKIM, and DMARC query DNS, their security relies on the integrity of DNS records. If an attacker performs a DNS cache poisoning attack, they can spoof the DNS records and bypass authentication.
 
+DNSSEC (Domain Name System Security Extensions) solves this by digitally signing DNS records. This creates a cryptographic chain of trust up to the root zone managed by IANA, ensuring your DNS queries are tamper-proof.
 
-### DNSSEC: authenticating DNS itself
+### DANE and MTA-STS: Enforcing Transit Security
 
-SPF, DKIM and DMARC all rely on DNS. But DNS was created in the 1980s with no security whatsoever. An attacker who manages to manipulate DNS responses (cache poisoning) can bypass all of these checks.
+These protocols prevent attackers from stripping transport security:
 
-A 2014 study from Carnegie Mellon showed that emails apparently coming from Gmail, Yahoo! and Outlook.com could be hijacked through malicious servers. Not exactly reassuring.
+*   **DANE (DNS-based Authentication of Named Entities)**: Relies on DNSSEC to bind TLS certificates to mail servers, ensuring clients reject unencrypted or self-signed connections.
+*   **MTA-STS (Mail Transfer Agent Strict Transport Security)**: Uses HTTPS and web PKI to declare that a mail server requires TLS. It is simpler to implement than DANE but relies on traditional Certificate Authorities."
 
-DNSSEC solves this problem by digitally signing DNS responses, creating a chain of trust that goes all the way up to the root zone, managed by IANA. It's like a notary certifying that every DNS response is authentic.
+## Email: The Weakest Link in Account Security {#lemail-come-punto-debole}
 
-### DANE and MTA-STS: forcing encryption
+Because email is the default fallback for password resets and multi-factor authentication (MFA) recovery, **the security of almost all your online accounts depends entirely on the security of your inbox**. If an attacker gains access to your email account, they can reset the passwords of your banking, social media, and cloud hosting accounts.
 
-These two protocols tackle the same problem — forcing the use of TLS between email servers — but with different approaches:
+### Recommendations to Secure Your Inbox:
 
-- **DANE** relies on DNSSEC and uses TLSA records to bind TLS certificates to DNS names, bypassing traditional CAs
-- **MTA-STS** uses HTTPS and the existing web PKI, similar to how HSTS works for websites. It's easier to implement but introduces an additional dependency on CAs
+1.  **Hardware Multi-Factor Authentication (MFA)**: Enable 2FA on your email account using a FIDO2 hardware key (like a YubiKey) rather than insecure SMS or authenticator apps.
+2.  **Use Backup Codes**: For critical accounts, replace email-based recovery options with offline, physical backup codes stored in a secure location.
+3.  **Use Email Solely for Communication**: Do not use your primary inbox as a master recovery vault.
 
-Both are a significant step forward compared to the current situation.
+### Client Attack Surfaces {#client-di-terze-parti-e-superficie-dattacco}
 
-## Email as the Weak Link {#lemail-come-punto-debole}
+Using desktop email clients (e.g., Thunderbird, Apple Mail) increases your local attack surface. Because email clients process HTML, CSS, and occasionally JavaScript, they function like web browsers but without equivalent sandboxing.
 
-This is the point that, in my opinion, deserves more attention than any other.
+Since anyone can send an email to your address at any time, a vulnerability in your mail client's parsing engine can lead to local code execution.
 
-Email has become the default recovery method for practically every online account. Forgot your password? Email. Two-factor verification? Email. Switching devices? Email.
-
-This means **the security of all your accounts depends on the security of your email**. If someone gets into your inbox, they have the keys to the castle.
-
-It's a situation similar to the vulnerability of SMS-based 2FA, with the difference that email is even less secure, because it typically has no end-to-end encryption.
-
-**What you can do today:**
-1. Enable two-factor authentication on the email account itself (ideally with a hardware key, not SMS)
-2. Where possible, replace email as a recovery method with **recovery codes** stored offline
-3. Use email for what it is: messaging and communication, not a universal keyring
-
-### Third-Party Clients and Attack Surface {#client-di-terze-parti-e-superficie-dattacco}
-
-Using a third-party email client (Thunderbird, Apple Mail, etc.) offers flexibility, but adds another link to the chain of trust. Every additional client is a potential entry point for vulnerabilities.
-
-Email clients have a surprisingly large attack surface: many of them support JavaScript and complex HTML, making them almost like web browsers, but without the same level of hardening and scrutiny. And since anyone can send you an email at any time, the client has to constantly defend itself against potentially malicious content.
-
-I strongly recommend disabling the loading of remote images and the execution of HTML/JavaScript wherever possible. It's not convenient, but it's safer.
+**Best Practice**: Configure your mail client to display emails in plaintext by default and disable the automatic loading of remote images. This prevents tracking pixels and blocks client exploits."
 
 ## The Future of Email Security
 
-So far the picture isn't exactly rosy. But there are promising developments on the horizon that could change things significantly.
+Several protocols are in development to address email's historical design flaws:
 
-### Improvements to OpenPGP
+### OpenPGP Modernization
 
-The IETF working group is working on important updates:
-- **Post-quantum cryptography**: protection against future quantum computers
-- **Forward secrecy**: finally! If a key is compromised, past messages remain protected
-- **Key Transparency**: public, verifiable, tamper-proof logs for keys, similar to what WhatsApp has implemented. This could make key verification automatic and transparent
-- **QR code verification**: like in modern messengers, to verify contacts' identity in person
+The IETF is developing updates to the OpenPGP standard:
+*   **Post-Quantum Cryptography**: Upgrading encryption algorithms to resist future quantum attacks.
+*   **Forward Secrecy**: Implementing ephemeral key exchanges so compromising a master key does not compromise historical traffic.
+*   **Key Transparency**: Using public, append-only logs (similar to WhatsApp's cryptographic verification) to verify public keys automatically without manual key exchanges.
 
-### Improvements to S/MIME
+### S/MIME Updates
 
-The LAMPS working group is focused on post-quantum cryptography, with "dual signature" schemes that combine traditional and post-quantum cryptography. A cautious approach: if one of the two systems is broken, the other still protects you.
+The LAMPS working group is standardizing hybrid signature systems, combining classical and post-quantum cryptography to ensure long-term message integrity.
 
-### DKIM2: putting a stop to mass spam
+### DKIM2: Mitigating Reply Attacks
 
-The current version of DKIM has a serious problem: an attacker can take a legitimately signed email and resend it thousands of times from different domains, ruining the reputation of the original domain.
+Under the current DKIM standard, a malicious actor can take a signed message and resend it at scale (a reply attack) to damage the sender's reputation. DKIM2 will require **every intermediate transit hop to sign the message**, making mail routing fully auditable.
 
-DKIM2 solves this by requiring that **every hop signs the message**, making it possible to attribute the abuse to the exact point in the chain. It also simplifies the standard by removing confusing options and fixing a set of headers to sign consistent with best practices.
+### DMARCbis: Eliminating Loopholes
 
-### DMARCbis: more rigor, fewer loopholes
+DMARCbis clarifies policy ambiguities in the original DMARC specification, addressing subdomain spoofing and improving alignment verification to reduce deliverability bypasses.
 
-The new evolution of DMARC aims to make policy management clearer and more rigorous, reducing some of the historical ambiguities of the current standard. Among the issues addressed are better handling of non-existent subdomains and more explicit testing mechanisms, in order to limit some of the techniques used to bypass the checks.
+### Deprecating Plaintext Transport
 
-### Goodbye to plaintext email
+Major mail providers are moving toward **completely deprecating unencrypted email transport**. Encrypted TLS transit will eventually become a hard requirement rather than an optional negotiation.
 
-With transport encryption protocols available at every level, it's essential that providers work to **completely eliminate support for unencrypted email**. Transport encryption should become the minimum requirement, not an option.
+### Passkeys: Decoupling Recovery
 
-### Passkeys and the Future of Authentication {#passkey-e-il-futuro-dellautenticazione}
+The adoption of WebAuthn passkeys allows users to register accounts without passwords. This reduces the need for email-based password resets, decoupling account recovery from your inbox.
 
-The adoption of passkeys could finally break the dependency on email for account recovery. If you no longer need a password, you don't need an email to reset it.
+### SMTP Native End-to-End Encryption
 
-This would free email from its improper role as a "master key" and return it to its natural function: communication. Many services that support passkeys still require an email, but the direction is the right one.
+Currently, providers like Proton Mail encrypt emails natively only when both the sender and recipient use their service. The long-term goal is integrating native end-to-end encryption directly into the SMTP protocol itself, allowing cross-provider E2EE by default.
 
-### Native end-to-end encryption in SMTP
-
-This is the final goal. Today, providers like Proton Mail automatically encrypt emails between Proton users with end-to-end encryption. But it's a proprietary solution that only works within the fence.
-
-Integrating E2EE directly into the SMTP protocol would mean that **any** email, between **any** providers, could be end-to-end encrypted by default. RFC proposals already exist in this direction. It won't be a walk in the park, but it's the future we deserve.
+---
 
 ## Conclusion
 
-Email security is a maze of protocols, acronyms and trade-offs. But the good news is that the situation is improving. DKIM2, DMARCbis, post-quantum cryptography and native E2EE in SMTP are all concrete developments, not science fiction.
+Securing email requires managing a complex stack of legacy protocols. However, the adoption of modern authentication standards and the transition toward native E2EE are positive developments.
 
-**What you can do today, right now:**
-1. Check that your email provider supports SPF, DKIM and DMARC with strict policies
-2. Enable 2FA on your email account with a hardware key
-3. Disable HTML and remote images in your email client
-4. Replace email as a recovery method with offline codes where possible
-5. Consider providers with built-in E2EE like Proton Mail for sensitive communications
+### Quick Action Items:
 
-If you've made it this far, congratulations: you now know more about email security than most people out there. Well done, you're true armored turtles! 🐢
+1.  Verify that your email provider enforces SPF, DKIM, and DMARC.
+2.  Secure your mail account with a hardware FIDO2 key.
+3.  Configure your client to block remote images and render plaintext.
+4.  Remove email recovery methods from critical accounts, using offline backup codes instead.
+5.  Use end-to-end encrypted mail services (like Proton Mail) for sensitive exchanges.
 
-Thanks so much for reading! If this guide was useful to you, share it with anyone who might need it.
+You are now equipped with the knowledge to protect your inbox and secure your digital identity. 🐢
 
 ---
 
 ## Related Guides
 
-- **[How to Build a Threat Model](/threat-model)** - The first step to actually protecting your online privacy
-- **[Self-Hosted VPN with Wireguard](/vpn)** - Build your own personal VPN with built-in ad-blocking
-- **[The Definitive Guide to GrapheneOS](/graphene)** - The most secure mobile operating system in the world
+- **[How to Build a Threat Model](/threat-model)** — Define your assets, threats, and security boundaries.
+- **[Self-Hosted VPN with Ad Blocking](/vpn)** — Build your own VPN with WireGuard and Pi-hole.
+- **[The Definitive Guide to GrapheneOS](/graphene)** — Secure your mobile operating system.

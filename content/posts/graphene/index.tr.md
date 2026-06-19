@@ -12,22 +12,22 @@ series: ["Dijital Gizlilik"]
 topics: ["android"]
 faq:
   - question: "GrapheneOS sadece Google Pixel'de mi çalışır?"
-    answer: "Evet, şu anda GrapheneOS resmi olarak yalnızca Google Pixel cihazlarını destekliyor, çünkü doğrulanmış önyükleme ve memory tagging gibi gerekli donanım güvenlik gereksinimlerini karşılayan tek cihazlar bunlar."
+    answer: "Evet, şu anda GrapheneOS resmi olarak yalnızca Google Pixel cihazlarını desteklemektedir; çünkü doğrulanmış önyükleme (verified boot) ve bellek etiketleme (memory tagging) gibi gerekli donanımsal güvenlik gereksinimlerini karşılayan tek cihazlar bunlardır."
   - question: "Gizlilik için bir Google telefonu kullanmak güvenli mi?"
-    answer: "Evet. Pixel'ler Android geliştirme için referans cihazlardır, güvenlik araştırmacılarından büyük ilgi görürler ve kasıtlı arka kapı olduğuna dair hiçbir kanıt yoktur. GrapheneOS, Google servislerini kaldırır ve gelişmiş korumalar ekler."
+    answer: "Evet. Pixel'ler Android geliştirme için referans cihazlardır, güvenlik araştırmacılarından büyük ilgi görürler ve kasıtlı bir arka kapı olduğuna dair hiçbir kanıt yoktur. GrapheneOS, Google servislerini kaldırır ve gelişmiş korumalar ekler."
   - question: "GrapheneOS için hangi Google Pixel'i seçmeliyim?"
-    answer: "Maksimum güvenlik için en yeni desteklenen Pixel'ler önerilir. 2026'da önce Pixel 9/10 ve Pro versiyonlarına bakardım; Pixel 9a en mantıklı bütçe seçeneğidir. 16 GB RAM'li Pro modeller, birçok kullanıcı profili kullanmak isteyenler için idealdir."
+    answer: "Maksimum güvenlik için desteklenen en güncel Pixel modelleri önerilmektedir. 2026 yılı itibarıyla öncelikle Pixel 9, Pixel 10 ve Pro modelleri tercih edilmelidir. Pixel 9a en uygun fiyatlı seçenektir. 16 GB RAM içeren Pro modeller ise çok sayıda kullanıcı profili çalıştırmak isteyenler için idealdir."
   - question: "Android uygulamaları ve Google Play Services GrapheneOS'ta çalışır mı?"
-    answer: "GrapheneOS, Google servislerine ihtiyaç duyan uygulamaları, özel ayrıcalıkları olmayan bir sandbox içinde izole tutarak kullanmanıza izin veren sandboxed Google Play Services'i destekler."
+    answer: "GrapheneOS, Google servislerine ihtiyaç duyan uygulamaların, özel ayrıcalıkları olmayan bir sandbox (yalıtılmış alan) içinde çalışmasına olanak tanıyan sandboxed Google Play hizmetlerini destekler."
   - question: "GrapheneOS nasıl kurulur?"
-    answer: "GrapheneOS, tarayıcıdan resmi web yükleyicisi aracılığıyla, komut satırından veya sistem önceden kurulu bir cihaz satın alarak kurulabilir."
+    answer: "GrapheneOS; web tarayıcı üzerinden resmi web yükleyici aracılığıyla, komut satırından veya işletim sistemi önceden yüklenmiş bir cihaz satın alınarak kurulabilir."
   - question: "GrapheneOS'ta kullanıcı profilleri nedir?"
-    answer: "Kullanıcı profilleri, aynı cihazda her biri kendi uygulamalarına ve ayrı ayrı şifrelenmiş verilerine sahip izole ortamlar oluşturmanıza izin verir. Kişisel, iş ve hassas etkinlikleri bölmelemek için kullanışlıdırlar."
+    answer: "Kullanıcı profilleri, aynı cihaz üzerinde her biri kendi uygulamalarına ve ayrı ayrı şifrelenmiş verilere sahip yalıtılmış ortamlar oluşturulmasını sağlar. Kişisel, iş ve hassas etkinliklerin birbirinden ayrılması için oldukça kullanışlıdır."
   - question: "GrapheneOS düzenli güvenlik güncellemeleri alıyor mu?"
-    answer: "Evet, GrapheneOS arka planda otomatik olarak indirilip kurulan çok sık güncellemeler alır. Bunları uygulamak için sadece cihazı yeniden başlatmanız gerekir."
+    answer: "Evet, GrapheneOS arka planda otomatik olarak indirilip kurulan düzenli güncellemeler almaktadır. Güncellemeleri uygulamak için cihazın yeniden başlatılması yeterlidir."
 howto:
   name: "GrapheneOS nasıl seçilir, kurulur ve yapılandırılır"
-  description: "Uyumlu bir Pixel seçme, GrapheneOS kurma, güvenli önyüklemeyi doğrulama ve profilleri, uygulamaları ve gizlilik ayarlarını yapılandırma için pratik prosedür."
+  description: "Uyumlu bir Pixel modeli seçme, GrapheneOS yükleme, güvenli önyüklemeyi doğrulama ve profilleri, uygulamaları ve güvenlik ayarlarını yapılandırmaya yönelik pratik adımlar."
   totalTime: "PT2H"
   supply:
     - "GrapheneOS tarafından desteklenen bir Google Pixel"
@@ -44,105 +44,104 @@ howto:
       text: "GrapheneOS projesinin talimatlarını takip ederek resmi web yükleyicisini veya komut satırı prosedürünü kullanın."
       url: "/tr/graphene#installazione"
     - name: "Güvenli önyüklemeyi doğrulayın"
-      text: "Doğrulanmış önyükleme anahtarı hash'ini kontrol edin ve kurulu sistemin gerçek olduğunu onaylamak için Auditor'ı kullanın."
+      text: "Doğrulanmış önyükleme anahtarı parmak izini kontrol edin ve yüklenen sistemin orijinalliğini doğrulamak için Auditor uygulamasını kullanın."
       url: "/tr/graphene#protezione-contro-manomissioni"
     - name: "Güvenlik ayarlarını yapılandırın"
-      text: "Tehdit modelinize göre ekran kilidini, otomatik yeniden başlatmayı, USB kısıtlamalarını, kablosuz saldırı yüzeyini ve uygulama izinlerini yapılandırın."
+      text: "Tehdit modelinize göre ekran kilidini, otomatik yeniden başlatmayı, USB kısıtlamalarını, kablosuz bağlantı güvenlik ayarlarını ve uygulama izinlerini yapılandırın."
       url: "/tr/graphene#hardening-attraverso-le-impostazioni"
     - name: "Kullanıcı profilleriyle etkinlikleri ayırın"
-      text: "İş, özel hayat, Google Play Services gerektiren uygulamalar ve hassas etkinlikler için ayrı profiller oluşturun."
+      text: "İş, günlük yaşam, Google Play hizmetleri gerektiren uygulamalar ve hassas etkinlikler için ayrı profiller oluşturun."
       url: "/tr/graphene#profili-utente-secondari"
     - name: "Uygulamaları kurun ve doğrulayın"
-      text: "Güvenilir kaynakları tercih edin, uygulamaları düzenli olarak güncelleyin ve mümkün olduğunda App Verifier veya doğrulanabilir imzalara sahip mağazaları kullanın."
+      text: "Güvenilir kaynakları tercih edin, uygulamaları düzenli olarak güncelleyin ve mümkünse App Verifier veya doğrulanabilir imzaya sahip mağazaları kullanın."
       url: "/tr/graphene#applicazioni"
 ---
 
-> **TL;DR** - Bu rehberde öğrenecekleriniz:
-> - GrapheneOS'un neden mobil gizliliğin altın standardı olduğu ve hangi Pixel'i seçmeniz gerektiği
-> - GrapheneOS'u sıfırdan nasıl kurup yapılandıracağınız
-> - Kullanıcı profillerinden, sandboxed Play Services'ten ve gelişmiş güvenlik özelliklerinden nasıl en iyi şekilde yararlanacağınız
-> - Sorun giderme: en yaygın uygulama ve servis sorunlarının çözümü
+Bu rehberde öğrenecekleriniz:
+> - GrapheneOS'un neden mobil gizliliğin altın standardı olduğu ve hangi Pixel modelinin seçilmesi gerektiği
+> - GrapheneOS'un sıfırdan nasıl kurulup yapılandırılacağı
+> - Kullanıcı profillerinden, sandboxed Play hizmetlerinden ve gelişmiş güvenlik özelliklerinden nasıl en iyi şekilde yararlanılacağı
 
 ## GrapheneOS nedir ve kimler için uygundur?
 
-GrapheneOS, gizlilik ve güvenliğe odaklanan açık kaynaklı bir Android işletim sistemidir. Veri toplanmasını azaltmak, uygulama izolasyonunu artırmak isteyen, ama sandbox içine kurulabilen ve sistem ayrıcalıkları olmadan çalışan Google Play Services sayesinde birçok Android uygulamasıyla uyumluluğu korumak isteyen kişiler için tasarlanmıştır.
+GrapheneOS, gizlilik ve güvenliğe odaklanan açık kaynaklı bir Android işletim sistemidir. Veri toplanmasını azaltmak ve uygulama yalıtımını artırmak isteyen, aynı zamanda yalıtılmış bir sandbox içinde sistem yetkileri olmaksızın çalışan Google Play hizmetleri sayesinde Android uygulama uyumluluğunu korumak isteyen kullanıcılar için tasarlanmıştır.
 
 | Soru | Kısa cevap |
 |---|---|
 | Hangi telefonlarda çalışır? | Sadece resmi olarak desteklenen Google Pixel cihazlarda. |
-| Google uygulamalarından vazgeçmem mi gerekiyor? | Hayır: Google Play Services sandboxed uygulamalar olarak kurulabilir. |
-| Yeni başlayanlar için uygun mu? | Evet, yönlendirilen bir kuruluma uymaya ve kullanıcı profilleri hakkında bilgi edinmeye istekliyseniz. |
-| Varsayılan olarak anonim mi? | Hayır. Gizliliği ve güvenliği artırır, ama sonuç tehdit modelinize ve kullandığınız uygulamalara bağlıdır. |
+| Google uygulamalarından vazgeçmek mi gerekiyor? | Hayır, Google Play hizmetleri yalıtılmış (sandboxed) uygulamalar olarak yüklenebilir. |
+| Yeni başlayanlar için uygun mu? | Evet, rehberli bir kurulumu takip etmeye ve kullanıcı profilleri hakkında bilgi edinmeye istekli olanlar için uygundur. |
+| Varsayılan olarak anonim mi? | Hayır. Gizliliği ve güvenliği artırır, ancak nihai sonuç tehdit modelinize ve kullandığınız uygulamalara bağlıdır. |
 
-**Ana kaynaklar:** resmi GrapheneOS dokümantasyonu, projenin SSS'si, Android Open Source Project ve desteklenen Pixel cihazlarda yapılan uygulamalı testler.
+Ana kaynaklar: Resmi GrapheneOS dokümantasyonu, projenin SSS sayfası, Android Açık Kaynak Projesi (AOSP) ve desteklenen Pixel cihazlar üzerinde yapılan testler.
 
-Akıllı telefonunuz sahip olduğunuz en mahrem cihazdır: nereye gittiğinizi, kiminle konuştuğunuzu, alışkanlıklarınızı bilir. Stok Android ve iOS işletim sistemleri bu verileri sürekli olarak Google ve Apple ile paylaşır. GrapheneOS, gizliliğinizden ödün vermeden kurumsal düzeyde güvenlik sunan tek alternatiftir. Bu rehber sizi cihaz seçiminden ileri düzey yapılandırmaya kadar adım adım götürür.
+Akıllı telefonunuz sahip olduğunuz en mahrem cihazdır: nereye gittiğinizi, kiminle konuştuğunuzu, alışkanlıklarınızı bilir. Stok Android ve iOS işletim sistemleri bu verileri sürekli olarak Google ve Apple ile paylaşır. GrapheneOS, gizliliğinizden ödün vermeden kurumsal düzeyde güvenlik sunan tek alternatiftir. Bu rehber cihaz seçiminden ileri düzey yapılandırmaya kadar her adımda size yol gösterecektir.
 
-[GrapheneOS](https://grapheneos.org/), gizlilik ve güvenliği artırmaya odaklanan, [Android Open Source Project (AOSP)](https://www.android.com/) tabanlı bir FOSS (Özgür ve Açık Kaynak Yazılım) işletim sistemidir.
+[GrapheneOS](https://grapheneos.org/), gizlilik ve güvenliği artırmaya odaklanan, [Android Open Source Project (AOSP)](https://www.android.com/) tabanlı özgür ve açık kaynaklı (FOSS) bir işletim sistemidir.
 
-GrapheneOS şu anda Android işletim sistemleri arasında altın standardı temsil ediyor ve bu rehber işletim sisteminin tüm yönlerini ve özelliklerini ele alacak.
+GrapheneOS şu anda Android işletim sistemleri arasında altın standardı temsil etmektedir ve bu rehberde işletim sisteminin tüm yönleri ve özellikleri ele alınacaktır.
 
-Bu makale, GrapheneOS projesiyle ilgili mobil güvenlik ve gizlilik hakkındaki bilgi ve birikimi bir araya getirme girişimidir; bu rehbere ilham veren GrapheneOS hakkında bir makale yazdığı için [PatrickD](https://x.com/patrickd_de)'ye teşekkürler.
+Bu makale, GrapheneOS projesiyle ilgili mobil güvenlik ve gizlilik hakkındaki bilgi ve birikimi bir araya getirme girişimidir; bu rehbere ilham veren GrapheneOS hakkında bir makale yazdığı için [PatrickD](https://x.com/patrickd_de)'ye teşekkürlerimizi sunarız.
 
-Bu rehberi yazmak uzun zaman ve büyük bir emek gerektirdi; yapabileceğiniz en büyük bağış, bunu mümkün olduğunca çok kişinin görebilmesi için **gruplarda**, **telegram kanallarında**, **twitter'da** ve çeşitli sosyal ağlarda paylaşmaktır. Bunu yapan herkese **içten bir teşekkür**. Bu içerik kâr amacı gütmemektedir: bu site verilerinizi istemez, analitik kullanmaz, e-postanızı veya kaydolmanızı istemez. Bu projeyi hayatta tutmak için haberi yayın.
+Bu rehberi hazırlamak büyük bir emek ve zaman gerektirmiştir. Yapabileceğiniz en büyük destek, bu rehberin daha fazla kişiye ulaşması için **gruplarda**, **Telegram kanallarında**, **X (Twitter)** platformunda ve diğer sosyal ağlarda paylaşılmasıdır. Paylaşımda bulunan herkese **içtenlikle teşekkür ederiz**. Bu içerik ticari bir amaç taşımamaktadır; sitemiz verilerinizi toplamaz, analitik araçlar kullanmaz, e-posta adresinizi veya kaydolmanızı talep etmez. Bu projenin sürdürülebilmesi için lütfen bu bilgiyi paylaşarak destek olun.
 
 ## Cihaz Seçimi
 
-GrapheneOS projesine ilk kez yaklaşanlar için muhtemelen en sık sorulan soru şudur: neden bu kadar az cihaz resmi olarak destekleniyor ve neden hepsi sözde kötü Google tarafından üretilen pahalı Pixel telefonlar?
+GrapheneOS projesini ilk kez inceleyenler için muhtemelen en sık sorulan soru şudur: Neden bu kadar az cihaz resmi olarak destekleniyor ve neden hepsi Google tarafından üretilen pahalı Pixel telefonları?
 
 ### Neden Sadece Pixel Cihazlar?
 
 
 
-GrapheneOS'a göre, şu anda basitçe başka mantıklı seçenek yok. GrapheneOS'un bu cihazlar için Google ile özel bir sözleşmesi yok, ve bunun nedeni Pixel'lerin inanılmaz derecede güvenli olması değil, aksine diğer tüm alternatiflerin kesinlikle kötü olmasıdır. GrapheneOS projesi, şu anda ve gelecekte potansiyel olarak desteklenecek cihazlar için bir [gereksinimler listesi](https://grapheneos.org/faq#future-devices) tutuyor ve ne yazık ki şu anda bunları sadece Pixel'ler karşılayabiliyor.
+GrapheneOS'a göre, şu anda başka mantıklı bir seçenek bulunmamaktadır. GrapheneOS'un bu cihazlar için Google ile özel bir sözleşmesi yoktur. Bunun nedeni Pixel'lerin kusursuz derecede güvenli olması değil, aksine diğer tüm alternatiflerin güvenlik standartlarının yetersiz olmasıdır. GrapheneOS projesi, şu anda ve gelecekte potansiyel olarak desteklenecek cihazlar için bir [gereksinimler listesi](https://grapheneos.org/faq#future-devices) sunmaktadır ve ne yazık ki şu anda bu şartları sadece Pixel modelleri karşılayabilmektedir.
 
-Pixel cihazları, Android geliştirme için referans platform olarak hizmet etmeleri sayesinde alternatif işletim sistemleri için tam destek sunar. Düzenli ve yeterli firmware güncellemeleri alırlar ve [memory tagging](https://discuss.grapheneos.org/d/10507-what-actually-is-the-memory-tagging-feature-and-is-it-worth-turning-on) gibi, stok olmayan işletim sistemleri kurulu olduğunda da kullanılabilir kalan gelişmiş donanım güvenlik özellikleri sunarlar.
+Pixel cihazları, Android geliştirme sürecinde referans platform olarak hizmet etmeleri sayesinde alternatif işletim sistemleri için tam destek sunar. Düzenli ve yeterli ürün yazılımı (firmware) güncellemeleri alırlar; ayrıca [bellek etiketleme (memory tagging)](https://discuss.grapheneos.org/d/10507-what-actually-is-the-memory-tagging-feature-and-is-it-worth-turning-on) gibi, üçüncü taraf işletim sistemleri yüklü olduğunda da kullanılabilen gelişmiş donanımsal güvenlik özellikleri sağlarlar.
 
-Diğer çoğu OEM üreticisi ise, alternatif işletim sistemleri için sadece kısmen işlevsel destek sunar ve bunu profesyonel olmayan bir hobi özelliği olarak ele alır. Birçoğu temel güvenlik özelliklerini tamamen atlar ve yeterli güncellemeler sağlamakla uğraşmaz. Daha da kötüsü, sisteme yaptıkları değişikliklerle genellikle karmaşıklık ve onunla birlikte daha büyük bir saldırı yüzeyi eklerler.
+Diğer çoğu üretici (OEM) ise alternatif işletim sistemleri için sadece kısmen işlevsel destek sunar ve bunu ikincil bir hobi özelliği olarak ele alır. Birçoğu temel güvenlik özelliklerini tamamen atlar ve yeterli güncellemeler sağlamakla uğraşmaz. Daha da kötüsü, sisteme yaptıkları özelleştirmelerle genellikle karmaşıklık ve buna bağlı olarak daha büyük bir saldırı yüzeyi eklerler.
 
-Geçmişte GrapheneOS, OEM üreticileriyle işbirliği yapmaya çalıştı, ama Pixel'lerle karşılaştırılabilir bir güvenlik seviyesine sahip bir cihaz oluşturmanın inanılmaz derecede zor olduğu kanıtlandı.
+Geçmişte GrapheneOS, diğer üreticilerle iş birliği yapmaya çalışmış ancak Pixel modelleriyle karşılaştırılabilir bir güvenlik düzeyine sahip bir cihaz geliştirmenin son derece zor olduğu görülmüştür.
 
-Genişletilmiş cihaz desteği şu anda çok güvensiz, GrapheneOS'un birçok güvenlik özelliğini desteklemekten aciz cihazlarla uyumluluk anlamına gelirdi. Ayrıca bu, gizlilik ve güvenliği iyileştirme çalışmalarından önemli miktarda kaynak alırdı, çünkü bu özelliklerin çoğu donanıma özeldir. Ancak, gereksinimleri karşılayan başka cihazlar var olsaydı, GrapheneOS projesi kesinlikle bunları desteklemeyi planlardı.
+Cihaz desteğinin genişletilmesi, GrapheneOS'un birçok güvenlik özelliğini donanımsal olarak destekleyemeyen güvensiz cihazlarla uyumluluk aranması anlamına gelecektir. Ayrıca bu durum, gizlilik ve güvenliği iyileştirme çalışmalarından önemli miktarda kaynak çalacaktır; çünkü bu özelliklerin çoğu donanıma özeldir. Ancak, gereksinimleri karşılayan başka cihazlar olsaydı, GrapheneOS projesi kesinlikle bunları da destekleme listesine eklerdi.
 
 ### Alternatifler var mı?
 
-Android cihazlar için gizlilik ve güvenliğe odaklanan veya en azından daha geniş cihaz desteği sunan çeşitli alternatif işletim sistemleri vardır. Ancak, güvenlik özellikleri her zaman büyük boşluklar içerdiğinden, bunların hiçbiri gerçek bir alternatif olarak kabul edilemez.
+Android cihazlar için gizlilik ve güvenliğe odaklanan veya daha geniş cihaz desteği sunan çeşitli alternatif işletim sistemleri mevcuttur. Ancak, güvenlik özellikleri açısından ciddi açıklar barındırdıklarından, bunların hiçbiri tam bir alternatif olarak kabul edilemez.
 
-GrapheneOS ekibinin bu projelerin neredeyse tümüne yönelttiği en temel eleştiri, Android'in tam açık kaynaklı versiyonunu (AOSP) kullanan kullanıcıların yararlandığı önemli güvenlik yamalarındaki büyük gecikme veya bazı durumlarda tamamen atlanmasıyla ilgilidir.
+GrapheneOS ekibinin bu projelerin neredeyse tümüne yönelttiği en temel eleştiri, Android'in tam açık kaynaklı sürümünü (AOSP) kullanan kullanıcıların yararlandığı kritik güvenlik yamalarının çok geç uygulanması veya bazı durumlarda tamamen atlanmasıdır.
 
-[LineageOS](https://lineageos.org/) bunlardan biridir, ancak bu projenin odağının güvenlik değil cihaz ömrü ve geniş uyumluluk olduğu belirtilmelidir. Ancak, doğrulanmış önyükleme sistemi yoktur, bu da yetkisiz fiziksel erişimi önemsiz hale getirir. [/e/OS](https://e.foundation/e-os/) projesi, gizliliğe odaklanan tamamen "deGoogle'lanmış" bir mobil ekosistem olarak kendini tanıtıyor, ama Lineage'ın kırılgan temelleri üzerine inşa edilmiştir. e/OS, kullanıcılara sorgulanabilir bir gizlilik hissi veren uygulama ve servisler içerir, ama bu aynı servisler invaziftir ve kötü tasarlanmıştır.
+[LineageOS](https://lineageos.org/) bunlardan biridir; ancak bu projenin odağının güvenlik değil, cihaz ömrünü uzatmak ve geniş uyumluluk sağlamak olduğu unutulmamalıdır. Doğrulanmış önyükleme (verified boot) sisteminin olmaması, yetkisiz fiziksel erişimleri kolaylaştırmaktadır. [/e/OS](https://e.foundation/e-os/) projesi, gizliliğe odaklanan tamamen Google servislerinden arındırılmış bir mobil ekosistem olarak kendini tanıtsa da LineageOS'un yetersiz temelleri üzerine inşa edilmiştir. e/OS, kullanıcılara sorgulanabilir bir gizlilik hissi veren uygulama ve servisler içerir; ancak bu servisler arka planda veri toplayabilen ve yetersiz tasarlanmış yapılardır.
 
-GrapheneOS'un muhtemelen en büyük "rakibi" olan [CalyxOS](https://calyxos.org/), sadece yamalar konusunda düzenli olarak gecikmeli değil, aynı zamanda yanlış Android güvenlik yama seviyeleri sağlayarak kullanıcıları yanıltmıştır. Ayrıca, amaçlandığı gibi tehlikeye atılmış verileri güvenilir bir şekilde silmeyen acil durum silme özelliği gibi ciddi kusurları olan güvenlik özellikleri uygulamıştır.
+GrapheneOS'un en büyük alternatifi olarak görülen [CalyxOS](https://calyxos.org/), yalnızca güncellemeleri geciktirmekle kalmamış, aynı zamanda yanlış Android güvenlik yama seviyeleri göstererek kullanıcıları yanıltmıştır. Ayrıca, tehlikeye atılmış verileri güvenilir şekilde silmesi beklenen acil durum silme özelliği gibi ciddi kusurları olan güvenlik özellikleri barındırmaktadır.
 
 > Çeşitli Android tabanlı işletim sistemleri hakkında daha fazla bilgi için şu üçüncü taraf karşılaştırma tablosuna başvurabilirsiniz: <https://eylenburg.github.io/android_comparison.htm>
 
-Sonra, GrapheneOS'un daha önce bilindiği isim olan [CopperheadOS](https://copperhead.co/android/) var. Projeyi finanse etmesi gereken şirketten düşmanca ele geçirme ve sonraki ayrılığın ardındaki dramanın ayrıntılarına girmeyeceğim. Ancak, bu şirketin şu anda CopperheadOS'u kapalı kaynaklı bir fork olarak sattığını belirtmekte fayda var (bunu kişisel olarak şiddetle önermiyorum).
+Sonrasında, GrapheneOS'un eski adı olan [CopperheadOS](https://copperhead.co/android/) bulunmaktadır. Projeyi finanse eden şirket ile yaşanan yönetimsel sorunların ve ayrılığın detaylarına burada değinilmeyecektir. Ancak, bu şirketin şu anda CopperheadOS'u kapalı kaynaklı bir çatal (fork) olarak sattığını belirtmekte fayda vardır (bu sürümün kullanılması tavsiye edilmemektedir).
 
-Son olarak, ABD'de üretilen özel donanımıyla [Purism](https://puri.sm/), (sorgulanabilir) donanım anahtarları gibi özelliklerle gizlilik üzerinde kontrol vaat ediyor. GrapheneOS ekibi, cihazları için benimsenen güvenlik bileşeni seçimi ve firmware ile mikrokod güncellemeleri için gereken karmaşık süreç konusunda kesinlikle farklı görüşte. Librem 5 cihazı, çoğu insanın aksine ikna edilmiş olmasına rağmen, neredeyse tamamen kapalı kaynaklı donanım ve firmware'e dayanıyor. GrapheneOS, bu projeleri kullanıcıları eski ve güvenlik açığı bulunan donanım ve yazılıma güvenmeye yönlendiren boş pazarlama sözcükleriyle suçluyor. Hatta kullanıcıların GrapheneOS'tan sonra gizlilik ve güvenlik için en iyi ikinci seçenek olarak (Lockdown modunda) bir iPhone kullanmasının daha iyi olacağını söylüyorlar.
+Son olarak, ABD merkezli [Purism](https://puri.sm/), özel donanımı ve fiziksel kapatma anahtarları (kill switch) gibi özelliklerle gizlilik üzerinde kontrol vaat etmektedir. GrapheneOS ekibi ise bu cihazlarda tercih edilen güvenlik bileşenleri ve ürün yazılımı/mikrokod güncellemeleri için gereken karmaşık süreç konusunda farklı görüştedir. Librem 5 cihazı, aksine inanılmasına rağmen neredeyse tamamen kapalı kaynaklı donanım ve ürün yazılımına dayanmaktadır. GrapheneOS, bu projeleri kullanıcıları eski ve güvenlik açığı bulunan donanım ile yazılımlara yönlendiren pazarlama taktikleriyle suçlamaktadır. Hatta kullanıcıların, GrapheneOS'tan sonra gizlilik ve güvenlik için en iyi ikinci seçenek olarak (Kilitleme/Lockdown modunda) bir iPhone tercih etmelerinin daha doğru olacağını belirtmektedirler.
 
-Beni yanlış anlamayın: GrapheneOS projesi, işletim sisteminin hiçbir şekilde aşılamaz olduğunu iddia etmiyor, ama markalaşma ve pazarlama yerine özün üzerine odaklanıyor. Bu, GrapheneOS [web sitesini](https://grapheneos.org/) diğer projelerin web siteleriyle karşılaştırdığınızda oldukça açık hale gelir: GrapheneOS açıkça teknik bir projedir, ki bu beni teknik gerçekleri bulmak için pazarlamayı eşelemekten kurtardığı için kişisel olarak çok takdir ettiğim bir şey. Öte yandan, bunun ortalama bir kullanıcı için oldukça caydırıcı olabileceğini de anlayabiliyorum.
+GrapheneOS projesi, işletim sisteminin hiçbir şekilde aşılamaz olduğunu iddia etmemekte; pazarlama söylemleri yerine işin özüne odaklanmaktadır. GrapheneOS [web sitesini](https://grapheneos.org/) diğer projelerle karşılaştırdığınızda bu durum açıkça görülebilir: Web sitesi tamamen teknik odaklıdır. Bu durum, kullanıcıları pazarlama söylemleri arasından teknik doğruları arama zahmetinden kurtarsa da ortalama bir kullanıcı için caydırıcı olabilir.
 
 ### Google cihazlarına güvenilebilir mi?
 
-GrapheneOS'un şu anda sadece Pixel cihazlarını desteklediğini gördük, çünkü yeterli donanım güvenlik tedbirlerine sahip tek cihazlar onlar. Her şey açık, ama bu cihazların arka kapıları olsaydı bu anlamsız olmaz mıydı?
+GrapheneOS'un şu anda sadece Pixel cihazlarını desteklediğini gördük; çünkü yeterli donanımsal güvenlik önlemlerine sahip tek cihazlar bunlardır. Ancak bu cihazlarda arka kapı (backdoor) bulunma ihtimali bu çabaları anlamsız kılmaz mıydı?
 
-Belirtildiği gibi, Google'ın Pixel'leri Android geliştirme için referans cihaz olarak hizmet eder, bu da birçok uzmanın onlar üzerinde çalışmasına yol açar. Ayrıca, Google harici güvenlik araştırmalarına çok açık olmuştur, bu sayede Pixel'ler bu alanda büyük ilgi görmüştür. Bu koşullar altında, cihazlarda arka kapı gizlemek oldukça zor olurdu.
+Belirtildiği gibi, Pixel cihazlar Android geliştirme sürecinde referans platform olarak hizmet eder, bu yüzden birçok güvenlik uzmanı tarafından incelenmektedir. Ayrıca Google, dışarıdan gelen güvenlik araştırmalarına açık bir yaklaşım sergilediği için Pixel'ler bu alanda büyük ilgi görmektedir. Bu koşullar altında cihazlara arka kapı gizlemek oldukça zor işlemdir.
 
-Başka bir argüman, üretimlerini dışarıdan temin eden küçük şirketlerin tedarik zincirlerine saldırmanın, fark edilmeden iPhone'ların veya Pixel'lerin küresel üretimini tehlikeye atmaktan çok daha basit olacağıdır. Bu kadar yaygın kullanılan cihazların kullanıcıları, bu cihazların tabi olduğu yüksek inceleme ve ilgi seviyesinden yararlanır. Ayrıca, genellikle hükümetler tarafından kiralanan ve akıllı telefonlara erişim konusunda uzmanlaşmış adli bilişim şirketlerinden gelen sızıntıların, kasıtlı olarak eklenmiş arka kapılara dair hiçbir kanıt sunmadığını belirtmek önemlidir. Bununla birlikte, bazıları ilke olarak Google'a ait herhangi bir şey kullanmamayı seçiyor. Ancak bunu sağlamak için Apple ürünlerine güvenmeleri gerekir, çünkü Google, Linux çekirdeğinin kendisi de dahil olmak üzere birçok açık kaynaklı projenin geliştirilmesinde büyük bir rol oynamaktadır.
+Bir diğer argüman ise, üretimi dışarıdan temin eden küçük ölçekli şirketlerin tedarik zincirlerine sızmanın, küresel ölçekteki iPhone veya Pixel üretim hatlarını fark edilmeden sabote etmekten çok daha kolay olmasıdır. Bu kadar yaygın kullanılan cihazların kullanıcıları, bu cihazların tabi olduğu yüksek inceleme ve denetim seviyesinden yararlanır. Ayrıca, hükümetler tarafından yetkilendirilen adli bilişim firmalarından sızan bilgilerin, bu cihazlarda kasıtlı olarak bırakılmış herhangi bir arka kapıya dair kanıt sunmadığını belirtmek gerekir. Bununla birlikte, bazı kullanıcılar ilkesel olarak Google ile ilişkili hiçbir ürünü kullanmamayı tercih edebilir. Ancak bunu tam anlamıyla sağlamak için Apple ürünlerine yönelmek gerekir; zira Google, Linux çekirdeği dahil pek açık kaynaklı projenin geliştirilmesinde önemli bir rol oynamaktadır.
 
-GrapheneOS'un misyonu, herhangi bir bedelle belirli bir şirketten kaçınma fikrine tamamen odaklanmış değil, aksine mevcut en iyi araçlarla mümkün olan en iyi gizlilik ve güvenliğe ulaşmaktır.
+GrapheneOS'un misyonu, ne pahasına olursa olsun belirli bir şirketten kaçınmak değil, mevcut en iyi araçlarla en üst düzey gizlilik ve güvenliğe ulaşmaktır.
 
 ### Hangi Pixel'i seçmelisiniz? {#quale-pixel-scegliere}
 
-Maksimum güvenlik için, en yeni desteklenen Pixel'lerden birini kullanmanız şiddetle önerilir. 2026'da bu, öncelikle dokuzuncu veya onuncu nesle bakmak anlamına gelirken, sekizinci nesil özellikle zaten birine sahipseniz hâlâ mantıklı. Bu cihazlar, GrapheneOS'un yararlanabileceği memory tagging gibi donanım özellikleri sayesinde önemli ölçüde daha güvenli kabul edilir. En yeni nesiller ayrıca gelişmiş modemler ve radyo bileşenleri içerir, dolayısıyla bir SIM ile kullanmayı planlıyorsanız daha fazla güvenlik ve pil ömründen yararlanacaksınız. 16 GB RAM'li Pro modeller, GrapheneOS'u birden fazla kullanıcı profiliyle kullanmayı düşünüyorsanız özellikle kullanışlıdır (bu özelliğin avantajları daha sonra açıklanacaktır).
+Maksimum güvenlik için desteklenen en yeni Pixel modellerinden birinin tercih edilmesi şiddetle önerilir. Bu durum, öncelikle dokuzuncu veya onuncu nesil cihazları incelemeyi gerektirirken, halihazırda elinizde mevcutsa sekizinci nesil modeller de hâlâ iyi bir seçenektir. Cihazlar, GrapheneOS'un yararlandığı bellek etiketleme (memory tagging) gibi donanımsal özellikler sayesinde çok daha güvenli kabul edilir. En yeni nesiller ayrıca gelişmiş modemler ve radyo bileşenleri barındırır; dolayısıyla SIM kart ile kullanımda daha yüksek güvenlik ve pil ömrü elde edersiniz. 16 GB RAM içeren Pro modelleri, GrapheneOS'u birden fazla kullanıcı profiliyle çalıştırmak isteyenler için idealdir (bu özelliğin avantajları ilerleyen bölümlerde açıklanacaktır).
 
-Bugün en iyi fiyat/performans oranını arıyorsanız, Pixel 9a muhtemelen en mantıklı giriş noktasıdır. Zaten bir Pixel 8/8a'ya sahipseniz onu rahatlıkla kullanmaya devam edebilirsiniz: hâlâ mükemmel bir temel oluşturur. Her durumda, kullanılmış bir cihaz satın almadan önce her zaman [resmi destek ömrü tablosunu](https://grapheneos.org/faq#device-lifetime) kontrol edin.
+Fiyat/performans oranı açısından Pixel 9a en mantıklı giriş modelidir. Halihazırda Pixel 8 veya 8a kullanıyorsanız, geçiş yapmanıza gerek yoktur; bu cihazlar hâlâ güçlü bir temel sunmaktadır. Her durumda, ikinci el bir cihaz satın almadan önce resmi destek ömrü tablosu kontrol edilmelidir.
 
 > Her cihazın destek ömrüne ilişkin bir tabloyu şu bağlantıda kontrol edebilirsiniz: <https://grapheneos.org/faq#device-lifetime>
 
-Altıncı ve yedinci nesil Pixel cihazlarının hâlâ birkaç yıl desteği var, bu da zaten birine sahipseniz ve kullanmaya devam etmek istiyorsanız iyi bir seçim yapar. Ancak, bu nesillerden yeni bir cihaz satın almak tavsiye edilmez. Ayrıca, GrapheneOS'un sadece daha yeni nesillerin donanımıyla kullanabileceği çeşitli güvenlik özellikleri olduğunu unutmayın.
+Altıncı ve yedinci nesil Pixel cihazların destek sürelerinin bitmesine daha birkaç yıl vardır. Bu nedenle halihazırda elinizde bu cihazlar varsa kullanmaya devam edebilirsiniz; ancak bu modelleri yeni satın almanız önerilmez. Ayrıca GrapheneOS'un yalnızca yeni nesil donanımlarla etkinleştirebildiği bazı özel güvenlik özellikleri sunduğu unutulmamalıdır.
 
-Daha eski olan her şey "Kullanım Ömrü Sonu" (End-Of-Life) olarak kabul edilir ve GrapheneOS projesi, kullanılan işletim sisteminden bağımsız olarak bunları kullanmaya devam etmeyi şiddetle önermez. Bu, GrapheneOS'un bazıları için hâlâ genişletilmiş destek sağlamasına rağmen geçerlidir, ki bu sadece riskleri azaltmak ve kullanıcılara tamamen desteklenen bir cihaza geçme zamanı vermek için yapılır. Örneğin, Pixel 5a için artık firmware yaması veya sürücü desteği yoktur ve cihazın kontrolünü almak için istismar edilebilecek bilinen, çözülmemiş bir uzaktan kod yürütme güvenlik açığı bile vardır.
+Daha eski modeller kullanım ömrünü tamamlamış (End-of-Life) kabul edilir. GrapheneOS ekibi, hangi işletim sistemi yüklü olursa olsun bu cihazların kullanılmamasını önemle tavsiye eder. GrapheneOS'un bu modeller için sunduğu uzatılmış destek yalnızca geçici risk azaltma amaçlıdır ve kullanıcılara yeni bir cihaza geçmeleri için zaman tanır. Örneğin, Pixel 5a modeli için artık ürün yazılımı (firmware) yaması veya sürücü desteği sunulmamaktadır; üstelik cihazda henüz kapatılmamış kritik bir uzaktan kod yürütme açığı bulunmaktadır.
 
 | Model            | RAM     | Depolama (GB)     | İşlemci   | Eşzamanlı kullanıcı profili |
 |--------------------|---------|------------------|--------------|------------------------------|
@@ -156,13 +155,13 @@ Daha eski olan her şey "Kullanım Ömrü Sonu" (End-Of-Life) olarak kabul edili
 
 ## Kurulum {#installazione}
 
-GrapheneOS'u kurmanın birkaç yolu vardır: işletim sistemi önceden kurulu telefonlar satın almak, komut satırından manuel olarak veya web yükleyicisi aracılığıyla. Bunu nasıl yapacağınıza dair tüm rehberler ve dokümantasyon, resmi GrapheneOS web sitesinin "install" bölümünde mevcuttur.
+GrapheneOS'u kurmanın birkaç yöntemi bulunmaktadır: İşletim sistemi önceden yüklenmiş cihazlar satın almak, komut satırından manuel olarak kurmak veya web yükleyicisi aracılığıyla yükleme yapmak. Bu işlemlerin nasıl gerçekleştirileceğine dair tüm rehberler ve belgeler, resmi GrapheneOS web sitesinin "install" bölümünde mevcuttur.
 
 ## Kurcalamaya Karşı Koruma {#protezione-contro-manomissioni}
 
 ### Doğrulanmış Önyükleme Anahtarı Hash'i
 
-Artık taze bir GrapheneOS kurulumuna sahip bir Pixel cihazın gururlu sahibi olduğunuzu varsayarsak, cihaz açılırken görünen uyarı sizi şaşırtabilir. Siyah bir ekran, işletim sisteminin artık orijinal olmadığını uyaracak ve altında, kurulu GrapheneOS sürümünün gerçek olduğunu doğrulamanızı sağlayan bir kriptografik hash olan bir karakter dizisi görüntülenecektir:
+GrapheneOS kurulumunun ardından cihaz açılırken ekranda beliren uyarı mesajı sizi şaşırtabilir. Siyah bir ekranda, işletim sisteminin orijinal olmadığına dair bir uyarı gösterilecek ve altında, yüklü GrapheneOS sürümünün doğruluğunu onaylamanızı sağlayan benzersiz bir kriptografik parmak izi (hash) görüntülenecektir:
 
 | Cihaz | Doğrulanmış Önyükleme Anahtarı Parmak İzi |
 | ---------------- | ------------------------------------------------------------------ |
@@ -203,189 +202,189 @@ Ne yazık ki, şu anda kendi uzaktan doğrulama sunucunuzu barındırmak mümkü
 
 ## Ayarlar Üzerinden Hardening {#hardening-attraverso-le-impostazioni}
 
-GrapheneOS, güvenlik açıklarına karşı üç temel yaklaşım kullanarak savunma yapar: saldırganlara açık olan "yüzeyi" (yani aktif özellikleri/kodu) azaltır, güvenlik açıklarından yararlanmayı olabildiğince zorlaştırır ve bileşenleri birbirinden izole eder (sandboxing), böylece herhangi bir istismarın etkisini azaltır. Bu önlemler cihazın kullanım kolaylığını ve performansını etkilediğinden, GrapheneOS kullanıcıların kendi tercihlerini seçmesine ve ihtiyaçlarına en uygun kurulumu oluşturmak için çok sayıda ayar aracılığıyla kullanıcı deneyimini özelleştirmesine izin verir.
+GrapheneOS, güvenlik açıklarına karşı üç temel yaklaşım sergiler: Saldırı yüzeyini (aktif özellikler ve kod miktarı) küçültür, olası açıkların suistimal edilmesini zorlaştırır ve bileşenleri yalıtarak (sandboxing) sızma girişimlerinin etkisini sınırlar. Bu güvenlik önlemleri cihazın kullanım kolaylığını ve performansını etkileyebileceğinden GrapheneOS; kullanıcıların kendi tercihlerini yapmalarına ve ihtiyaçlarına en uygun güvenlik dengesini kurmalarına olanak tanıyan geniş bir özelleştirme seçeneği sunar.
 
 ### Kilit Ekranı
 
-Kullanıcı verileri, diğer şeylerin yanı sıra seçilen ekran kilidi yönteminden türetilen bir anahtarla şifrelenmiş olarak saklanır. Bu yöntemler, "secure element" donanımının uyguladığı geciktirmeler sayesinde basitçe kaba kuvvet saldırılarıyla aşılamaz. Bu önlem sayesinde, rastgele bir 6 haneli PIN bile yüksek bir güvenlik seviyesi sunar. "Secure element"in güvenliğine bağlı kalmak istemiyorsanız, 128 karaktere kadar şifreler kullanabilirsiniz.
+Kullanıcı verileri, cihazın ekran kilidi yönteminden türetilen bir kriptografik anahtarla şifrelenmiş olarak saklanır. Bu yöntemler, donanımsal güvenlik çipi (secure element) tarafından uygulanan geciktirmeler sayesinde kaba kuvvet (brute-force) saldırılarıyla aşılamaz. Bu sayede, rastgele belirlenmiş 6 haneli bir PIN kodu dahi son derece yüksek bir koruma sağlar. Güvenlik çipinin korumasına ek olarak, 128 karaktere kadar karmaşık şifreler de kullanabilirsiniz.
 
-Desen kilidi GrapheneOS'tan kaldırılmıştır, çünkü PIN'in çok daha kötü bir versiyonunu temsil eder ve güvensiz desen seçimlerini teşvik eder. Bunun yerine, en az 6 haneli bir PIN kullanmalı ve bir gözlemcinin parmak izleri veya diğer kanallar aracılığıyla kombinasyonu bulmasını zorlaştıran PIN karıştırma özelliğini etkinleştirmeyi düşünmelisiniz.
+Desen kilidi (Pattern Lock) GrapheneOS'tan kaldırılmıştır; zira bu yöntem PIN koduna kıyasla çok daha zayıftır ve kolayca tahmin edilebilir şablonların seçilmesine yol açar. Bunun yerine, en az 6 haneli bir PIN kodu tercih edilmesi ve ekranda parmak izi izlerinden şifrenin tahmin edilmesini zorlaştıran 'PIN karıştırma' (scrambled PIN) özelliğinin etkinleştirilmesi önerilir.
 
-Parmak İzi ile Kilit Açma ayarlanabilir, ama optimal güvenlik için bunu uygulama içi kimlik doğrulamayla sınırlamayı düşünmelisiniz (yani _"Ekranı açmak için kullan"_ı devre dışı bırakarak). GrapheneOS ekibi, hem parmak izi taramasını hem de PIN/şifreyi gerektirecek 2 faktörlü bir parmak izi kilidi sistemini henüz tanıttı.
+Parmak izi ile kilit açma kullanılabilir; ancak en yüksek güvenlik seviyesi için bu yöntem yalnızca uygulama içi kimlik doğrulamalarla sınırlandırılmalıdır (yani 'Ekran kilidini açmak için kullan' seçeneği kapatılmalıdır). GrapheneOS ekibi, hem parmak izi taramasını hem de PIN/şifre girişini zorunlu kılan iki faktörlü bir kilit açma sistemini de kullanıma sunmuştur.
 
-Bir eSIM'iniz varsa veya özellikle fiziksel bir SIM'iniz varsa, kilidi açmak için kullanılandan farklı olması gereken bir SIM PIN'i ayarlamak mantıklıdır.
+Fiziksel SIM kart veya eSIM kullanılıyorsa, ekran kilidinden farklı bir SIM PIN kodu belirlenmesi güvenlik açısından önem taşır.
 
 
 
-Son olarak, GrapheneOS bir acil durum şifresi veya PIN'i ayarlama seçeneği sunar. Bir kez yapılandırıldığında, ikincil kullanıcı profillerinde dahi olsa bir kilit açma PIN'i veya şifresi istenen herhangi bir yerde bunu kullanmak, cihazdaki (ve kurulu herhangi bir eSIM'deki) tüm verileri geri döndürülemez şekilde silecektir. Tetiklendiğinde, şifre çözme için gereken bilgiler silinir ve cihaz kapanır. Bir sonraki açılışta, geçersiz bir dosya sistemi tespit edilecek ve cihaz, fabrika ayarlarına sıfırlanmış gibi yeniden kurulabilecektir. Bu işlemin şifrelenmiş verinin kendisini silmediğini unutmayın, çünkü bu çok uzun sürer ve saldırganlara işlemi kesintiye uğratma fırsatı verirdi.
+Son olarak, GrapheneOS bir acil durum şifresi veya PIN kodu (duress PIN) tanımlama seçeneği sunar. Bu şifre yapılandırıldıktan sonra, cihazın herhangi bir yerinde (ikincil profiller dahil) girilmesi durumunda cihazdaki ve tanımlı eSIM'lerdeki tüm veriler geri döndürülemez şekilde silinir. Şifre tetiklendiğinde şifre çözme anahtarları anında yok edilir ve cihaz kapatılır. Bir sonraki açılışta dosya sistemi geçersiz kalacağı için cihaz fabrika ayarlarına sıfırlanmış gibi yeniden kurulmak zorunda kalır. Bu işlemin verilerin kendisini sıfırlardan yazarak silmediğini belirtmek gerekir; çünkü bu işlem çok uzun sürer ve saldırganların müdahale etmesine olanak tanırdı.
 
 ### Otomatik Yeniden Başlatma
 
-Az önce açılmış ve henüz kilidi açılmamış bir cihazın kullanıcı verileri tamamen şifrelenmiştir. İlk kilit açmadan sonra devam eden kullanım, genellikle cihazın geçici belleğinde şifrelenmemiş veri birikmesine yol açar, bu da adli bilişim şirketlerinin istismar ettiği bir güvenlik açığıdır. Otomatik Yeniden Başlatma özelliği, şifrelenmemiş verilerin çıkarılmasına karşı korumak için tanıtılmıştır.
+Cihaz açıldıktan sonra henüz ekran kilidi açılmamışken kullanıcı verileri tamamen şifrelenmiş haldedir. İlk kilit açma işleminden sonraki kullanım sürecinde ise şifre çözme anahtarları cihazın geçici belleğinde (RAM) tutulur; bu durum fiziksel erişim araçlarıyla verilerin sızdırılmasına yol açabilecek bir güvenlik açığı oluşturur. Otomatik Yeniden Başlatma özelliği, bellekten veri sızdırılmasını önlemek amacıyla geliştirilmiştir.
 
-Uygulamaların cihaz kilitlendiğinde hassas verileri "dinlenme durumuna" almaları mümkün olsa da, bu özelliği gerçekten uygulamak geliştiricilere bağlıdır ve bu nadiren gerçekleşir. Gizlilik odaklı Signal mesajlaşma uygulamasının geliştiricileri bile bu özelliği uygulamaya pek ilgi göstermemiş, Molly gibi forklara bunu daha iyi ele alma fırsatı bırakmıştır. Cihazı belirli bir süre sonra otomatik olarak yeniden başlatarak, "ilk kilit açmadan önce" (BFU) durumuna geri döner.
+Uygulamaların cihaz kilitlendiğinde hassas verileri yeniden şifreleyerek askıya alması mümkün olsa da bu durum uygulama geliştiricilerinin inisiyatifindedir ve pratikte nadiren uygulanır. Örneğin, popüler mesajlaşma uygulaması Signal dahi bu özelliği doğrudan desteklemezken, Molly gibi çatallar bu özelliği daha başarılı bir şekilde sunmaktadır. Cihaz kilitlendikten belirli bir süre sonra otomatik olarak yeniden başlatılarak veriler henüz şifresi çözülmemiş 'ilk kilit açma öncesi' (Before First Unlock - BFU) durumuna geri döndürülür.
 
-Yeniden başlatma zamanlayıcısı cihaz her kilitlendiğinde başlar ve başarılı bir kilit açmada sıfırlanır. Varsayılan olarak, zamanlayıcı 18 saate ayarlanmıştır, mevcut en düşük ve daha güvenli değer ise 10 dakikadır. Zamanlayıcının yalnızca son yeniden başlatmadan sonra cihaz en az bir kez kilidi açılmışsa başlayacağını unutmayın.
+Yeniden başlatma zamanlayıcısı, cihaz her kilitlendiğinde devreye girer ve başarılı bir kilit açma işleminde sıfırlanır. Varsayılan süre 18 saattir; en güvenli ve en kısa değer ise 10 dakikadır. Zamanlayıcının çalışması için son yeniden başlatmadan sonra ekran kilidinin en az bir kez açılmış olması gerekir.
 
-18 saatlik varsayılan değerle, zamanlayıcı kullanıcı deneyimini etkilememek için sürekli kullanım sırasında iptal edilecektir. GrapheneOS'un hâlâ düzenli yeniden başlatmalar gerektiren çok sık güncellemeleri sayesinde, bu özelliğin telefon bir çekmecede beklerken bu güncellemeleri kurmak gibi ikincil bir kullanımı da vardır. Hâlâ çok sık yeniden başlatmalara neden oluyorsa, zamanlayıcı 78 saate kadar artırılabilir veya tamamen devre dışı bırakılabilir - ancak GrapheneOS bu seçeneğe karşı şiddetle uyarır.
+Varsayılan 18 saatlik ayarda, sürekli kullanım esnasında kilit açıldıkça sayaç sıfırlanacağı için kullanıcı deneyimi olumsuz etkilenmez. GrapheneOS'un sunduğu sık güncellemeler de cihazın yeniden başlatılmasını gerektirdiğinden, bu özellik telefon aktif değilken güncellemelerin otomatik uygulanmasına da yardımcı olur. Zamanlayıcı süresi 78 saate kadar uzatılabilir veya tamamen kapatılabilir; ancak güvenlik gerekçesiyle bu özelliğin kapatılması kesinlikle önerilmez.
 
-İkincil kullanıcı profilleri kullanmayı planlıyorsanız, bu özelliğin oldukça can sıkıcı olabileceğini unutmayın, çünkü tüm kullanıcı oturumları kapatılacak ve cihaz varsayılan kullanıcıya (Owner) geri dönecektir. İstediğiniz güvenlik seviyesine bağlı olarak iyi bir zaman dilimi 4 veya 8 saat olabilir.
+İkincil kullanıcı profilleri kullanılıyorsa, bu özelliğin oturumları kapatarak cihazı ana kullanıcı (Owner) profiline döndüreceği unutulmamalıdır. Hedeflenen güvenlik düzeyine göre 4 veya 8 saatlik süreler makul birer seçenek olabilir.
 
 ### USB Kısıtlamaları
 
-Adli bilişim şirketleri akıllı telefonlara sızmaya çalıştıklarında, sunduğu birçok fonksiyon nedeniyle büyük bir saldırı yüzeyine sahip olan USB arayüzü üzerinden yapmayı tercih ederler. Pixel cihazları, stok Android tarafından henüz kullanılmayan ama GrapheneOS projesi için temel olan, USB-C bağlantı noktası üzerinde donanım seviyesinde kontrol sunar.
+Cihazlara yetkisiz erişim sağlamaya çalışan adli bilişim araçları, geniş işlevselliği nedeniyle büyük bir saldırı yüzeyi sunan USB veri hattını kullanmayı tercih eder. Pixel modelleri, standart Android sürümlerinde bulunmayan fakat GrapheneOS için kritik öneme sahip olan, USB-C portunun donanımsal düzeyde denetlenmesine imkan tanır.
 
 
-Varsayılan olarak, GrapheneOS cihaz kilitlenir kilitlenmez yeni USB-C bağlantılarını devre dışı bırakır. Başka bir deyişle, cihaz kilidi açıkken USB-C verisine bağlanabilir ve kullanabilirsiniz, ama kilitlendiğinde ve bağlantı kesildiğinde, yeni bağlantıları kabul etmeyecektir. Bu önlem, DisplayPort gibi USB-C alternatif modlarını devre dışı bırakmayı da içerir.<br><br>
-En güvenli ama aynı zamanda en sıkıntılı seçenek, işletim sistemi çalışırken USB-C bağlantı noktasını tamamen devre dışı bırakmaktır. Bu, cihazın güç mantığında bulunan herhangi bir güvenlik açığını da engeller (varsa), ama cihazı şarj etmek istediğinizde ayarı her seferinde kapatmanızı gerektirecektir.
+Varsayılan olarak GrapheneOS, cihaz kilitlendiği anda yeni USB veri bağlantılarını engeller. Cihaz kilidi açıkken veri aktarımı yapılabilir; ancak cihaz kilitlendikten ve kablo bağlantısı kesildikten sonra yeni bir veri bağlantısı kurulmasına izin verilmez. Bu koruma, DisplayPort gibi USB-C üzerinden çalışan görüntü aktarım modlarını da kapsar.<br><br>
+En yüksek güvenlik sağlayan ancak kullanımı zorlaştırabilecek seçenek ise cihaz açıkken USB portunu veri iletişimi için tamamen kapatmaktır. Bu ayar, donanımın güç denetimindeki olası açıkları da kapatır; fakat cihazı şarj etmek istediğinizde bu engeli her seferinde manuel olarak devre dışı bırakmanızı gerektirir.
 
 ### Kablosuz Saldırı Yüzeyi
 
-USB devre dışı bırakıldığında, geriye Wi-Fi, Bluetooth ve hücresel ağ gibi kablosuz saldırı vektörleri kalır. Ancak, bu yöntemlerden biri aracılığıyla bir cihaza erişmek çok daha zor ve karmaşık olacaktır. Donanım bileşeni izolasyonu mobil cihazlarda norm haline gelmiştir. Pixel'lerin bu radyoların her biri için ayrı çipleri vardır ve isterseniz çipleri tek tek çıkarabilirsiniz ve cihaz çalışmaya devam eder.
+USB bağlantısı sınırlandırıldığında geriye Wi-Fi, Bluetooth ve hücresel ağlar gibi kablosuz veri iletim kanalları kalır. Ancak bu kablosuz kanallar üzerinden cihaza sızmak çok daha karmaşık ve zordur. Modern mobil cihazlarda donanımsal bileşen yalıtımı standart bir uygulamadır. Pixel modellerinde bu kablosuz birimlerin her biri için bağımsız yongalar bulunur.
 
-Varsayılan olarak etkin olmasa da, Wi-Fi ve Bluetooth'u otomatik olarak devre dışı bırakmak için bir zamanlayıcı ayarlamak mümkündür. Zamanlayıcı, artık aktif bir bağlantı olmadığı anda başlar. GrapheneOS projesi bu özelliği gelecekte NFC'ye de genişletmeyi planlıyor.
+Varsayılan olarak kapalı olsa da aktif bir bağlantı kesildiğinde Wi-Fi ve Bluetooth'u otomatik olarak kapatan bir zamanlayıcı ayarlanabilir. GrapheneOS ekibi bu özelliği gelecekte NFC için de sunmayı planlamaktadır.
 
-Hücresel bağlantı konusu çok daha karmaşıktır. Her şeyden önce, 5G, SMS, MMS ve aramalar genel olarak GrapheneOS'ta stok Android'de olduğu gibi düzgün çalışır. GrapheneOS, yine saldırı yüzeyini azaltmaya çalışan çeşitli anahtarlar ekler, ancak operatörünüze ve bulunduğunuz ülkeye bağlı olarak, neyin işe yaradığını görmek için denemeler yapmanız gerekebilir.
+Hücresel ağ bağlantıları ise daha karmaşık bir yapıya sahiptir. 5G, SMS, MMS ve sesli aramalar GrapheneOS üzerinde sorunsuz çalışır. GrapheneOS, saldırı yüzeyini küçültmek amacıyla hücresel ağ için bazı ek kontrol anahtarları sunsa da operatörünüze ve bölgenize bağlı olarak en kararlı ayarları deneme-yanılma yoluyla bulmanız gerekebilir.
 
-> GrapheneOS ile eSIM kullanabilirsiniz, ama tescilli Google özellikleri gerektirdiğinden varsayılan olarak tamamen devre dışıdır. Geçmişte, eSIM desteğini etkinleştirmek Google Play gerektiriyordu, ama bu artık geçerli değil ve eSIM kullanmak Google ile herhangi bir veri paylaşmaz. Acil durum PIN/şifresi yoluyla yapılan bir silmenin eSIM'leri de sildiğini, ama aynı şeyin normal bir fabrika sıfırlaması için geçerli olmadığını unutmayın.
+> GrapheneOS ile eSIM kullanılabilir. eSIM özellikleri Google altyapısına ihtiyaç duyduğundan varsayılan olarak kapalı gelir. Geçmişte eSIM aktivasyonu için Google Play hizmetleri gerekirken günümüzde buna gerek kalmamıştır ve eSIM kullanımı Google ile veri paylaşımına yol açmaz. Acil durum PIN/şifresi tetiklendiğinde eSIM profillerinin de silineceğini, ancak standart fabrika sıfırlamasında bunun geçerli olmadığını unutmamak gerekir.
 
-GrapheneOS projesi, mümkün olduğunda yalnızca LTE seçeneğinin kullanılmasını önerir. Bazen 4G veya 5Ge olarak adlandırılan LTE, 2G ve 3G protokollerinden çok daha modern, ama daha yeni 5G protokolünden de daha az karmaşık ve daha kararlıdır. Bunun bazı engelleme biçimlerini daha zor hale getirebileceğini unutmayın, ama yalnızca LTE modunun tek amacı, bu eski protokollere ve en yenilerine bağlı büyük miktarda kodu devre dışı bırakmaktır.
+GrapheneOS geliştiricileri, mümkünse bağlantı türü olarak yalnızca LTE'nin (4G) seçilmesini önermektedir. LTE, eski 2G ve 3G protokollerine göre çok daha güvenli ve modern; yeni 5G protokolüne göre ise daha az karmaşık ve daha kararlıdır. Yalnızca LTE modunun tercih edilmesindeki temel amaç, eski ağ protokollerine ait geniş kod tabanını devre dışı bırakarak saldırı yüzeyini daraltmaktır.
 
 ### Hücresel Gizlilik
 
-LTE ve 5G bir şifreleme biçimi sunar, ama bu öncelikle ağ üzerinden iletilen verileri korumak içindir, gizliliğinizi korumak için değil. Kullanılan moddan bağımsız olarak, geleneksel telefon görüşmelerinden ve hücresel ağ üzerinden SMS'ten kaçınmalı, bunun yerine Signal ve SimpleX gibi uçtan uca şifrelenmiş mesajlaşma platformlarını kullanmalısınız.
+LTE ve 5G teknolojileri kendi içlerinde bir şifreleme sunar; ancak bu şifreleme öncelikle ağ üzerinden iletilen verileri korumak içindir, kişisel gizliliğinizi korumayı amaçlamaz. Kullanılan moddan bağımsız olarak, standart GSM aramalarından ve hücresel ağ üzerinden gönderilen SMS'lerden kaçınılmalı; bunun yerine Signal ve SimpleX gibi uçtan uca şifrelenmiş mesajlaşma platformları tercih edilmelidir.
 
-Geleneksel telefon sistemi tarihsel olarak güvensizdir ve kullanıcıların gizliliğini korumak için tasarlanmamıştır. Bunu, bir kez güvenilir taraf statüsü ve erişim elde ettiğinizde, önemli miktarda bilgi ve ağ üzerinde kontrol elde ettiğiniz duvarlarla çevrili bir bahçe olarak düşünebilirsiniz. Bu erişim ayda birkaç bin dolara satın alınabilir ve telefon görüşmelerini, SMS'leri ve bazı durumlarda bir kişinin konumunu yaklaşık olarak takip etmeyi bile mümkün kılar. Bunu yapmak için bir saldırganın SIM kartınızın benzersiz IMSI tanımlayıcısına ihtiyacı vardır, bu da genellikle telefon numaranızı bilerek bulunabilir. Bununla, saldırgan telefonunuz böyle bir SMS'in gönderildiğine dair hiçbir belirti vermeden iki faktörlü kimlik doğrulama SMS'ini ele geçirebilir.
+Geleneksel telekomünikasyon altyapısı tarihsel olarak güvensizdir ve kullanıcı gizliliğini korumak amacıyla tasarlanmamıştır. Bu sistemi, yetkisiz bir erişim elde edildiğinde ağ üzerinde geniş bir denetim imkanı sunan kapalı bir ağ olarak düşünebilirsiniz. Bu tür erişimler ticari olarak satın alınabilmekte; telefon görüşmelerinin, SMS'lerin ve bazı durumlarda konum verilerinin takip edilmesini mümkün kılmaktadır. Saldırganların bu bilgilere erişmesi için SIM kartın benzersiz IMSI tanımlayıcısını elde etmesi yeterlidir ve bu tanımlayıcı genellikle telefon numaranız üzerinden tespit edilebilir. Bu yöntemle saldırganlar, telefonunuzda herhangi bir uyarı belirmeden iki faktörlü doğrulama kodlarını (SMS) ele geçirebilir.
 
-Telefonunuz hücresel ağ ile kimlik doğrularken, bunu hem SIM kartınız hem de cihazınızın hücresel radyo donanımı hakkında bilgi sağlayarak yapar. Telefonu ve SIM'i anonim olarak satın aldıysanız, esasen kalıcı bir takma ad kullanıyorsunuz demektir. Donanım bilgisi paylaşıldığından, sadece SIM'i değiştirmek yeni bir kimlik elde etmek için yeterli değildir.
+Cihaz hücresel ağa bağlanırken hem SIM kart kimliğini hem de hücresel modem donanımına ait bilgileri ağa iletir. Telefonu ve SIM kartı anonim olarak satın almış olsanız dahi, donanım kimliği (IMEI) ağ tarafında kaydedildiği için yalnızca SIM kartı değiştirmek yeni bir kimlik elde etmek için yeterli değildir.
 
-Bu noktada, cihazınıza bir SIM kart takmanın alternatifi olarak harici bir cihaz, örneğin özel bir mobil hotspot kullanmayı düşünebilirsiniz. Bu gizliliğinizi artırırken, güvenliğinizi kötüleştirecektir, çünkü bu cihazlar genellikle çok daha kötü donanım izolasyonuna sahiptir ve Pixel'inizin dahili izole hücresel radyosunu kullanmaya kıyasla güncellemeler konusunda çok gerideler; bu, bir saldırganın özel cihazın kontrolünü almasını ve telefonunuza saldırmak için büyük bir saldırı yüzeyine sahip olmasını çok daha kolaylaştırır.
+Cihaza SIM kart takmak yerine harici bir mobil Wi-Fi (hotspot) cihazı kullanılması düşünülebilir. Ancak bu durum gizliliği kısmen artırsa da güvenliği olumsuz etkileyecektir. Bu tür harici cihazlar genellikle yetersiz donanımsal yalıtıma sahiptir ve Pixel modellerinin izole hücresel modem donanımına kıyasla güncelleme desteği açısından çok geridedir. Bu durum, saldırganların harici cihazı ele geçirerek telefonunuza saldırmasını kolaylaştırır.
 
-Bu özel hücresel cihazlardan bazıları IMEI'yi sahtelemeye, yani donanım tanımlayıcısını rastgele bir değere değiştirmeye izin verir. Bu, aynı özel cihazı yeniden kullanmanıza ve ağda yeni bir kimlik elde etmek için sadece IMEI değerini yeni bir SIM kartla birlikte değiştirmenize izin verir. Ancak, IMEI'nin hücresel radyoların ilettiği tek cihaza özgü donanım tanımlayıcısı olmadığını ve dahası, değiştirilmiş tanımlayıcılarla bile bu cihazları yeniden tanımlamaya izin verebilecek "parmak izi çıkarma" yolları olduğunu bilmelisiniz. En kötü durumda, sahtecilik çok belirgin olursa kendinize çok fazla dikkat çekebilirsiniz bile.
+Bu harici cihazların bazıları, IMEI numarasını (donanım tanımlayıcısını) rastgele değerlerle değiştirmeye olanak tanır. Bu sayede aynı cihazı kullanmaya devam ederken yeni bir SIM kart ile birlikte IMEI numarasını da değiştirerek ağda yeni bir kimlik edinebilirsiniz. Ancak IMEI'nin, hücresel modemler tarafından iletilen tek donanım tanımlayıcısı olmadığını bilmeniz gerekir; üstelik değiştirilmiş tanımlayıcılara rağmen bu cihazların ağ üzerinden tespit edilmesini sağlayabilecek çeşitli yöntemler bulunmaktadır. Ayrıca sıra dışı IMEI değişiklikleri ağ operatörlerinin dikkatini çekerek şüphe uyandırabilir.
 
-GrapheneOS projesi, hücresel iletişim için ikincil bir cihaz kullanmayı önermez, ama gerçekten isterseniz, GrapheneOS kurulu başka bir Pixel cihazı kullanmak daha iyi olurdu. Wi-Fi üzerinden hücresel internet paylaşırsanız, yakındaki birinin Wi-Fi erişim noktanızdan gelen sinyalleri tespit ederek hareketlerinizi takip edebileceğini unutmayın.
+GrapheneOS ekibi, hücresel ağ erişimi için ikincil bir cihaz kullanılmasını önermez. Böyle bir yapı kurulacaksa dahi GrapheneOS yüklü ikinci bir Pixel modelinin tercih edilmesi daha güvenlidir. Wi-Fi üzerinden internet paylaşımı (tethering) yapıldığında, yakındaki kişilerin Wi-Fi sinyallerini analiz ederek hareketlerinizi takip edebileceği unutulmamalıdır.
 
 **Uçak modu ne olacak?**
 
-Uçak modu, cihazın hücresel radyo iletimini, alımını ve takip yeteneklerini tamamen devre dışı bırakmanın tek yoludur. Uçak modu etkinleştirildikten sonra, hücresel radyoyu geri açmadan Wi-Fi'yi yeniden açmak mümkündür. Pixel'inizi sadece bir Wi-Fi cihazı olarak kullanmayı düşünüyorsanız, yanlışlıkla yeniden açmamak için hızlı geçişi (durum çubuğunu aşağı kaydırarak görünen uçak modu düğmesi) kaldırmayı düşünebilirsiniz.
+Uçak modu, cihazın hücresel modem iletimini, alımını ve hücresel takibi tamamen kapatmanın tek yoludur. Uçak modu açıldıktan sonra hücresel şebeke kapalı tutularak Wi-Fi bağlantısı tekrar etkinleştirilebilir. Cihazı yalnızca Wi-Fi üzerinden kullanmayı planlıyorsanız, yanlışlıkla hücresel şebekeyi açmamak için hızlı ayarlar panelindeki uçak modu düğmesini kaldırmayı düşünebilirsiniz.
 
-Hücresel ağın, operatör servislerinin kullanılabileceği tek yol olmadığının bilincinde olmalısınız. Wi-Fi üzerinden aramalar ve mesajlar da vardır. SIM'in operatörle kimlik doğrulamasını ve diğer internet bağlantıları üzerinden ağ servislerini kullanmasını önlemek için SIM'in kendisini devre dışı bırakmanız gerekir.
+Hücresel şebekenin, operatör hizmetlerinin kullanılabileceği tek kanal olmadığı unutulmamalıdır. Wi-Fi üzerinden arama (VoWi-Fi) ve mesajlaşma özellikleri de mevcuttur. SIM kartın operatörle kimlik doğrulamasını ve internet bağlantıları üzerinden ağ servislerini kullanmasını önlemek için SIM kart profili veya hattın kendisi sistem ayarlarından kapatılmalıdır.
 
-Daha yeni cihazlar, kayıp cihazları bulmak için tasarlanmış özel çevrimdışı takip sistemlerine sahiptir. GrapheneOS bu sistemleri desteklemez ve asla desteklemeyecektir. Kesinlikle emin olmak istiyorsanız, kullanmadığınız zamanlarda cihazı bir Faraday çantasında tutmayı düşünebilirsiniz.
+Yeni nesil cihazlar, kayıp telefonları bulmak için tasarlanmış özel çevrimdışı takip sistemleri barındırır. GrapheneOS bu takip ağlarını desteklemez ve gelecekte de desteklemeyecektir. Sinyal takibinden tamamen kaçınmak için cihaz kullanılmadığı zamanlarda bir Faraday çantasında saklanabilir.
 
 **Sadece veri SIM'leri ne olacak?**
 
-Gizlilik açısından, veri-yalnız bir SIM kullanırsanız çok şey değişmez: hâlâ hücresel ağda kimlik doğrulanmış durumdasınız. Ancak, mesaj ve aramaların olmaması, potansiyel istismarlar için saldırı yüzeyini azaltır. GrapheneOS gelecekte bu özellikleri devre dışı bırakma seçenekleri ekleyebilir, böylece normal SIM'leri esasen veri-yalnız eşdeğerlerine dönüştürebilir.
+Gizlilik açısından yalnızca veri odaklı (data-only) bir SIM kart kullanılması durumu değiştirmez; zira hücresel şebekede kimlik doğrulamanız devam eder. Ancak geleneksel çağrı ve SMS işlevlerinin bulunmaması, potansiyel güvenlik açıklarına karşı saldırı yüzeyini daraltır. GrapheneOS, gelecekte standart SIM kartları yalnızca veri hattı gibi çalıştıracak yazılımsal engeller getirmeyi planlamaktadır.
 
 **VPN kullanmak ne olacak?**
 
-Bir VPN kullanmak, operatör tabanlı aramalar veya mesajlar üzerinde hiçbir etkisi yoktur. Bu fonksiyonlar, hücresel ağ yerine bir Wi-Fi bağlantısı kullansanız bile VPN üzerinden geçmeyecektir. Ancak, diğer saldırı türlerine karşı savunma yapmak ve sizinle potansiyel dış saldırganlar arasına gizlilik koruması katmanları eklemek için yararlı araçlardır. Her zaman güvendiğiniz VPN sağlayıcılarını seçin veya kendi barındırdığınız bir VPN kullanmayı düşünün (bunu kendiniz nasıl kuracağınıza dair [bir rehber](https://b4.lol/tr/vpn) yazdım).
+VPN kullanmanın, operatör tabanlı sesli aramalar veya SMS'ler üzerinde herhangi bir etkisi yoktur. Bu işlevler, hücresel şebeke yerine Wi-Fi bağlantısı tercih edilse dahi VPN tünelinden geçmez. Ancak VPN araçları, diğer saldırı türlerine karşı korunmak ve internet trafiğini maskelemek için kritik önem taşır. Güvenilir VPN sağlayıcıları seçilmeli veya kişisel olarak barındırılan bir VPN hizmeti tercih edilmelidir (VPN kurulumuna dair hazırladığımız [kılavuza](https://b4.lol/tr/vpn) göz atabilirsiniz).
 
 **Veri tasarrufu modu ne olacak?**
 
-Genel veri tasarrufunu (yani tüm kullanıcı profillerinde) etkinleştirmek, uygulamaların arka planda hücresel veri kullanmasını önleyecektir. Kalıcı bir bildirim aracılığıyla ön planda aktif kalan veya kullanıcı tarafından kullanılan ön plan servislerini kullanan uygulamalar bu kısıtlamadan hariç tutulur. Mobil veri kullanımını uygulama bazında sınırlamak da mümkündür. Yani bu, cihazın güvenliğini artırmak için gerçekten yararlı bir yol değildir.
+Veri Tasarrufu modunun tüm profillerde etkinleştirilmesi, uygulamaların arka planda hücresel veri tüketmesini engeller. Ancak ön planda aktif olarak çalışan veya bildirim panelinde kalıcı yer edinen servisler bu kısıtlamadan etkilenmez. Mobil veri kullanımını uygulama bazında kısıtlamak da mümkündür; ancak bu ayarlar tek başına sistem güvenliğini artıran kritik korumalar değildir.
 
 **SIM olmadan kullanmak ne olacak?**
 
-Bir SIM kartınız yoksa ve uçak modunda değilseniz, cihazınız hâlâ hücresel ağa bağlanacak ama kimlik doğrulaması yapmayacak ve herhangi bir donanım tanımlayıcısı paylaşmayacaktır. Hâlâ acil durum aramaları yapabilecek ve acil durum uyarıları alabileceksiniz.
+Cihazda SIM kart bulunmadığında uçak modu açık değilse, telefon hücresel baz istasyonlarına bağlanmaya devam eder ancak bir kimlik doğrulaması yapmaz ve donanım bilgilerini paylaşmaz. Bu durumdayken dahi acil durum aramaları yapılabilir ve acil durum uyarıları alınabilir.
 
 > Acil durum araması yapmanın cihazınızın radyo tanımlayıcılarını paylaşacağını unutmayın.
 
 **Acil durum uyarıları ne olacak?**
 
-Acil durum uyarıları, SIM'i olmasa bile hücresel ağ üzerinden bağlı tüm telefonlara gönderilir. Normalde, sadece uçak modu bunları almanızı önler. GrapheneOS yerel düzenlemelere tabi olmadığından, "başkanlık önceliği" uyarılarını bile devre dışı bırakma seçenekleri sunar. Acil durum uyarıları yine de kullanıcıların takip edilmesine veya verilerinin çalınmasına izin vermez.
+Acil durum uyarıları, SIM kart takılı olmasa dahi baz istasyonuna bağlı tüm cihazlara iletilir. Yalnızca uçak modunun açılması bu uyarıları engeller. GrapheneOS herhangi bir resmi kurum düzenlemesine bağlı olmadığından, en yüksek öncelikli uyarıları dahi kapatma seçeneği sunmaktadır. Acil durum uyarılarının, konum takibine veya veri sızdırılmasına yol açmadığı unutulmamalıdır.
 
 ### Uygulama İstismarlarına Karşı Koruma
 
-Şimdiye kadar cihazı harici tehditlerden nasıl koruyacağımızı tartıştık, ama kurulu uygulamalardan hiçbirinin sistemi içeriden tehlikeye atamayacağından emin olmak da aynı derecede önemli. Android'de uygulamalar her zaman kendi sandbox'larında izole çalışır, erişebilecekleri kaynakları izin verilenlerle sınırlar. Kötü amaçlı uygulamalar, ana işlevleriyle ilgisi olmayan amaçlar için izin isteyip kullanabilir; diğerleri sandbox'larından kaçmaya çalışabilir. Genellikle uygulamanın kendisi kasıtlı olarak kötü niyetli değildir, ama bir güvenlik açığı vardır veya kendi sunucularına yapılan bir saldırıdan etkilenir ve bu da uygulamanın kullanıcılarına yansır.
+Cihazı dış tehditlere karşı korumanın yanı sıra, yüklü uygulamaların sistemi içeriden sabote etmesini önlemek de kritik önem taşır. Android işletim sisteminde uygulamalar yalıtılmış alanlarda (sandbox) çalışarak yalnızca izin verilen kaynaklara erişebilir. Zararlı yazılımlar, işlevleriyle ilgisiz izinler talep edebilir veya yalıtılmış alandan kaçmaya (escape) çalışabilir. Çoğu zaman uygulamanın kendisi doğrudan zararlı olmasa da barındırdığı bir açık veya sunucu tarafındaki bir sızıntı, kullanıcı güvenliğini tehlikeye atabilir.
 
-Ayarların "**Uygulama istismar koruması**" bölümünde, bir uygulamanın sandbox'tan kaçmasını zorlaştıran çeşitli önlemler bulabilirsiniz. Bunların çoğu, çökme veya arızalara neden olabileceğinden, kullanıcı tarafından kurulan uygulamalar için varsayılan olarak etkin değildir. Ancak, bunları genel olarak etkinleştirip, sorun yaşayan uygulamalar için seçici olarak devre dışı bırakmak daha iyidir.
+Ayarlardaki *'Uygulama İstismarı Koruması'* (Exploit Protection) bölümünde, uygulamaların yalıtılmış alandan sızmasını zorlaştıran çeşitli güvenlik ayarları yer alır. Bunların bir kısmı, uyumluluk sorunlarına veya çökmelere yol açabileceği için varsayılan olarak kapalı gelir. Bu korumaları genel olarak açmak ve yalnızca sorun yaşayan uygulamalar için seçici olarak kapatmak daha güvenli bir yaklaşımdır.
 
-Her zaman örtük olarak etkin olan başka önlemler de vardır. Bunlardan biri, just-in-time derleme yerine ahead-of-time derleme kullanılmasıdır. Bu, pil ömrünü, birçok uygulamanın performansını iyileştirir ve önemli bir güvenlik özelliğini temsil eder. Ancak bir dezavantajı vardır: uygulama kurulumları ve güncellemeleri stok Android'e göre çok daha uzun sürer.
+Sistemde varsayılan olarak etkin gelen korumalar da bulunur. Derleme performansını ve güvenliği optimize etmek için GrapheneOS, çalışma anında derleme (just-in-time) yerine önceden derleme (ahead-of-time) yöntemiyle uygulamaları çalıştırır. Bu yöntem pil ömrünü ve uygulama performansını artırırken önemli bir güvenlik bariyeri oluşturur. Ancak uygulamanın kurulması ve güncellenmesi standart Android sürümlerine göre daha uzun sürebilir.
 
 
 
 ### İzinler
 
-Stok Android'de, izinler sadece Kamera, Mikrofon, Vücut sensörleri ve Aktivite tanımaya erişim için mevcuttur. İvmeölçer, jiroskop, pusula, barometre, termometre ve diğer sensörlere erişim, açık bir onay gerektirmeden varsayılan olarak uygulamalara basitçe verilir. GrapheneOS, bu sensörlere varsayılan olarak erişimi önleyen bir seçenek ekler. Bu önlem, bu sensörlerden geçerli veri almayı bekleyen uygulamalarda çökmelere de neden olabilir, bu yüzden yeni bir GrapheneOS kurulumunda tüm uygulamalar için hemen etkinleştirilmez. Bunu etkinleştirerek, bir uygulama bu sensörlerden birine erişmeye çalıştığında her seferinde bir bildirim alacak ve bu izni seçici olarak verebileceksiniz.
+Standart Android sürümlerinde izin denetimleri yalnızca Kamera, Mikrofon, Vücut Sensörleri ve Fiziksel Aktivite erişimleri için mevcuttur. İvmeölçer, jiroskop, pusula, barometre ve termometre gibi donanımsal sensörlere erişim izni ise uygulamalara varsayılan olarak doğrudan verilir. GrapheneOS, bu sensörlere erişimi engelleyen ek bir güvenlik seçeneği sunar. Bu kısıtlama, sensör verilerine bağımlı uygulamalarda çökmelere yol açabileceğinden varsayılan olarak açık gelmez. Özellik etkinleştirildiğinde, bir uygulama sensörlere erişmek istediğinde bildirim gösterilir ve seçici olarak izin verilmesi sağlanır.
 
-Stok Android'in tüm uygulamalara örtük olarak verdiği başka bir izin, ağ fonksiyonlarına erişimdir. Bu, cihazın yerel ağını (localhost) içerir, bu da şu anda kullanıcı profili izolasyonunu atlamak için bilinen bir yöntemdir ve farklı profillerdeki uygulamaların birbirleriyle iletişim kurmasına izin verir. GrapheneOS'ta, bir uygulama kurarken bu izni vermek isteyip istemediğiniz sorulacaktır. Ağ izni verilmediğinde, GrapheneOS bir ağ bağlantısı eksikliğini simüle eder, bu da genellikle uygulamalar tarafından sorunsuz bir şekilde ele alınır.
+Standart Android sürümlerinde tüm uygulamalara doğrudan verilen bir diğer izin ise internet/ağ erişimidir. Bu erişim, cihaz içi yerel ağ bağlantılarını da kapsar ve bazı durumlarda kullanıcı profili sınırlarını aşarak farklı profillerdeki uygulamaların birbiriyle haberleşmesi amacıyla suistimal edilebilir. GrapheneOS üzerinde bir uygulama yüklenirken ağ erişim izni isteğe bağlı olarak sunulur. Ağ izni kapatıldığında GrapheneOS, uygulamaya internet bağlantısı yokmuş gibi davranarak veri sızdırılmasını önler.
 
-Uygulama istismar korumalarını bireysel olarak devre dışı bırakabileceğiniz gibi, izinleri de kendi takdirinize göre uygulamalardan kaldırabilirsiniz. Ancak, varsayılan olarak kurulu sistem uygulamalarından izinleri kaldırmamaya dikkat edin, çünkü bu beklenmedik sorunlara neden olabilir.
+Uygulama istismarı korumalarında olduğu gibi, diğer izinleri de istediğiniz zaman uygulamalardan geri alabilirsiniz. Ancak varsayılan olarak yüklü gelen sistem uygulamalarının izinlerini kapatırken dikkatli olunmalıdır; zira bu durum sistem kararlılığını etkileyebilir.
 
-Özellikle dikkatli yönetilmesi gerekenler ağ izinleri (sadece ihtiyacı olan uygulamalara verin; bir uygulamanın internet üzerinden iletişim kurmaması gerekiyorsa, bu izni kaldırın), konum (GPS erişimi), dahili depolama (dosya erişimi), kamera ve mikrofondur. Ayarlardan çeşitli uygulama izinlerini görebilirsiniz ve bunları ara sıra incelemek çok önemlidir.
+Özellikle ağ erişimi (yalnızca internete ihtiyaç duyan uygulamalara izin verilmelidir), konum (GPS), dahili depolama, kamera ve mikrofon izinleri dikkatle yönetilmelidir. İzin ayarları belirli aralıklarla gözden geçirilerek gereksiz yetkiler sınırlandırılmalıdır.
 
 ### Kısıtlı erişim (storage scope)
 
-Tüm kişilere veya cihazdaki tüm dosyalara erişim gibi oldukça invaziv izinler isteyen popüler uygulamalar vardır. GrapheneOS'un scoping özelliği, erişim vereceğiniz kişilerin veya dosyaların bir alt kümesini seçmenize izin verir, söz konusu uygulama ise her şeye erişimi olduğuna inanacaktır.
+Bazı popüler uygulamalar, kişi listesi veya tüm dosyalara erişim gibi kapsamlı izinler talep edebilir. GrapheneOS'un 'Storage Scopes' (Depolama Kapsamları) ve kişi sınırlama özellikleri, uygulamaya yalnızca sizin seçtiğiniz dosyaları veya kişileri gösterirken, uygulamanın tüm sisteme eriştiğini sanmasını sağlar.
 
-Varsayılan olarak, kişi scoping'i kişi listesi boşmuş gibi davranır ve kullanıcılar daha sonra belirli kişilere veya kişi gruplarına farklı erişim türleri verebilir. Veri erişimi oldukça ayrıntılıdır, bu da tam kişi bilgisi yerine uygulamayla sadece seçtiğiniz belirli verileri paylaşmanıza izin verir.
+Kişi sınırlama özelliği etkinleştirildiğinde, uygulama rehberi boş olarak görür; ardından seçtiğiniz belirli kişileri veya grupları uygulamayla paylaşabilirsiniz. Bu sayede rehberin tamamı yerine yalnızca gerekli kişilerin paylaşılması sağlanır.
 
-Kullanıcılar, uygulamalara tam depolama erişim izni vermek yerine depolama scoping'ini etkinleştirebilir. Bu, kullanıcı açıkça tam erişime izin verilmesi gereken dosyaları veya dizinleri belirtmedikçe, uygulamanın diğer yazılımlar tarafından oluşturulan herhangi bir dosyayı göremeyeceği anlamına gelir.
+Uygulamalara tüm depolama birimine erişim izni vermek yerine depolama kapsamı (Storage Scopes) açılabilir. Bu durumda uygulama, yalnızca kendisinin oluşturduğu veya sizin manuel olarak seçtiğiniz dosya/klasörleri görebilir; diğer uygulamaların verilerine erişemez.
 
-GrapheneOS projesi, Konum, Kamera ve Mikrofon gibi diğer alanlar için de benzer kapsamlı erişim özellikleri eklemeyi planlıyor.
+GrapheneOS ekibi; konum, kamera ve mikrofon gibi diğer hassas donanımlar için de benzer kapsamlı ve sınırlı erişim özellikleri geliştirmeyi planlamaktadır.
 
 ### Mikrofon ve Kamera Anahtarları
 
-Stok Android'de mevcut olsa da, mikrofon ve kameraya erişimi devre dışı bırakan anahtarlar olduğunu belirtmekte fayda var. Bunlar durum çubuğunu aşağı kaydırarak hızlı geçişler olarak da mevcuttur.
+Standart Android sürümlerinde de yer alan, mikrofon ve kamera erişimlerini sistem düzeyinde kapatan kontrol anahtarları hızlı ayarlar panelinde mevcuttur.
 
-Bunları küresel olarak devre dışı bırakıp sadece gerektiğinde açmak yararlı görünse de, hızlıca bir fotoğraf çekmek (örneğin güç düğmesine iki kez basma kısayoluyla) veya telefon hâlâ kilitliyken bir aramaya cevap vermek istiyorsanız bu çok sıkıntılı olabilir. Bu durumlarda, önce telefonun kilidini açmanız ve uygun erişimi etkinleştirmeniz gerekir, ki bu arayanın aramayı kapatmaya karar verecek kadar uzun sürebilir. Bunun yerine, mikrofon ve kamera erişimini sistem seviyesinde etkin bırakıp bu izinleri uygulama bazında reddedebilirsiniz: telefon ve kamera uygulamaları için etkin bırakıp diğerlerini 'Her zaman sor' olarak ayarlayarak.
+Bu donanımları sistem genelinde kapatıp yalnızca ihtiyaç anında açmak güvenli görünse de, kilit ekranından hızlıca fotoğraf çekmek veya bir aramayı yanıtlamak istediğinizde pratikliği olumsuz etkiler. Donanım anahtarlarını açmak için ekran kilidinin açılması gerektiğinden arayan kişi aramayı sonlandırabilir. Bu nedenle mikrofon ve kamera erişimlerini sistem genelinde açık bırakarak izinleri uygulama bazında ('Kullanırken izin ver' veya 'Her seferinde sor' şeklinde) yapılandırmak daha kullanışlı bir yöntemdir.
 
-Bu sensörlere asla ihtiyacınız olmayacağından eminseniz, mikrofonları ve kameraları çıkarılmış cihazlar da satın alabilirsiniz, ancak sensör çıkarma sırasında parça hasarı riski çok yüksek olduğundan fiyatlar ortalama olarak AŞIRI derecede daha yüksektir.
+Bu sensörlere kesinlikle ihtiyaç duymayacağınızdan eminseniz, mikrofon ve kamera donanımları fiziksel olarak sökülmüş özel cihazları da tercih edebilirsiniz; ancak bu tür modifikasyonlar yüksek işçilik gerektirdiğinden maliyetleri oldukça yüksektir.
 
 ### Sistem Güncellemeleri
 
-GrapheneOS sistem güncellemeleri arka planda otomatik ve kesintisiz olarak indirilip kurulur. Ancak, bunları uygulamak için bir yeniden başlatma gerekir, ama bu süreç güncellenmiş işletim sisteminin ilk açılışı başarısız olursa otomatik geri alma sayesinde güvenlidir.
+GrapheneOS güncellemeleri arka planda otomatik olarak indirilip kurulur. Güncellemenin uygulanması için cihazın yeniden başlatılması gerekir. İşletim sisteminin güncellenmiş sürümle açılmasında bir sorun yaşanırsa sistem otomatik olarak çalışan eski sürüme geri döner.
 
-Bir güncellemeden sonra otomatik yeniden başlatmalar mümkündür ama varsayılan olarak devre dışıdır, çünkü bir aramanın ortasında gerçekleşebilirler. Güncellemelerin mobil veri kullanılarak indirilmesini önlemek istiyorsanız, _"İzin verilen ağlar"_ ayarını _"Sadece ölçülmeyen ağlar"_ olarak değiştirmeniz önerilir. Bazı kullanıcılar güncellemelerin özellikle dışarıdayken çok pil tüketebileceğini ve cihazın aşırı ısınmasına neden olabileceğini bildirmiştir. Bu gibi durumlardan kaçınmak için _"Cihazın şarj olması gerekir"_ seçeneğini etkinleştirebilirsiniz.
+Güncelleme sonrası otomatik yeniden başlatmalar desteklense de aramaların bölünmemesi adına varsayılan olarak kapalıdır. Güncellemelerin hücresel veri paketini tüketmesini engellemek için sistem güncelleyici ayarlarından yalnızca sınırsız ağların (Wi-Fi) tercih edilmesi önerilir. Güncellemelerin hareket halindeyken pil tüketimini artırmasını önlemek için 'Cihazın şarj olması gerekir' seçeneği de açılabilir.
 
 
 
-_"Sistem Güncelleyici"_ uygulamasını devre dışı bırakarak otomatik güncellemeleri tamamen devre dışı bırakabilirsiniz. Ancak, GrapheneOS projesi bu seçime şiddetle karşı çıkar, çünkü güvenlik açıklarını düzeltmek veya sistemi iyileştirmek için güvenlik ve gizlilik yamaları almazsınız.
+Sistem Güncelleyici uygulaması kapatılarak otomatik güncellemeler tamamen engellenebilir; ancak güvenlik açıklarının kapatılması ve kararlılık yamalarının alınması adına bu özelliğin açık tutulması kesinlikle tavsiye edilir.
 
-Bazıları gelecekteki bir güncellemenin bir arka kapı tanıtabileceğinden korkabilir. Kötü amaçlı güncellemeleri önlemek için birkaç önlem mevcuttur: hem güncelleme istemcisi hem de doğrulanmış önyükleme mekanizması tarafından doğrulanan geçerli bir kriptografik imzaya sahip olmaları gerekir. Ayrıca, sürüm düşürme gibi saldırılar yerel olarak önlenir.
+Bazı kullanıcılar gelecekteki güncellemelerin sisteme güvenlik açıkları veya arka kapılar ekleyebileceğinden endişe duyabilir. Bu tür riskleri önlemek adına güncellemelerin hem istemci hem de önyükleme aşamasında doğrulanan kriptografik imzalar barındırması zorunludur. Ayrıca sürüm düşürme (downgrade) saldırıları da sistem tarafından engellenir.
 
-GrapheneOS projesi ayrıca, mevcut yasaların yalnızca bireysel kullanıcıları hedef alabileceğini ve tüm GrapheneOS cihazlarına kötü amaçlı güncelleme yayınlamayı zorlayamayacağını savunuyor. Güncelleme istemcisi, güncelleme talep ederken benzersiz şekilde tanımlanabilir cihaz bilgisi sağlamadığından, GrapheneOS belirli kullanıcılara arka kapılı güncellemeler gönderme talebine uyamaz. Ancak, güncelleme sunucusu talep edenin IP adresini görebilir, bu da bir VPN veya Tor kullanılarak maskelenebilir.
+GrapheneOS projesi ayrıca, yürürlükteki yasaların yalnızca belirli kullanıcıları hedef alabileceğini ve tüm GrapheneOS cihazlarına kötü amaçlı bir güncelleme yayınlanmasını zorlayamayacağını savunmaktadır. Güncelleme istemcisi, güncelleme talep ederken benzersiz bir cihaz bilgisi iletmediğinden, GrapheneOS'un belirli bir kullanıcıya arka kapılı güncelleme göndermesi teknik olarak mümkün değildir. Ancak güncelleme sunucusu, talepte bulunan cihazın IP adresini görebilir; bu durum bir VPN veya Tor kullanılarak maskelenebilir.
 
 ### Yedeklemeler
 
-GrapheneOS, bir cihazdan diğerine yedekleme oluşturmak veya veri aktarmak için bir çözüm olarak _Ayarlar &raquo; Sistem &raquo; Yedekleme_'ye yerleşik [Seedvault](https://github.com/seedvault-app/seedvault)'u içerir. İkincil kullanıcı profilleri kullanıyorsanız, her profil için bunu ayrı ayrı kurmanız gerektiğini unutmayın. Signal veya Molly gibi bazı uygulamalar, yalnızca uygulamaların kendisi aracılığıyla gerçekleştirilebilen bir tür uygulama veritabanı şifrelemesi kullanır. Yedeklemeleri saklamak için bir USB sürücü kullanmayı planlıyorsanız, yaygın bir uygulama, yedeklemeyi önce cihazın dahili depolamasında oluşturmak ve süreç tamamlandıktan sonra sürücüye taşımaktır.
+GrapheneOS, verileri yedeklemek veya başka bir cihaza aktarmak amacıyla *Ayarlar > Sistem > Yedekleme* kısmında yerleşik [Seedvault](https://github.com/seedvault-app/seedvault) aracını sunmaktadır. İkincil kullanıcı profilleri kullanılıyorsa, bu özelliğin her profil için ayrı ayrı yapılandırılması gerektiği unutulmamalıdır. Signal veya Molly gibi bazı uygulamalar, yalnızca kendi içlerinden gerçekleştirilebilen özel veri tabanı şifrelemeleri kullanır. Yedeklemeleri saklamak için bir USB sürücü kullanılması planlanıyorsa, yaygın bir yöntem olarak yedekleme önce dahili depolamada oluşturulmalı, işlem tamamlandıktan sonra harici sürücüye taşınmalıdır.
 
-Kullanıcı dosya yedeklemesinin tüm dosyalarınızı içermeyebileceği bilinen bir sorun da vardır. Bu nedenle, tüm önemli dosyalarınızı yedeklemek için Seedvault'a güvenmemelisiniz. Önemli dosyaların ayrı bir yedeğini, örneğin USB bağlantısı üzerinden bir dizüstü bilgisayara (_USB'yi 'Dosya Aktarımı' için kullan_) almanız önerilir. Burada da, bağlantıyı her profil için ayrı ayrı kurmanız gerekecek. GrapheneOS projesi, gelecekte Seedvault'u daha iyi ve daha güvenilir bir çözümle değiştirmeyi umuyor, ancak şu anda başka öncelikler var.
+Seedvault yedeklemelerinin tüm dosyaları kapsamayabileceği bilinen bir sorundur. Bu nedenle, kritik dosyaların yedeği için yalnızca Seedvault'a güvenilmemelidir. Önemli verilerin ayrıca bir bilgisayara (USB bağlantısı üzerinden 'Dosya Aktarımı' seçeneğiyle) yedeklenmesi önerilir. Bu bağlantının da her kullanıcı profili için ayrı ayrı kurulması gerekecektir. GrapheneOS ekibi gelecekte Seedvault'u daha güvenilir bir alternatifle değiştirmeyi planlamaktadır, ancak şu anda öncelikli diğer konular üzerinde çalışılmaktadır.
 
 ## İkincil Kullanıcı Profilleri {#profili-utente-secondari}
 
-Kullanıcı profilleri, aynı cihazı birden fazla kullanıcının paylaşmasına veya bir kullanıcının telefonunda bölmeleme oluşturmasına izin veren ayrı telefonlara sahip olmayı simüle eder. Aşağıda, uygulamaları birbirinden izole etmek ve kullanıcı verilerini bölmelemek için bu özelliğin nasıl kullanılacağını inceleyeceğiz. Bundan önce, uygulama sandboxing'in sağladığı izolasyonun ve daha önce tartışılan erişim "scope"larının sunduğu bölmelemenin birçok kullanıcı için zaten yeterli olacağını belirtmek gerekir.
+Kullanıcı profilleri, aynı cihazın birden fazla kişi tarafından paylaşılmasına veya tek bir kullanıcının cihazında yalıtılmış bölümler oluşturulmasına imkan tanır. Aşağıda, uygulamaları birbirinden izole etmek ve kullanıcı verilerini bölümlere ayırmak için bu özelliğin nasıl kullanılacağı ele alınacaktır. Ancak uygulama yalıtımının (sandboxing) sağladığı güvenlik ve yukarıda değinilen 'Storage Scopes' özelliğinin sunduğu bölümlendirmenin pek çok kullanıcı için zaten yeterli olacağını belirtmek gerekir.
 
-Yeni bir GrapheneOS kurulumunda, birden fazla profil varsayılan olarak devre dışıdır. Yine de, açılıştan sonra telefonun kilidini açtığınızda, "Owner" profiline, yani "cihazın sahibi olan kullanıcı"ya erişiyorsunuz demektir. Owner profili, Linux'taki ayrıcalıklı bir "root" kullanıcısı gibi bir şeyle karıştırılmamalıdır. Owner'ın diğer kullanıcılara kıyasla cihaz üzerinde daha fazla yönetimsel kontrolü olsa da, normal uygulamalar Owner ve diğer herhangi bir kullanıcı profilinde aynı erişime sahiptir.
+Yeni bir GrapheneOS kurulumunda, çoklu profil özelliği varsayılan olarak kapalıdır. Cihaz açılıp kilit açıldığında doğrudan ana kullanıcı olan 'Owner' (Sahip) profiline erişilir. Owner profili, Linux işletim sistemlerindeki yetkili 'root' kullanıcısı ile karıştırılmamalıdır. Owner profili cihaz üzerinde diğer kullanıcılara göre daha fazla yönetimsel yetkiye sahip olsa da, sıradan uygulamalar hem Owner hem de diğer kullanıcı profillerinde aynı kısıtlamalara tabidir.
 
-Her kullanıcı, kendi kilit yöntemiyle korunan kendi anahtarlarıyla şifrelenir. Owner profili özeldir, çünkü sadece Owner'ın verilerini değil, aynı zamanda hassas, sistem genelindeki işletim sistemi verilerini de saklar. Bu nedenle, başka herhangi bir kullanıcı profili kullanılabilmeden önce Owner profilinin her zaman kilidi açılmalıdır. Owner profili ve içinde çalışan uygulamalar, başka bir profili kullanırken arka planda etkin kalmaya devam edecektir. Ancak, Owner profili diğer profillerde saklanan verilere erişemez.
+Her profil, kendi ekran kilidi yöntemiyle korunan bağımsız anahtarlarla şifrelenir. Owner profilinin özel bir durumu vardır; zira sadece kendi verilerini değil, sisteme dair genel hassas verileri de barındırır. Bu nedenle, ikincil kullanıcı profillerine geçiş yapabilmek için öncelikle Owner profilinin kilidi en az bir kez açılmış olmalıdır. Owner profili ve bu profildeki uygulamalar, ikincil bir profile geçildiğinde de arka planda çalışmaya devam eder. Ancak, Owner profili diğer profillerde saklanan verilere erişemez.
 
 
 
 ### Profiller Arası Bildirimler
 
-Yukarıdaki ekran görüntüsünde görülebileceği gibi, arka planda çalışan başka bir profilden bildirim alabilmeniz ilginç bir noktadır. Bildirim sadece hangi profilde gerçekleştiğini ve hangi uygulamanın oluşturduğunu belirtse de, bu, ikincil kullanıcı profilleriyle kullanıcı deneyimini önemli ölçüde iyileştiren bir GrapheneOS eklentisidir.
+Arka planda çalışan diğer profillerden bildirim alınabilmesi önemli bir kolaylıktır. Bildirim içeriğinde yalnızca hangi profilde ve hangi uygulamada bildirim oluştuğu bilgisi gösterilse de bu özellik, ikincil kullanıcı profilleriyle sağlanan kullanıcı deneyimini önemli ölçüde artırmaktadır.
 
 ### Kullanım Örnekleri
 
-Farklı kullanıcı profili türlerine geçmeden önce, sadece Owner profilini kullanmaya kıyasla birden fazla profil kullanmanın faydalarını tartışalım.
+Farklı kullanıcı profili türlerine değinmeden önce, yalnızca Owner profilini kullanmak yerine çoklu profil yapısını tercih etmenin avantajlarını ele alalım.
 
-Her şeyden önce, yeni bir kullanıcı kurduktan sonra, sanki ilk kez açılmış gibi görünen bir telefonla karşılaşacaksınız. Zaten kurduğunuz kullanıcı uygulamalarının hiçbiri mevcut olmayacak, her şey boş olacak. Bu, aynı uygulamanın farklı hesaplarına erişmek istiyorsanız çok yararlı olabilir. Örneğin, birden fazla hesapla bir mesajlaşma uygulaması kullanmak istiyorsanız ama uygulama bu özelliği desteklemiyorsa, sadece farklı profillerde iki kez kurabilirsiniz.
+Öncelikle, yeni bir profil oluşturulduğunda cihaz tamamen sıfırlanmış gibi görünür. Halihazırda Owner profilinde kurulu olan uygulamalar bu yeni profilde yer almaz, her şey temiz bir şekilde başlar. Bu durum, aynı uygulamanın farklı hesaplarına erişmek istendiğinde oldukça yararlıdır. Örneğin, birden fazla hesap desteklemeyen bir mesajlaşma uygulamasını farklı profillerde ayrı ayrı kurarak kullanabilirsiniz.
 
-Uygulamaları farklı profiller arasında ayırmak, birbirleriyle kolayca iletişim kurmalarını önler. Örneğin, ana Facebook uygulaması var ama ayrı bir Facebook Messenger uygulaması da var. Her iki uygulama da kabul ederse, bilgi alışverişi yapmak için işlemler arası iletişime benzer bir şey kullanabilirler - ama bu yalnızca aynı kullanıcı profilinde çalışıyorlarsa mümkündür.
+Uygulamaları farklı profillerde çalıştırmak, birbirleriyle veri paylaşmalarını ve iletişim kurmalarını engeller. Örneğin, bir platformun ana uygulaması ile mesajlaşma uygulaması aynı profilde yüklüyse aralarında veri alışverişi yapabilirler; ancak farklı profillerde yer alıyorlarsa bu tür bir iletişim teknik olarak mümkün değildir.
 
-Owner profilinizde arka planda çalışan uygulamalarınız varsa, manuel olarak durdurmadığınız sürece her zaman etkin olacaklardır. Nadiren kullandığınız uygulamalarınız varsa, bunları ikincil bir kullanıcı profilinde kurmak mantıklıdır. İşiniz bittiğinde, güç düğmesine basılı tutarak o kullanıcının oturumunu sonlandırma seçeneği sunulur. Bu, o profildeki tüm uygulamaların durdurulmasını ve verilerinin dinlenme durumuna alınıp tamamen şifrelenmesini sağlayacaktır.
+Owner profilinde arka planda çalışan uygulamalar, manuel olarak durdurulmadığı sürece etkin kalır. Nadiren kullanılan uygulamaları ikincil bir kullanıcı profilinde çalıştırmak daha mantıklıdır. Bu profildeki işlemler tamamlandığında, oturum sonlandırılarak tüm uygulamaların kapatılması ve verilerin yeniden şifrelenmiş ('dinlenme' - At Rest) durumuna getirilmesi sağlanabilir.
 
-Kullanıcı profillerini sadece geçici olarak oluşturup hemen silebilirsiniz de. Bir profilde kurulu uygulamalar diğer profillerin varlığından habersiz olduğundan, profilleri bir tarayıcının gizli modu gibi kullanabilirsiniz. Bir profilin dosya sistemi diğer profillerden tamamen izoledir ve aynı sonucu elde etmek için bir depolama scope'u kurabilseniz de, geçici profiliniz boş olacağından bu gerekli olmayacaktır.
+Kullanıcı profilleri geçici olarak oluşturulup iş bitiminde silinebilir. Bir profildeki uygulamalar diğer profillerin varlığından habersizdir. Bu yapı, web tarayıcılarındaki gizli mod işlevine benzetilebilir. Her profilin dosya sistemi diğerlerinden tamamen bağımsızdır.
 
-Yukarıda tartışıldığı gibi, Otomatik Yeniden Başlatma özelliği, verilerin dinlenme durumuna alındığından ve adli bilişim şirketleri için kullanılabilir şifrelenmemiş veri olmadığından emin olmak için eklenmiştir. Düzenli kullanımınız için Owner yerine ikincil bir kullanıcı profili kullanırsanız, bu sorun çok daha az görülecektir: Owner'ın verilerini dinlenme durumuna almak bir yeniden başlatma gerektirirken, ikincil bir kullanıcının verilerini dinlenme durumuna almak basitçe oturumunu sonlandırmayı gerektirir.
+Otomatik Yeniden Başlatma özelliği, cihazın şifrelenmiş konumda kalmasını ve fiziksel erişim durumunda şifresi çözülmüş verilere ulaşılamamasını sağlar. Günlük kullanım için Owner profili yerine ikincil bir profil tercih edilirse güvenlik seviyesi artar: Owner profilinin verilerini 'dinlenme' durumuna getirmek için cihazın yeniden başlatılması gerekirken, ikincil bir profilin oturumunu sonlandırmak aynı güvenliği yeniden başlatmaya gerek kalmadan sağlar.
 
-Profillerin en yararlı özelliği ise, farklı gizlilik/güvenlik dengeleri ve farklı ağ kurulumlarıyla bölmelenmiş ortamlar oluşturmaktır. Örneğin, [Invizible Pro](https://invizible.net/en/downloads/) gibi uygulamalar sayesinde tamamen Tor altında bir profil, [WireGuard](https://download.wireguard.com/android-client/) ile VPN altında bir profil ve tamamen clearnet'te bir profil oluşturmak mümkündür, böylece 3 farklı tehdit modeline sahip olursunuz.
+Profillerin en büyük avantajı, farklı gizlilik/güvenlik gereksinimlerine ve ağ yapılandırmalarına sahip yalıtılmış ortamlar oluşturabilmesidir. Örneğin, bir profilde Invizible Pro ile tamamen Tor ağını kullanırken, bir diğerinde WireGuard ile VPN tercih edebilir, üçüncü bir profili ise doğrudan (clearnet) internete açık bırakabilirsiniz.
 
 ### Kullanıcı Profili Sayısı
 
-GrapheneOS, ikincil kullanıcı profili sayısı sınırını 4'ten 32'ye çıkarır, bunlardan biri her zaman misafir kullanıcı için ayrılmıştır. Ancak, bu kadar çok kullanıcı profili oluşturabilmek, hepsinin aynı anda çalışabileceği anlamına gelmez, çünkü bu cihaz performansını olumsuz etkiler. GrapheneOS, cihaza yerleşik RAM miktarına göre maksimum eşzamanlı kullanıcı sayısını ölçeklendirir.
+GrapheneOS, ikincil kullanıcı profili sınırını 4'ten 32'ye yükseltmektedir (bu profillerden biri misafir kullanıcı için ayrılmıştır). Ancak bu kadar çok profil oluşturulabilmesi, hepsinin aynı anda çalışabileceği anlamına gelmez; çünkü bu durum cihaz performansını olumsuz etkileyecektir. GrapheneOS, maksimum eş zamanlı profil sınırını cihazın RAM kapasitesine göre belirler.
 
 | | Pixel 9 Pro Fold | Pixel 9 Pro XL | Pixel 9 Pro | Pixel 9 | Pixel 8 Pro | Pixel 8 & 8a |
 | ------- | ---------------- | -------------- | ----------- | ------- | ----------- | ------------ |
@@ -394,197 +393,197 @@ GrapheneOS, ikincil kullanıcı profili sayısı sınırını 4'ten 32'ye çıka
 
 ### Kullanıcı Profilleri: İleri Düzey Yapılandırmalar
 
-Asla arka planda etkin kalması gerekmeyen kullanım senaryoları için kullanıcı profilleriniz varsa, Owner profili üzerinden o profili düzenleyerek _"Arka planda çalışmaya izin ver"_ seçeneğini devre dışı bırakabilirsiniz. Bu şekilde, kullanıcının oturumunu açıkça sonlandırmanıza gerek kalmaz, çünkü sadece başka bir profile geçmek öncekini dinlenme durumuna alacak, RAM, CPU ve pil tasarrufu sağlayacaktır.
+Arka planda çalışması gerekmeyen profiller için Owner profili üzerinden *'Arka planda çalışmaya izin ver'* seçeneği kapatılabilir. Bu sayede, oturumu manuel olarak sonlandırmaya gerek kalmadan, başka bir profile geçildiğinde önceki profil otomatik olarak askıya alınır; bu da RAM, işlemci ve pil tasarrufu sağlar.
 
 
 
 ### Profiller Arası Uygulama Kurulumu
 
-Kullanıcı profillerinin diğer profillerden uygulamaları güncelleyebildiğini ve Owner profilinin uygulamalarını başka bir profile kurabildiğini öğrenince şaşırabilirsiniz. Her profilin dosya sisteminin tamamen izole olduğunu söylemedik mi? Evet, doğru, ama bu her profilin tamamen bağımsız bir işletim sisteminde çalıştığı anlamına gelmiyor; uygulama kodu, birçok özelliği daha kullanışlı hale getiren iletişim katmanları kullanılarak profiller arasında paylaşılabilir.
+Farklı kullanıcı profillerinin diğer profillerden uygulamaları güncelleyebilmesi veya Owner profilindeki bir uygulamayı ikincil bir profile yükleyebilmesi şaşırtıcı gelebilir. Dosya sistemlerinin yalıtılmış olmasına rağmen bu mümkündür; zira her profil tamamen ayrı bir işletim sisteminde çalışmaz. Uygulama kodları, sistem kaynaklarını korumak amacıyla profiller arasında güvenli bir şekilde paylaşılabilmektedir.
 
 Uygulamaları profiller arasında klonlamaya ek olarak, her profil içinde ayrı ayrı uygulama mağazaları kurmak da mümkündür.
 
 ### Dezavantajlar
 
-İkincil kullanıcı profillerini aktif olarak kullanmanın bazı zorlukları vardır. Örneğin, Otomatik Yeniden Başlatma özelliği tüm kullanıcı oturumlarının sona ermesine neden olarak önce Owner profilinin kilidini açmanızı zorunlu kılar. Bu, ayrıca o profillerdeki tüm uygulamaların zorla durdurulacağı ve o profile geri giriş yapana kadar bildirim almayacağınız anlamına gelir. Otomatik Yeniden Başlatmalar için çok kısa bir süre belirlemediğinizi varsayarsak, bu çok sık gerçekleşmemelidir.
+İkincil kullanıcı profillerini aktif olarak kullanmanın bazı zorlukları bulunmaktadır. Örneğin, Otomatik Yeniden Başlatma özelliği tüm kullanıcı oturumlarını sonlandırır ve öncelikle Owner profilinin kilidinin açılmasını zorunlu kılar. Bu durum, ikincil profillerdeki uygulamaların durdurulacağı ve o profile tekrar giriş yapılana kadar bildirim alınamayacağı anlamına gelir.
 
-Belirtildiği gibi, profil dosya sistemleri tamamen izoledir, bu da örneğin sosyal medyada görülen bir mizah görselini bir profilde paylaşıp başka bir profildeki bir mesajlaşma uygulaması üzerinden paylaşmanın yerel bir yolu olmadığı anlamına gelir. Yaygın çözümler arasında [Cryptomator](https://cryptomator.org/) gibi bulut tabanlı dosya senkronizasyonu veya dosya alışverişi için bir mesajlaşma uygulamasına sahip olmak yer alır, ancak bu gizlilik açısından ideal olmayabilir. [Syncthing](https://github.com/Catfriend1/syncthing-android) gibi uygulamalar veya bir FTP sunucusu+istemci uygulaması kullanarak yerel dosya senkronizasyonu kurabilirsiniz, ama bunlar genellikle yapılandırması can sıkıcıdır.
+Dosya sistemleri tamamen yalıtılmış olduğundan, bir profildeki görsel veya dosyayı diğer profildeki bir uygulamaya doğrudan aktarmanın kolay bir yolu yoktur. Yaygın çözümler arasında Cryptomator gibi araçlarla bulut tabanlı dosya senkronizasyonu veya bir mesajlaşma uygulaması üzerinden dosya paylaşımı yer alsa da bunlar gizlilik açısından en iyi yöntemler olmayabilir. Syncthing veya yerel bir FTP sunucusu/istemcisi ile dosya senkronizasyonu kurulabilse de yapılandırmaları karmaşık gelebilir.
 
-SMS doğrulaması gerektiren ikincil profillere uygulama kuruyorsanız, o kullanıcı için geçici olarak _"Telefon görüşmelerini ve SMS'i etkinleştir"_i etkinleştirmeniz gerekebilir.
+SMS doğrulaması gerektiren ikincil profillerde uygulama kurulumu yaparken, o profil için geçici olarak *'Telefon görüşmelerini ve SMS'i etkinleştir'* seçeneğinin açılması gerekebilir.
 
 ### Private Space (Özel Alan)
 
-Private space özelliği, Android'e yapılan yeni bir eklemedir. Teknik olarak, sadece Owner profili içine yerleştirilmiş ikincil bir kullanıcı profilidir: alan kilitlendiğinde, özel profilin kullanıcısı durdurulur ve alanın kilidi açıldığında, kullanıcı profili başlatılır. Owner ile paylaşılan pano (clipboard) hariç, ikincil bir kullanıcı profilinin olduğu şekilde ayrılmıştır.
+Özel Alan (Private Space), Android işletim sistemine eklenen yeni bir özelliktir. Teknik olarak Owner profili içine yerleştirilmiş ikincil bir kullanıcı profili gibi çalışır: Alan kilitlendiğinde bu özel profil durdurulur, kilidi açıldığında ise yeniden başlatılır. Owner profiliyle paylaşılan pano (kopyalama alanı) hariç, verileri ikincil bir kullanıcı profili gibi yalıtılmıştır.
 
-Private space kullanmanın ikincil bir kullanıcı profiline kıyasla avantajı, bildirimler ve ayarlar gibi yerlerde, alan kilidi açıkken arayüzün "birleştirilmiş" olmasıdır. Bu, private space'ten bir bildirim olduğunda, Owner profilinde tam olarak görüntüleneceği anlamına gelir (sadece uygulama adının ve kullanıcının gösterildiği normal ikincil profillerle karşılaştırıldığında). Bu, onu özel bir kullanıcıdan biraz daha az izole hale getirse de, private space'ler çok daha kullanışlı olabilir.
+Özel Alan kullanmanın ikincil bir profile göre avantajı, alan kilidi açıkken bildirimlerin ve ayarların ana arayüzle bütünleşik olarak gösterilmesidir. İkincil profillerde yalnızca hangi uygulamanın bildirim gönderdiği gösterilirken, Özel Alan bildirimleri Owner profilinde detaylı olarak görüntülenebilir. Bu durum yalıtım düzeyini biraz azaltsa da günlük kullanım kolaylığını artırır.
 
-31 mevcut ikincil profille karşılaştırıldığında, bir cihaz sadece bir private space'e sahip olabilir ve bu her zaman Owner'ın bir parçası olmalıdır. GrapheneOS projesi, private space'leri iyileştirmek için değişiklikler düşünüyor. Private space kullanıcısının kullanıcı yönetimi arayüzünde listelenmediği belirtilmelidir, bu da Owner'ın uygulamalarını private space'e kurmak gibi özelliklerin mevcut olmadığı anlamına gelir. Ayrıca, private space'i kilitlemek, bir ikincil profilin oturumunu sonlandırmanın yaptığı gibi şifreleme anahtarlarını silmez.
+31 adede kadar oluşturulabilen ikincil profillerin aksine, cihazda yalnızca bir Özel Alan oluşturulabilir ve bu alan Owner profilinin bir parçası olmak zorundadır. GrapheneOS Özel Alan özelliklerini geliştirmeyi planlamaktadır. Özel Alan kullanıcısı standart kullanıcı yönetimi arayüzünde listelenmez; bu nedenle Owner profilindeki uygulamaları Özel Alan'a doğrudan kopyalama seçeneği sunulmaz. Ayrıca Özel Alanı kilitlemek, ikincil profildeki oturumu sonlandırmak gibi şifreleme anahtarlarını bellekten silmez.
 
-Tam kullanıcı profillerine kıyasla private space'lerin bir dezavantajı, onlara _"telefon görüşmeleri ve SMS"_ erişimi veremezsiniz. Bu, SMS doğrulamasını önler ve bazı uygulamaların kullanımını sınırlar.
+Tam kullanıcı profillerine kıyasla Özel Alanın bir dezavantajı, bu alana *'telefon görüşmeleri ve SMS'* erişimi verilememesidir. Bu durum, SMS doğrulamasını engeller ve bazı uygulamaların kullanımını sınırlar.
 
 ### Work Profile (İş Profili)
 
-Work profile'lar, kullanıcı deneyimi açısından private space'lere benzer. Aslında kurumsal BYOD (Kendi Cihazını Getir) uygulamaları için tasarlanmıştır, bu yüzden bunları oluşturmak için ayrı bir cihaz yönetim uygulaması gerekir. Bu uygulama ve bunun aracılığıyla ait olduğu şirket, work profile içindeki verilerin kontrolüne ve sahipliğine sahiptir. Ancak, harici bir sahip olmadan bir work profile oluşturmaya ve yönetmeye izin veren [Shelter](https://f-droid.org/en/packages/net.typeblog.shelter/) gibi yerel yönetim uygulamaları vardır. Her durumda, work profile kullanmak için, kendi yazmadığınız veya Shelter'ın kodunu doğrulamadığınız sürece, açık kaynaklı olsa da üçüncü taraf bir uygulamaya güvenmeniz gerekecektir.
+İş Profilleri (Work Profile), kullanıcı deneyimi açısından Özel Alan özelliğine benzer. Bu özellik aslen kurumsal BYOD (Kendi Cihazını Getir) sistemleri için tasarlanmış olduğundan profili oluşturmak için ayrı bir cihaz yönetim uygulaması gerekir. Bu yönetici uygulama ve dolaylı olarak bağlı olduğu şirket, İş Profili içindeki verilerin denetimine ve sahipliğine sahiptir. Ancak harici bir sunucu bağlantısı olmadan İş Profili oluşturulmasına ve yönetilmesine olanak tanıyan [Shelter](https://f-droid.org/en/packages/net.typeblog.shelter/) gibi yerel yönetim araçları mevcuttur. Her durumda, İş Profili kullanmak için açık kaynaklı olsa da üçüncü taraf bir uygulamaya güvenmeniz gerekecektir.
 
-Private space'ler daha iyi izolasyona, daha sağlam şifrelemeye ve Owner profiliyle daha iyi arayüz entegrasyonuna sahiptir. Work profile yönetim uygulamaları, Owner profili ile iç içe geçmiş work profile arasında çok fazla iletişime izin verebilir. Örneğin, work profile'lar profiller arası uygulama iletişimini engellemez, bu da kullanışlılığı artırabilir ama gizlilik ve güvenliği olumsuz etkileyebilir.
+Özel Alan özellikleri daha iyi yalıtıma, daha güçlü şifrelemeye ve Owner profiliyle daha başarılı arayüz entegrasyonuna sahiptir. İş Profili yöneticileri, ana profil ile İş Profili arasında geniş bir veri alışverişine izin verebilir. Örneğin, İş Profilleri profiller arası uygulama iletişimini engellemez; bu durum kullanım kolaylığını artırsa da gizlilik ve güvenliği olumsuz etkileyebilir.
 
-Genel olarak, kullanışlı ve yararlı araçlardır; onlarsız yapabiliyorsanız bu güvenlik ve gizlilik için bir nimettir, ama aynı anda kullanmanız gereken iki "kimliği" bölmelemeniz gerekiyorsa ideal bir seçenektirler.
+Genel olarak bu araçlar oldukça kullanışlıdır; ihtiyaç duymuyorsanız kullanmamak güvenlik ve gizlilik açısından en doğrusudur. Ancak aynı anda iki farklı kimliği (örneğin iş ve özel hayat) ayırmanız gerekiyorsa son derece uygun bir seçenektirler.
 
 ### VPN
 
-VPN kullanımı için genel en iyi uygulama, her kullanıcının farklı bir çıkış IP adresi almak için ayrı bir VPN bağlantısına sahip olmasıdır. Bu nedenle, tüm profiller (work profile'lar ve private space'ler dahil) tasarım itibariyle kendi VPN yapılandırmasına sahiptir. Bu, dışarıdan bir tarafın bunları aynı çıkış IP adresine dayanarak birbirine bağlamasını önler.
+VPN kullanımı için en iyi yöntem, her kullanıcının/profilin farklı bir çıkış IP adresi alması amacıyla ayrı bir VPN bağlantısına sahip olmasıdır. Bu doğrultuda tüm profiller (İş Profilleri ve Özel Alan dahil) kendi VPN yapılandırmalarını barındırır. Bu durum, dış aktörlerin aynı IP adresi üzerinden profilleri birbiriyle ilişkilendirmesini önler.
 
-_"Her zaman açık VPN"_ ve _"VPN olmadan bağlantıları engelle"_ geçişlerini etkinleştirerek bir profilin internete doğrudan erişmesini önleyebilirsiniz. GrapheneOS, veri sızıntılarını, yani VPN bağlantılarının atlanmasını önlemek için Android'de birçok iyileştirme yapmıştır.
+*'Her zaman açık VPN'* ve *'VPN olmadan bağlantıları engelle'* seçenekleri etkinleştirilerek bir profilin doğrudan internete çıkması önlenebilir. GrapheneOS, VPN tünelinin dışına veri sızmasını önlemek amacıyla Android altyapısında pek çok iyileştirme gerçekleştirmiştir.
 
-Şu anda, GrapheneOS projesi sadece resmi WireGuard uygulamalarını (herhangi bir ticari veya kendi barındırılan VPN ile kullanılabilir) ve Mullvad'ı kullanmayı önerir.
+Günümüzde GrapheneOS projesi, yalnızca resmi WireGuard uygulamasını (herhangi bir ticari veya kişisel barındırılan VPN ile kullanılabilir) ve Mullvad istemcisini kullanmayı önermektedir.
 
 ## Uygulamalar {#applicazioni}
 
-Yeni bir GrapheneOS kurulumu minimum sayıda uygulama içerir ve bunun birkaç nedeni vardır: işletim sistemine daha fazla uygulama dahil etmek saldırı yüzeyini başlangıçtan itibaren artırır. GrapheneOS, kurulacak uygulama seçimini kendi yargılarına göre kullanıcılara bırakmayı tercih eder. Proje, gizlilik ve güvenliğe yönelik anlamlı iyileştirmelere odaklanmıştır ve işletim sistemine daha fazla uygulama dahil etmek muhtemelen bu hedefe aykırı olacaktır. Ayrıca, GrapheneOS, çok azı gerçekten değerleri ve hedefleriyle uyumlu olacağından üçüncü taraf uygulama ve servisleri entegre etmekten kaçınır.
+Yeni bir GrapheneOS kurulumu minimum sayıda uygulama ile gelir. Sisteme varsayılan olarak daha fazla uygulama eklemek saldırı yüzeyini genişletir. GrapheneOS, uygulama seçimini tamamen kullanıcının tercihine bırakır. Geliştirici ekip, doğrudan gizlilik ve güvenlik iyileştirmelerine odaklanmıştır; sisteme ek uygulamalar dahil etmek bu hedeflerle çelişecektir. Ayrıca üçüncü taraf uygulama ve servislerin entegrasyonundan da kaçınılmaktadır.
 
-Mevcut az sayıda uygulama arasında, GrapheneOS kendi 'Uygulama Mağazası'nı içerir. Bu depo, esas olarak doğrudan GrapheneOS projesi tarafından geliştirilen uygulamaları ve açık kaynaklı uygulamaların güçlendirilmiş sürümlerini dağıtmak içindir. Mevcut uygulama listesi kasıtlı olarak minimal tutulacak, üçüncü taraf uygulamalar ise GrapheneOS'un resmi olarak onayladığı mağaza olan Accrescent'e dahil olmayı hedeflemeli, Graphene App Store üzerinden kurulabilir.
+Sistemle birlikte gelen az sayıda araç arasında GrapheneOS'un kendi 'Uygulama Mağazası' (App Store) da yer alır. Bu mağaza, doğrudan GrapheneOS projesi tarafından geliştirilen uygulamaları veya güvenlik yönünden güçlendirilmiş açık kaynaklı sürümleri dağıtmayı amaçlar. Üçüncü taraf uygulamaların ise GrapheneOS'un desteklediği bağımsız mağaza olan Accrescent aracılığıyla kurulması hedeflenmektedir.
 
 ### Önceden Kurulu Uygulamalar
 
-GrapheneOS'ta önceden kurulu az sayıda uygulama arasında, yaklaşık yarısı küçük değişikliklerle Android Open Source Project'ten (AOSP) gelir ve işlevsellik ve kullanıcı deneyimi açısından oldukça ilkeldir. Birçok AOSP uygulaması, Android'in kullanıcı arayüzünün daha basit ve beklentilerin daha düşük olduğu 10+ yıl önce harikaydı. Zamanla, Google bunları stok sistem için daha modern versiyonlarla değiştirdi ve açık kaynaklı versiyonları terk etti. GrapheneOS bunları yenilemeyi veya değiştirmeyi planlıyor, ancak olası alternatiflerle genellikle lisanslama sorunları var.
+GrapheneOS'ta önceden yüklü gelen uygulamaların bir kısmı standart AOSP (Android Açık Kaynak Projesi) kaynaklıdır ve tasarım/işlevsellik açısından oldukça sadedir. Google zamanla bu uygulamaların açık kaynaklı sürümlerini geliştirmeyi bırakıp kendi kapalı kaynaklı modern versiyonlarına geçmiştir. GrapheneOS bu temel uygulamaları güncellemeyi planlamaktadır, ancak alternatif uygulamalarda lisanslama sorunları yaşanabilmektedir.
 
-Kamera, Galeri ve Klavye gibi uygulamaların Google versiyonlarını tercih ediyorsanız, invaziv kullanım istatistiği toplamayı etkinleştirmeden veya fotoğrafları servislerine yüklemeden bunlara geçebilirsiniz. Ekran görüntüsü düzenleyici (Markup) ve Termometre (uygun sensöre sahip Pixel'ler için) gibi bazı stok Android uygulamaları, Play Store'da mevcut olmadıklarından GrapheneOS Uygulama Mağazası'nda mevcuttur.
+Google Kamera, Galeri ve Klavye gibi uygulamaları kullanmayı tercih ediyorsanız, internet erişimlerini kapatarak ve veri toplama izinlerini vermeyerek bu uygulamaları güvenle kullanabilirsiniz. Standart Android araçlarından bazıları (Markup ve Termometre gibi) GrapheneOS Uygulama Mağazası üzerinden edinilebilir.
 
-GrapheneOS'un tüm stok uygulamalarının yine de yüksek kalitede olduğunu ve güvenlik ve gizlilik için optimize edildiğini belirtmekte fayda var: örneğin, stok kamera çektiğiniz fotoğraflardan metadata'yı kaldırır ve tüm uygulamalar çalışmak için yalnızca gereken minimum izinlere sahiptir.
+GrapheneOS'un kendi geliştirdiği temel uygulamalar güvenlik ve gizlilik odaklı olarak optimize edilmiştir. Örneğin varsayılan kamera uygulaması çekilen fotoğraflardaki konum ve cihaz gibi meta verileri (EXIF) otomatik olarak temizler. Ayrıca tüm uygulamalar yalnızca çalışmak için gereken minimum izinleri talep eder.
 
 ### Kamera
 
-GrapheneOS'a dahil olan Kamera uygulaması zaten modernize edilmiştir, gizlilik ve güvenliğe odaklanmıştır ve muhtemelen açık kaynaklı alternatiflerden veya çoğu ücretli uygulamadan daha iyidir. Fotoğraf, video çekme ve QR/barkod tarama modları içerir. HDR+, Gece modu, çoklu kamera yakınlaştırma, EIS vb. destekler. Stok Android'e kıyasla fotoğraf kalitesinde kayıp yoktur.
+GrapheneOS Kamera uygulaması modernize edilmiş, gizlilik ve güvenlik odaklı bir yapıya sahiptir. Fotoğraf, video ve QR/barkod tarama modları sunar. HDR+, Gece modu, çoklu kamera yakınlaştırma desteği ve dijital sabitleme (EIS) gibi özellikleri barındırır. Standart Android sürümlerine kıyasla fotoğraf kalitesinde herhangi bir kayıp yaşanmaz.
 
-Ancak, stok 'Pixel Camera' uygulamasının tam özellik yelpazesini sunmaz. Eski adıyla Google Camera olan Pixel Camera, GrapheneOS'ta mevcut tüm kameralardan ve görüntü işleme donanımından tam olarak yararlanabilir. Saldırı yüzeyini azaltmak için, Google uygulamalarının doğrudan donanım erişimi ek bir anahtar aracılığıyla kontrol edilir. _'Google uygulamaları için donanım hızlandırıcılarına özel erişim'_ anahtarı varsayılan olarak etkindir ama herhangi bir ek veri erişimi vermez.
+Ancak bu uygulama, orijinal 'Pixel Kamera' uygulamasının sunduğu bazı özel yazılımsal özellikleri barındırmaz. Google Kamera uygulaması, GrapheneOS üzerinde tüm lenslerden ve görüntü işleme donanımlarından tam performansla yararlanabilir. Güvenliği korumak amacıyla Google uygulamalarının donanım hızlandırıcılarına erişimi ek bir denetim anahtarı ile sınırlandırılmıştır; bu ayar varsayılan olarak açık gelse de herhangi bir veri paylaşımına neden olmaz.
 
-Daha yüksek kaliteli fotoğraflar istiyorsanız, Google Camera'yı kurup uygulama için internet erişimini devre dışı bırakabilirsiniz.
+Daha yüksek kaliteli fotoğraflar ve Pixel yazılım desteği isteniyorsa Google Kamera uygulaması kurulup ağ erişim izni (Network Permission) kapatılarak güvenle kullanılabilir.
 
 ### Galeri
 
-GrapheneOS, mevcut Galeri uygulamasını tamamen değiştirmeyi planlıyor, ama şu anda kabul edilebilir bir lisansa ve yeterli görüntü düzenleme kabiliyetine sahip bir uygulama yok. Sağlam bir açık kaynaklı alternatif arıyorsanız, GrapheneOS [IacobIonut01/Gallery](https://github.com/IacobIonut01/Gallery/blob/main/README.md) ve [Aves](https://github.com/deckerst/aves/blob/develop/README.md)'i öneriyor. Kişisel olarak, galerisi dahil tüm [Fossify](https://fossify.org) uygulama paketini de mükemmel buluyorum; stok alternatifi açık kaynaklı uygulamalar arıyorsanız, bunların hepsi harika.
+GrapheneOS, mevcut varsayılan Galeri uygulamasını ileride değiştirmeyi planlamaktadır. Güçlü bir açık kaynaklı alternatif arayanlar için GrapheneOS geliştiricileri [IacobIonut01/Gallery](https://github.com/IacobIonut01/Gallery/blob/main/README.md) ve [Aves](https://github.com/deckerst/aves/blob/develop/README.md) uygulamalarını önermektedir. Ayrıca açık kaynaklı [Fossify Gallery](https://fossify.org) de son derece başarılı bir alternatiftir.
 
 ### Klavye
 
-GrapheneOS'un varsayılan klavyesi esasen Google'ın 2014'ten Gboard'udur. Bazı kapalı bileşenleri olan açık kaynaklı bir proje olarak başladı, ama tamamen kapalı kaynak hale geldi ve Gboard olarak yeniden markalandı. İmleci hareket ettirmek için boşluk çubuğunda kaydırma, tek el modu, daha iyi emoji işleme ve en önemlisi kaydırarak yazma gibi bazı özellikler eksiktir.
+GrapheneOS'un varsayılan klavyesi, Google'ın 2014 yılındaki açık kaynaklı klavye sürümüne dayanır. Bu sürümde imleç denetimi için kaydırma, tek el modu ve kaydırarak yazma gibi modern Gboard özellikleri yer almamaktadır.
 
-Google'ın modern Gboard'u şu anda kesinlikle mevcut en iyi klavyelerden biridir. Kullanım istatistikleri ve diğer invaziv seçenekleri etkinleştirmediğiniz sürece kullanmak sorun değildir. Aktif klavyelerin her zaman yazılan tüm metne, düzenlenen metne ve pano içeriğine erişimi olduğunu unutmayın.
+Google'ın modern Gboard klavyesi en başarılı yazım araçlarından biridir. İnternet erişimi kapatılarak ve veri toplama seçenekleri devre dışı bırakılarak kullanılmasında sakınca yoktur. Aktif klavye uygulamalarının ekrandaki tüm girdilere ve pano (kopyalama) verilerine erişebileceği unutulmamalıdır.
 
-Açık kaynaklı bir alternatif arıyorsanız, şu anda bence en iyi açık kaynaklı Android klavyesi olan [HeliBoard](https://github.com/Helium314/HeliBoard)'u düşünün. Florisboard veya FUTO Keyboard gibi başka alternatifler de var, ama bunları hâlâ oldukça olgunlaşmamış buluyorum.
+Açık kaynaklı bir alternatif arayanlar için günümüzdeki en başarılı bağımsız klavyelerden biri olan [HeliBoard](https://github.com/Helium314/HeliBoard) önerilir. Florisboard veya FUTO Keyboard gibi diğer projeler de gelişim aşamasındadır.
 
-Bir seçenek de ağ izinleri kaldırılmış Gboard kullanmak olabilir, ancak kişisel olarak bu seçeneği önermeme eğilimindeyim.
+Diğer bir seçenek ise internet erişimi engellenmiş olarak orijinal Gboard klavyesini kullanmaktır.
 
 ### Vanadium Tarayıcısı
 
-GrapheneOS, gizlilik ve güvenlik iyileştirmeleriyle Chromium tabanlı Vanadium alt projesini içerir. Hem işletim sisteminin varsayılan tarayıcısı olarak hem de web içeriği görüntülemesi gereken diğer uygulamalar tarafından kullanılır. Proje, tarayıcıyı olduğu gibi kullanmayı önerir; ek uzantılar veya değişiklikler sizi sadece daha ayırt edilebilir hale getirebilir, bu da takip edilmenizi kolaylaştırır. Web sitelerinin standart sensörlere erişmesini önlemek için tarayıcı uygulaması için _'Sensörler'_ iznini devre dışı bırakabilirsiniz.
+GrapheneOS, güvenlik ve gizlilik yönünden optimize edilmiş Chromium tabanlı Vanadium tarayıcısını barındırır. Bu tarayıcı hem varsayılan web tarayıcısı olarak hem de diğer uygulamaların web içeriklerini görüntülemesinde (WebView) kullanılır. Geliştiriciler, tarayıcının ek eklenti veya ayar değişikliği yapılmadan varsayılan haliyle kullanılmasını önermektedir; zira ek modifikasyonlar tarayıcı parmak izinizi belirginleştirerek takibinizi kolaylaştırabilir. Web sitelerinin sensör verilerine erişmesini engellemek için Vanadium'un 'Sensörler' izni kapatılabilir.
 
-Günlük kullanım için şiddetle önerilen çok yüksek kaliteli bir tarayıcıdır. Mobil cihazlarda, Firefox tabanlı tarayıcılardan kesinlikle kaçının, çünkü çok daha düşük güvenlik seviyeleri sunuyorlar.
+Vanadium günlük kullanım için son derece güvenli ve hızlı bir tarayıcıdır. Mobil platformlarda güvenlik mimarileri yetersiz olduğu gerekçesiyle Firefox tabanlı mobil tarayıcıların kullanılması önerilmez.
 
 ## Uygulama Uyumluluğu
 
-Şu anda, çok küçük bir Android uygulaması alt kümesi GrapheneOS ile uyumsuzdur. Bunlar özellikle, işletim sisteminin Google tarafından resmi olarak sertifikalandırılmasını gerektiren Play Integrity API'sini kullanan uygulamalardır. Bu öncelikle bankacılık/finans uygulamalarını, Ingress gibi konum tabanlı yarışmalı oyunları ve McDonald's uygulaması, Authy ve Uber sürücü uygulaması gibi bazı tuhaf durumları etkiler. Bu özelliği uygulayarak, bu uygulamalar alternatif ve değiştirilmiş işletim sistemlerinin kullanımını yasaklamayı seçerler.
+Günümüzde çok az sayıda Android uygulaması GrapheneOS ile uyumluluk sorunu yaşamaktadır. Bu sorunlar genellikle, işletim sisteminin Google tarafından sertifikalandırılmış olmasını şart koşan 'Play Integrity API' denetiminden kaynaklanır. Bu durum bazı bankacılık uygulamalarını ve konum tabanlı oyunları etkileyebilmektedir. İlgili denetimleri uygulayan servisler, alternatif işletim sistemlerinde çalışmayı engelleyebilir.
 
-Bu, Google Pay üzerinden NFC ödemelerini de önler. Pratikte, durum bankadan bankaya çok değişir: bazı Avrupa bankacılık uygulamaları ve bazı tescilli cüzdanlar çalışır, diğerleri çalışmaz. GrapheneOS'ta temassız ödemeleri genel bir garanti olarak değil, vaka bazında doğrulanması gereken bir şey olarak düşünün.
+Bu durum ayrıca Google Pay (NFC) temassız ödemelerinin de çalışmasını engeller. Ancak temassız ödeme uyumluluğu bankadan bankaya değişiklik göstermektedir; bazı yerel bankacılık uygulamaları sorunsuz çalışırken bazıları çalışmayabilir. Temassız ödeme desteğinin her uygulama için ayrı ayrı test edilmesi gerekmektedir.
 
-GrapheneOS, stok Android ile aynı standart güvenlik modelini sunsa da, Google işletim sistemlerini güvenlik temelinde değil, lisanslanıp lisanslanmadığına göre sertifikalandırır. Bu kısıtlamaların bazılarını aşmanın yolları vardır, ama bunlar zamanla muhtemelen engellenir ve sadece geçici bir çözüm temsil eder. GrapheneOS projesine göre, tek kalıcı çözüm, bunun son derece anti-rekabetçi ve yasa dışı bir davranış olduğu gerçeğine dayanan düzenleyici veya yasal eylemdir. Kişisel olarak, bu kavgayı tamamen önemsiz buluyorum, çünkü Bitcoin veya nakit gibi daha iyi ödeme yöntemleri kullanabilirsiniz.
+GrapheneOS, standart Android ile aynı güvenlik düzeyini sunmasına rağmen Google, cihazları güvenlik kriterlerine göre değil ticari lisans durumuna göre sertifikalandırır. Bu engelleri aşmak için bazı geçici çözümler bulunsa da bunlar zamanla kapatılabilmektedir. GrapheneOS ekibine göre tek kalıcı çözüm, bu tekelci yaklaşıma karşı yasal adımların atılmasıdır.
 
 ### Play Services'e Bağımlılık
 
-Graphene'in uygulama uyumluluğunun bir başka yönü, bazı uygulamaların Google'ın Play Services'ine bağımlı olmasıdır, genellikle mesajlaşma ve sosyal medya için. Birçok uygulama, bildirim almak için Google'ın Firebase Cloud Messaging'ine (FCM) güvenir. Bazı uygulamalar kendi push veya sık yoklama mekanizmalarına geri dönebilir, ama bu genellikle uygulamayı bir ön plan servisiyle çalıştırmayı gerektirir.
+Uygulama uyumluluğunun diğer bir boyutu da bazı sosyal medya ve mesajlaşma araçlarının Google Play hizmetlerine (Play Services) ihtiyaç duymasıdır. Pek çok uygulama, bildirim gönderebilmek için Google'ın bulut mesajlaşma altyapısına (FCM) bağımlıdır. Bazı uygulamalar kendi bildirim servislerini arka planda çalıştırsa da bu durum pil tüketimini artırabilir.
 
-Bir örnek, FCM mevcut olmadığında kendi push mekanizmasını kullanan Signal'dir. Ancak, kötü performans ve verimsizlik (aşırı pil tüketimi) raporları olmuştur. Alternatif olarak, Play Services olmadan kullanım için [Molly](https://molly.im/) istemcisi genellikle önerilir.
+Örneğin Signal, Google Play hizmetleri olmadığında kendi bildirim mekanizmasını devreye sokar; fakat bu durum arka planda sürekli veri kontrolü yapacağı için pil tüketimini artırabilir. Google servislerinden bağımsız kullanım için optimize edilmiş [Molly](https://molly.im/) uygulaması iyi bir alternatiftir.
 
-Play Services'e sıkı sıkıya bağımlı uygulamalar için, resmi Google Play Services'i standart uygulama sandbox'ıyla sınırlı olarak kurma ve kullanma seçeneğiniz vardır. Uyumluluk katmanı sayesinde, Google Play GrapheneOS'ta herhangi bir özel erişim veya ayrıcalık almaz. Henüz taşınmamış veya doğası gereği ayrıcalıklı olduğundan uygulanamayan küçük bir özellik alt kümesi dışında neredeyse tam uyumluluk sağlar. Play Store ve servisleri, uygulama içi satın alımlar ve uygulama/içerik lisans kontrolleri dahil olmak üzere tamamen kullanılabilir. Bir uygulama kaynağı olarak yetkilendirildiği ve her eylem için onay verildiği sürece, uygulamaları normal şekilde kurabilir, güncelleyebilir ve kaldırabilir.
+Google Play servislerine bağımlı olan uygulamalar için, resmi Google Play hizmetlerini sisteme ayrıcalıksız birer uygulama olarak (sandboxed) yükleyebilirsiniz. GrapheneOS'un sunduğu bu özel uyumluluk katmanı sayesinde Google Play, sistem dosyalarına veya cihaz kimliklerine erişemez ve sıradan bir uygulama gibi yalıtılmış olarak çalışır. Bu yapı, uygulama içi satın alımlar ve bildirimler dahil olmak üzere Google bağımlı uygulamaların sorunsuz çalışmasını sağlar.
 
-Uyumluluk katmanını kullanmak için, GrapheneOS Uygulama Mağazası'ndan 'Google Play services'i kurun. Bu, Play Services'in bir bağımlılığı olan Play Store'u da kuracaktır. Android 15'ten önceki eski kurulumlarda, **Google Services Framework** da görünebilir: eğer oradaysa, kaldırmayın. Play Store'u kullanmak, yalnızca Play Store'dan uygulama kurmak veya hesaba bağlı özellikleri kullanmak istiyorsanız bir Google hesabına erişim gerektirir.
+Bu katmanı etkinleştirmek için GrapheneOS Uygulama Mağazası üzerinden 'Google Play services' paketini yüklemeniz yeterlidir. Bu işlem, gerekli diğer Google bağımlılıklarını da otomatik olarak kuracaktır. Play Store üzerinden uygulama edinmek veya Google hesabı gerektiren servisleri kullanmak için bir Google hesabı ile giriş yapabilirsiniz.
 
-Play Services'i kurduktan sonra, uyumluluk katmanından bir _"Eksik isteğe bağlı izin"_ bildirimi alacaksınız. Buna dokunmak, Google Play Services'in her zaman arka planda çalışmasına izin vermek isteyip istemediğinizi soracak, bu Google'ın FCM sunucusuna güvenilir bildirimler için açık bir bağlantı tutar ama pil ömrünü azaltır. Kabul etmek, arka plan kullanımını 'Sınırsız' olarak ayarlayacaktır. 'Optimize Edilmiş' olarak bırakmak, ne kadar kullanıldığına bağlı olarak arka plan kullanımını ağır şekilde kısıtlayacak, devre dışı bırakmak ise arka plan kullanımını neredeyse tamamen önleyecektir. FCM push bildirimlerinin sizin için ne kadar önemli olduğuna göre seçim yapın.
+Google Play hizmetleri kurulduktan sonra bildirim panelinde *'Eksik isteğe bağlı izin'* uyarısı belirebilir. Bu uyarıya dokunarak Google servislerinin arka planda sürekli çalışmasına izin verebilirsiniz. Arka planda çalışma izni verilmesi bildirimlerin gecikmesini önler ancak pil tüketimini artırabilir. Bildirim önceliğinize göre bu ayarı düzenleyebilirsiniz.
 
-Google'dan mümkün olduğunca kaçınmak istiyorsanız, sadece gerçekten ihtiyacınız olan profile kurabilirsiniz. En basit seçim genellikle Owner profili olarak kalır; eğer Google'a bağımlı uygulamaları bölmelemek istiyorsanız, Play Services'i ayrı bir kullanıcı veya work profile'a kurun ve cihazın kalanını temiz tutun.
+Google servislerini sistem genelinden uzak tutmak istiyorsanız, bu servisleri yalnızca ihtiyaç duyduğunuz ikincil bir kullanıcı profiline veya İş Profiline yükleyerek ana profilinizi tamamen temiz tutabilirsiniz.
 
 ### Android Auto
 
-Android telefonunuzu arabanıza bağladıysanız, muhtemelen Android Auto'yu biliyorsunuzdur. Aslında ayrıcalıklı erişim gerektirir, ama GrapheneOS'un sandboxed uyumluluk katmanı, azaltılmış bir ayrıcalık seviyesiyle kullanılabilir hale getirir. Android Auto'nun resmi sürümlerini kurabilir ve kullanabilirsiniz, ama GrapheneOS Uygulama Mağazası üzerinden kurulması gerekir.
+Android Auto özelliği normal şartlarda sistem düzeyinde geniş yetkiler talep etse de GrapheneOS'un yalıtılmış uyumluluk katmanı sayesinde sınırlı yetkilerle çalıştırılabilmektedir. Android Auto uygulamasını GrapheneOS Uygulama Mağazası üzerinden kurarak kullanabilirsiniz.
 
-Kurulumdan sonra, _Ayarlar &raquo; Uygulamalar &raquo; Sandboxed Google Play &raquo; Android Auto_'yu açın ve en azından _"Kablolu Android Auto için izinlere izin ver"_i etkinleştirin. Sadece bu anahtarla çalışmazsa, kablosuz izinlerini de etkinleştirmeniz gerekebilir. Ses, telefon görüşmelerini ve bildirimleri Android Auto'ya yönlendirmek için ek izinler kendi takdirinize göre verilebilir. Android Auto'nun şu anda bir private space'ten veya work profile'dan çalışmadığını unutmayın.
+Kurulumun ardından *Ayarlar > Uygulamalar > Sandboxed Google Play > Android Auto* menüsünden kablolu/kablosuz Android Auto bağlantı izinlerini etkinleştirebilirsiniz. Ses ve bildirimlerin araç ekranına yansıtılması için gerekli ek izinler de bu menüden düzenlenebilir. Android Auto'nun şu an için Özel Alan veya İş Profili altından çalışmadığı unutulmamalıdır.
 
 ### Obtainium ve App Verifier
 
-Android'de, bir uygulamayı kurmak veya güncellemek için indirilen paket dosyaları kriptografik olarak imzalanır. Bir uygulama kurulduktan sonra, kurulum paketinin imzalayanı saklanır, bu da onu güncellemeye çalışan tüm gelecekteki paketlerin aynı geliştiricinin imzasına sahip olması gerektiği anlamına gelir. Bu ilkeye Trust-On-First-Use (TOFU) denir ve bir uygulamanın gelecekteki güncellemelerinin kötü niyetli kaynaklardan gelemeyeceğini garanti eder.
+Android platformunda uygulama kurulum paketleri geliştirici tarafından kriptografik olarak imzalanır. Uygulama yüklendikten sonra bu imza kaydedilir ve gelecekteki güncellemelerin de aynı imza ile onaylanması gerekir. 'İlk Kullanımda Güven' (Trust-On-First-Use - TOFU) adı verilen bu güvenlik yapısı, uygulamaların yetkisiz kaynaklardan güncellenmesini engeller.
 
-Ancak, bu, ilk kurulum için kullanılan paketin gerçekten sandığınız kaynaktan geldiğini garanti etmez. Burada, uygulama mağazaları, uygulama paketini indirmeden önce bile bir uygulamanın gerçek imzalayanının kim olması gerektiğini mağazanın kendi metadata'sı aracılığıyla belirleyerek yararlı bir rol oynar. Öte yandan, bir uygulama mağazası güvenilecek başka bir üçüncü taraf ekler ve burada Obtainium bir azaltma olarak yararlı olabilir.
+Ancak bu yapı, uygulamanın ilk kez kurulurken doğru kaynaktan edinildiğini garanti etmez. Uygulama mağazaları, yükleme öncesinde geliştirici imzalarını doğrulayarak bu sorunu çözer. Ancak harici bir uygulama mağazası kullanmak sisteme ek bir güven zinciri eklediğinden, bağımsız güncelleme aracı olan Obtainium iyi bir alternatif sunar.
 
-[Obtainium](https://github.com/ImranR98/Obtainium), Android uygulamalarını doğrudan kaynaktan, örneğin bir GitHub releases sayfasından almanızı ve güncel tutmanızı sağlar. [AppVerifier](https://github.com/soupslurpr/AppVerifier) ile birleştirildiğinde, kurmak üzere olduğunuz paketin gerçekten uygulamanın gerçek geliştiricisinden geldiğinden emin olabilirsiniz. Bu, uygulama mağazalarının sunduğu önemli bir güvenlik özelliğinden ödün vermeden uygulama yönetimini daha merkeziyetsiz hale getirir. Ancak, GrapheneOS projesi en merkeziyetsiz çözümün Obtainium'u kendilerini güncelleyen uygulamalarla değiştirmek olacağını savunuyor.
+[Obtainium](https://github.com/ImranR98/Obtainium), Android uygulamalarını doğrudan resmi kaynaklarından (örneğin GitHub sürümleri sayfası) indirmenizi ve güncel tutmanızı sağlar. [AppVerifier](https://github.com/soupslurpr/AppVerifier) aracı ile birlikte kullanıldığında, kuracağınız uygulamanın orijinal geliştiriciye ait olup olmadığını doğrulayabilirsiniz. Bu yapı, merkezi uygulama mağazalarına olan bağımlılığı azaltır.
 
 
 
 ### Accrescent
 
-[Accrescent](https://accrescent.app/), GrapheneOS projesine katkıda bulunan biri tarafından yönetilen, güvenlik odaklı bir yaklaşıma sahip bir uygulama mağazasıdır. GrapheneOS Uygulama Mağazası'nda mevcuttur ve hâlâ sınırlı bir kataloğa sahip olsa da, F-Droid'den daha sağlam metadata ve dağıtımla uygulama edinmek için en ilginç yönlerden biridir. GrapheneOS projesi, Accrescent'e geniş bir üçüncü taraf uygulama yelpazesinin (kapalı kaynaklı ve açık kaynaklı) güvenli barındırılmasını devretmeyi amaçlıyor, işletim sisteminin kendi uygulama deposu ise birinci taraf uygulamalarla ve muhtemelen az sayıda yararlı, biraz değiştirilmiş ve güçlendirilmiş üçüncü taraf fork ile sınırlı olacak.
+[Accrescent](https://accrescent.app/), güvenlik odaklı mimariye sahip modern bir uygulama mağazasıdır. GrapheneOS Uygulama Mağazası üzerinden kurulabilir. F-Droid'e kıyasla daha güçlü bir güvenlik denetimi ve imza doğrulama altyapısı sunar.
 
-Accrescent'in en iyi uygulama edinme yollarından biri haline gelmesi umulurken, hâlâ önemli ölçüde büyümek için finansman ve katkıda bulunanlardan yoksun. GrapheneOS projesi, sorunlu güvenlik yaklaşımı nedeniyle birçok kez eleştirilmiş olan F-Droid'e bir alternatif olarak bu gelişimi aktif olarak destekliyor.
+Accrescent projesinin yaygınlaşması hedeflense de henüz geliştirme aşamasındadır. GrapheneOS ekibi, güvenlik zafiyetleri barındırdığı gerekçesiyle F-Droid yerine Accrescent'in geliştirilmesini desteklemektedir.
 
-Accrescent, AppVerifier kullanmaya veya anahtar parmak izini manuel olarak kontrol etmeye gerek kalmadan, imzalı metadata aracılığıyla indirme ve ilk kurulumu düzgün şekilde güvence altına alır, ancak istenirse kurulumdan sonra bunu yapmak hâlâ mümkündür.
+Accrescent, uygulamaların ilk kurulumlarını doğrulanmış imzalı üst verilerle güvence altına alarak manuel kontrol ihtiyacını ortadan kaldırır.
 
 ### F-Droid
 
-[F-Droid](https://f-droid.org/), münhasıran açık kaynaklı Android uygulamaları için bir depo olarak bilinir. GrapheneOS projesi F-Droid'i eleştirmiştir ve üçüncü taraf uygulamalar için bir mağaza olarak önermez. Ana sebep, F-Droid'in çoğu uygulamayı eski altyapıda doğrudan kaynak koddan derlemesi ve ortaya çıkan paketlerin kendileri tarafından kriptografik olarak imzalanmasıdır, bu da F-Droid kullanıcılarının gelecekte toplu olarak ele geçirilmesine ilişkin kaygılar doğurur.
+[F-Droid](https://f-droid.org/), açık kaynaklı Android uygulamalarının dağıtıldığı en popüler platformlardan biridir. Ancak GrapheneOS ekibi, F-Droid'in güvenlik altyapısındaki zafiyetler ve uygulamaların orijinal geliştirici imzaları yerine F-Droid imzalarıyla derlenmesi gibi gerekçelerle bu platformun kullanılmasını önermemektedir.
 
-Geliştirici tarafından imzalanmış paketlerin bir avantajı, geçerli bir imzaya sahip kötü amaçlı bir paket oluşturmanın imzalama anahtarını ele geçirmeyi gerektirmesidir. Bu, F-Droid'in paketleri kör bir şekilde oluşturup imzalamak için kullanabileceği GitHub gibi platformlarda kaynak koda kötü amaçlı değişiklikler eklemekten muhtemelen daha zordur.
+Orijinal geliştirici imzası taşıyan paketlerin kullanılması güvenlik açısından daha avantajlıdır; zira imza anahtarının ele geçirilmesi, kaynak koda dışarıdan müdahale edilmesine kıyasla çok daha zordur.
 
-Genel olarak uygulama indirmek için mükemmel bir mağaza yoktur; F-Droid istemcisi [Droidify](https://droidify.eu.org/), bu uygulama mağazasının bazı sorunlarını çözer ve bu nedenle orijinal istemci yerine önerilir.
+F-Droid yerine, onun sunduğu kaynakları daha modern ve güvenli bir arayüzle sunan [Droidify](https://droidify.eu.org/) istemcisinin kullanılması önerilir.
 
-Ne yazık ki şu anda Graphene'de uygulama indirmek için kesin bir çözüm yok, aşağıda okuyacağınız gibi, her seçim güvenlik, gizlilik veya kolaylık avantajları sağlarken sırayla başka sorunlar getiriyor. İhtiyaçlarınıza en uygun çözümü kullanın.
+Uygulama mağazası seçiminde her yöntemin güvenlik, gizlilik ve kullanım kolaylığı açısından farklı avantaj ve dezavantajları bulunur. İhtiyaçlarınıza en uygun yöntemi tercih edebilirsiniz.
 
 ### Play Store ve Aurora Store
 
-Şu anda, resmi Google Play Store uygulaması, özellikle [APKPure](https://apkpure.com/apkpure-app.html) gibi tüm Play Store uygulama paketlerinin kopyalarına sahip olan ve genellikle bölgesel kısıtlamaları atlamak için kullanılan ayna sitelere kıyasla, kapalı kaynaklı uygulamaları kurmak için en güvenli (ama gizlilik dostu olmayan) yöntem olmaya devam ediyor. Tekrar belirtmek gerekirse, Google'ın Play Store ve Play Services uygulamaları GrapheneOS'ta özel ayrıcalıkları olmayan normal uygulamalar olarak ele alınır ve bunları ikincil bir profile ayırma kararı kullanıcıya bağlıdır.
+Resmi Google Play Store, tescilli (kapalı kaynaklı) uygulamaları edinmek için en güvenli yöntemdir ancak gizlilik yönünden dezavantajları bulunur. Google Play Store ve Play hizmetleri, GrapheneOS üzerinde herhangi bir özel yetkiye sahip olmadığından yalıtılmış profillerde güvenle çalıştırılabilir.
 
-[Aurora Store](https://f-droid.org/en/packages/com.aurora.store/), Google Store deposu için alternatif bir istemcidir. Resmi Play Store uygulamasını kurmaktan kaçınmanızı sağlar ve diğer Aurora kullanıcılarıyla paylaşılan anonim bir Google hesabı kullanma yeteneği sunar. GrapheneOS projesi, daha zayıf güvenliği ve bazı uygulamaların kaynağından olumsuz etkilenebileceği gerçeği nedeniyle Aurora kullanmaya karşı uyarıyor. Aurora'nın güvenilmez anonim seçeneğini kullanmak yerine, resmi Play Store'da tek kullanımlık bir telefon numarasıyla tanımlanamayan bir hesap her zaman oluşturabilirsiniz.
+[Aurora Store](https://f-droid.org/en/packages/com.aurora.store/), Google Play mağazasına erişim sunan açık kaynaklı alternatif bir istemcidir. Resmi Google uygulamasını kurmadan anonim hesaplar üzerinden uygulama indirmenizi sağlar. Ancak GrapheneOS ekibi, güvenlik zafiyetleri ve Google hesap engellemeleri nedeniyle Aurora Store yerine tek kullanımlık bir hesapla resmi Play Store uygulamasının kullanılmasını tavsiye eder.
 
-Birçok Google uygulaması, servisi ve altyapısı kullanmanın GrapheneOS kullanma amacıyla çelişebileceğine dair eleştiriler var. Bu noktada, proje GrapheneOS'un amacının özellikle Google'dan kaçınmak değil, kullanıcı deneyimi açısından büyük fedakarlık yapmak istemeyenler için de yüksek bir gizlilik ve güvenlik seviyesi sağlamak olduğunu açıklığa kavuşturuyor. Google servisleri için tamamen işlevsel bir uyumluluk katmanı sağlamak için yapılan süregelen çalışma önemsiz bir özellik değil, ama GrapheneOS'un büyük kaynak yatırdığı bir özellik. Her durumda, taze bir GrapheneOS kurulumu tamamen Google'dan arınmıştır ve uyumluluk katmanını kullanma veya ondan kaçınma seçimi tamamen sizindir.
+GrapheneOS üzerinde Google servislerinin kullanılması bazı çevrelerce çelişkili bulunsa da GrapheneOS projesinin temel amacı kullanıcı deneyiminden ödün vermeden en üst düzeyde güvenlik ve gizlilik sunabilmektir. Google servisleri için sağlanan uyumluluk katmanı GrapheneOS'un en çok kaynak ayırdığı özelliklerden biridir. Tercih tamamen kullanıcıya aittir.
 
 ### Çeşitli mağazalar hakkında düşünceler
 
-Kişisel olarak, Obtainium'u harika bir uygulama buluyorum, ama ne yazık ki kullanıcıların yeni uygulamaları "keşfetmesine" izin vermemesi, sadece belirli uygulamaları indirmesine izin vermesi konusunda yetersiz kalıyor.
+Obtainium son derece kullanışlı bir güncelleme aracı olsa da uygulama keşfetme özelliği barındırmamaktadır; yalnızca adresini bildiğiniz uygulamaları indirmenize imkan tanır.
 
-Droidify, Aurora ve Google Play'den bahsetmişken, bugün şöyle özetleyebilirim: **Droidify/F-Droid**, güvenlik dengelerini kabul ediyorsanız açık kaynaklı yazılım için mantıklı; **Google Play**, tescilli uygulamalar için en sağlam kaynak olarak kalıyor; **Aurora**'yı ana seçim olarak değil, ikincil veya acil durum seçeneği olarak tutardım.
+Özetle açık kaynaklı uygulamalar için **Droidify**, tescilli uygulamalar için ise doğrudan resmi **Google Play Store** en güvenli seçeneklerdir.
 
-Google'ın Play Store'u en güvenli çözümdür ama en büyük gizlilik dengeleri (izinler, bağımlılıklar, hesap ve kişisel veriler) gereklidir. Çok yüksek güvenlik istiyorsanız, bu dış saldırılara karşı en dirençli yöntem olarak kalır. Bana göre, tüm mağazalar farklı pazar taleplerini karşılıyor.
+Google Play Store en yüksek güvenlik denetimini sunsa da kişisel hesap ve veri paylaşımı gibi gizlilik ödünleri gerektirir. Kullanım amacınıza ve tehdit modelinize göre uygun mağazaları tercih edebilirsiniz.
 
 ## Sorunlar ve Çözümler
 
 ### Konum Belirleme Sorunları
 
-Konum belirleme, başlangıçta Google'ın Play Services tarafından sağlanan başka bir servistir. Bunun yerine, GrapheneOS konum isteklerini işletim sistemine yönlendirir, bu da sadece uydu konumlandırma (GNSS) kullanır ve uydu sinyalinin alınmasını gerektirir. Bu, gökyüzünün beton bir tavan tarafından engellendiği durumlarda güvenilmez olabilir, bu da konum tabanlı uygulamaların GrapheneOS'ta düzgün çalışmadığına dair birçok şikayete neden olur.
+Konum servisleri normal şartlarda Google Play hizmetleri tarafından sağlanır. GrapheneOS ise konum taleplerini doğrudan cihazın yerleşik uydu alıcısına (GNSS) yönlendirir. Bu durum, kapalı alanlarda konum tespitinin gecikmesine veya yapılamamasına neden olabilir.
 
-Bir hücresel operatörünüz ve internet bağlantınız varsa, cihaz yakındaki hücre kuleleri (SUPL) ve mevcut uydu durumları/yörüngeleri (PSDS) hakkında bilgi isteyerek desteklenen uydu konumlandırmasını (A-GNSS) kullanabilmelidir. Bunlar konum elde etme hızını büyük ölçüde artırır. Varsayılan olarak, GrapheneOS, SUPL/PSDS isteklerini IP adresinizle ilişkilendirmeyi önlemek için kendi proxy sunucularını kullanır.
+Cihazda SIM kart ve internet bağlantısı aktifse konum bulma hızını artırmak amacıyla A-GPS (hücresel baz istasyonu yardımlı konumlandırma) kullanılır. GrapheneOS, bu konum istekleri sırasında IP adresinizin operatörlerle paylaşılmasını önlemek amacıyla kendi proxy sunucularını kullanır.
 
-İsteğe bağlı olarak _Ayarlar &raquo; Konum &raquo; Konum servisleri_'nde Wi-Fi ve Bluetooth taramasını etkinleştirebilirsiniz. Bu, _"Yakındaki cihazlar"_ iznine sahip uygulama ve servislerin, Wi-Fi ve Bluetooth kapalı olsa bile yakındaki Wi-Fi ağlarını ve Bluetooth cihazlarını taramasına izin verir, bu da potansiyel olarak konum tabanlı özellikleri iyileştirir. GrapheneOS projesi bunun kendi uygulamasını geliştirmek üzerinde çalışıyor, başlangıçta Apple'ın sunucuları için bir proxy olarak, daha sonra ise tescilli bir veritabanı olarak.
+Konum hassasiyetini artırmak için *Ayarlar > Konum > Konum Servisleri* menüsünden Wi-Fi ve Bluetooth taramaları etkinleştirilebilir. Bu özellik, yakındaki kablosuz ağlar üzerinden konum tespitini kolaylaştırır.
 
-Sandboxed Play Services kurduysanız ve daha doğru konum tahminleri sağlamak için Google'ın ağ konum servisini kullanmak istiyorsanız, önce _Ayarlar &raquo; Uygulamalar &raquo; Sandboxed Google Play_'de _"Konum isteklerini işletim sistemine yönlendir"_ seçeneğini devre dışı bırakmanız gerekir. Ardından, Play Services'in konum iznini _"Her zaman izin ver"_ olarak değiştirmeniz ve _"Hassas konumu kullan"_ı etkinleştirmeniz gerekir. Ağ taramasının kullanılmasına izin vermek için, _"Yakındaki cihazlar"_ iznini de vermeniz gerekir (yukarıda bahsedilen Wi-Fi ve Bluetooth tarama anahtarlarının zaten etkin olması gerekir). Son olarak, _Ayarlar &raquo; Uygulamalar &raquo; Sandboxed Google Play_'e geri dönün, _"Google Konum Doğruluğu"_na dokunun ve _"Konum doğruluğunu iyileştir"_ seçeneğini etkinleştirin.
+Yalıtılmış Google Play hizmetleri üzerinden Google'ın konum belirleme servislerini kullanmak istiyorsanız, *Ayarlar > Uygulamalar > Sandboxed Google Play* menüsünden konum yönlendirme seçeneğini kapatıp gerekli izinleri Google Play hizmetlerine vermeniz gerekmektedir.
 
-Yönlendirme seçeneği global değildir, bu yüzden Google'ın invaziv konum servislerini kullanmak için özel olarak ikincil bir kullanıcı profili kurmayı düşünebilirsiniz, sadece konum belirleme sorunları yaşadığınızda kullanılmak üzere.
+Konum doğruluğuna ihtiyaç duyulan uygulamaları yalnızca ikincil bir profilde çalıştırarak ana profilinizin gizliliğini korumaya devam edebilirsiniz.
 
 ### Çökmeler/Çalışmayan Uygulamalar
 
-Daha önce belirtildiği gibi, GrapheneOS'ta bazı uygulamaların çökmesi veya düzgün çalışmayı reddetmesi sürpriz değildir, ama bu neredeyse her zaman çözülebilir. Her şeyden önce, uygulamanın önbelleğini temizlemek, uygulamayı zorla durdurup yeniden başlatmak, telefonu yeniden başlatmak veya uygulamayı yeniden kurmak gibi standart adımları deneyin.
+GrapheneOS üzerinde bazı uygulamaların uyumluluk sorunları yaşaması veya çökmesi beklenebilir bir durumdur. Bu sorunları çözmek için öncelikle uygulama önbelleğini temizlemek, uygulamayı durdurmaya zorlamak veya cihazı yeniden başlatmak gibi temel adımlar uygulanmalıdır.
 
-GrapheneOS'a özgü çözümler arasında bazı istismar koruması önlemlerini devre dışı bırakmak, uygulamayı bir private space dışında yeniden kurmak (Owner veya diğer ikincil profiller) veya uygulamayı sandboxed Play Services'e sahip bir profile yeniden kurmak yer alır. Bazen uygulamalar, kurulu oldukları uygulama (örneğin uygulama mağazası) artık etkin veya kurulu olmadığı için çökmeye başlar, veya beklenen kaynaktan kurulmadıkları için düzgün çalışmayı reddederler.
+GrapheneOS'a özgü çözüm adımları arasında ise ilgili uygulama için Exploit Protection (İstismar Koruması) ayarlarını seçici olarak kapatmak, uygulamayı Özel Alan dışında kurmak veya Google Play hizmetlerinin yüklü olduğu yalıtılmış bir profile taşımak yer alır.
 
 ### Uygulama Kurulmayı Reddediyor
 
-Bu sorunun tipik nedenleri yukarıda açıklanmıştır: zaten daha yeni bir sürümde mevcut olan veya başka bir kullanıcı profilinde farklı bir kaynaktan gelen bir uygulamayı kurmaya çalışıyorsunuz.
+Uygulama yükleme hataları genellikle, aynı uygulamanın farklı bir imza/kaynaklı sürümünün diğer bir kullanıcı profilinde zaten yüklü olmasından kaynaklanır.
 
 ### Destek İsteme
 
-GrapheneOS çok aktif bir topluluğa sahiptir ve sosyal medyada hızlı yanıt verir. Sorunlarınıza mevcut çözümleri aramak için en kolay yerler muhtemelen [discuss.grapheneos.org](https://discuss.grapheneos.org/) forumu ve [Discord sunucusudur](https://discord.com/invite/grapheneos). GrapheneOS'un [Twitter/X](https://x.com/i/communities/1530455827949273094), [Telegram](https://t.me/GrapheneOS) ve [Matrix](https://matrix.to/#/%23community:grapheneos.org) üzerinde de toplulukları vardır.
+GrapheneOS topluluğu son derece aktiftir. Karşılaştığınız sorunların çözümleri için [discuss.grapheneos.org](https://discuss.grapheneos.org/) resmi forumunu ve resmi [Discord](https://discord.com/invite/grapheneos) kanalını ziyaret edebilirsiniz. Ayrıca Telegram, X ve Matrix üzerinde de resmi topluluk kanalları mevcuttur.
 
 ## Projeyi Destekleyin
 
-Bu rehber size yardımcı olduysa, bana teşekkür etmenin en iyi yolu bu makaleyi arkadaşlarınızla, ailenizle, sosyal medyada ve telegram gruplarıyla paylaşmaktır: bu, en çok takdir edilen jest olmaya devam ediyor <3
+Bu rehber sizler için yararlı olduysa, destek olmak amacıyla rehberi sosyal mecralarda veya Telegram gruplarında paylaşabilirsiniz <3
 
-Sorularınız varsa, telegram profilim [@b4lolx](https://t.me/b4lolx) üzerinden veya admin@b4.lol e-posta adresinden benimle iletişime geçebilirsiniz. Okuduğunuz için teşekkürler!
+Sorularınız veya geri bildirimleriniz için admin@b4.lol e-posta adresi üzerinden iletişime geçebilirsiniz. Okuduğunuz için teşekkür ederiz!
 
 ---
 

@@ -52,143 +52,141 @@ howto:
       url: "/threat-model#cattive-pratiche"
 ---
 
-> **TL;DR** - In this guide you'll learn:
-> - How to correctly define a threat (it's not just "big tech")
-> - The 4 main threat categories: service providers, mass surveillance, malware, and hackers
-> - How to protect yourself with end-to-end encryption, identity separation, and compartmentalization
-> - The bad practices to avoid when building your threat model
+> **TL;DR** — In this guide, you will learn:
+> - How to correctly define a threat (moving beyond the vague \"Big Tech\" label).
+> - The four primary threat vectors: service providers, mass surveillance, application developers, and malicious actors.
+> - How to build defenses using end-to-end encryption, identity separation, and compartmentalization.
+> - Common pitfalls and bad practices to avoid when constructing your threat model.
 
 ## Summary
 
-A threat model is the process by which you identify what you want to protect, from whom, with what adversary capabilities, and with which realistic countermeasures. Without a threat model you risk buying useless tools, ignoring concrete risks, or making your digital life more inconvenient without actually increasing your security.
+A threat model is a structured methodology to identify what assets you need to protect, who your adversaries are, what their capabilities are, and what realistic mitigations you can deploy. Without a threat model, you risk purchasing unnecessary tools, neglecting actual threats, and making your digital life inconvenient without increasing your security.
 
-Installing a VPN or switching to Signal is pointless if you don't know who you're protecting yourself from. Too many beginners spend time and money on privacy tools without first defining their own threat model, ending up protected against the wrong risks. Building a threat model is the fundamental first step: it lets you understand your real vulnerabilities and choose the right countermeasures.
+Installing a VPN or switching to an encrypted messaging client is ineffective if you do not understand your threat vector. Many beginners spend time and money on security software without a clear plan, leaving them vulnerable to standard exploits. Developing a threat model is the essential first step: it clarifies your actual vulnerabilities and guides you toward the correct solutions.
 
 The first step anyone should take to protect their privacy and security is to create a **Threat model**.
 
 ## Defining a Threat {#definizione-di-una-minaccia}
 
-To build a threat model, we first need to define what a threat actually is. A common mistake made by people new to privacy is to think of "big tech companies" as the threat. This approach has a fundamental problem:
+To construct a threat model, you must first define what a threat actually is. A common mistake for beginners is to define the adversary simply as \"Big Tech.\" This approach has a fundamental flaw:
 
-> **Why don't we trust "big tech companies," only to shift our trust toward "small tech companies"? What happens if those "small tech companies" turn out to be malicious or grow exponentially?**
+> Why should we distrust a large technology company only to shift our absolute trust toward a smaller startup? What happens if that smaller provider is compromised, sold to a data broker, or scales up and changes its data collection policies?
 
-The correct way to define the threat here is the **"service provider,"** not "big tech companies."
+Distrusting specific brands is ineffective. The correct approach is to define the threat as the **\"Service Provider\"** as a general category.
 
-Generally speaking, there are four main threats a person would want to protect against:
+There are four primary threat vectors that most users should consider:
 
-1. **A service provider spying on its own users**
-2. **Cross-site/service tracking and data sharing**, i.e. "mass surveillance"
-3. **An app developer spying on users through malicious software**
-4. **A hacker trying to access users' computers**
+1. **Service Providers**: Providers monitoring, analyzing, or storing user communications and data on their servers.
+2. **Mass Surveillance**: Advertising networks and data brokers tracking user activity across multiple websites and platforms.
+3. **Invasive Application Developers**: Software developers harvesting device data or injecting tracker libraries into local applications.
+4. **Malicious Actors (Hackers)**: Attackers seeking unauthorized access to your physical devices or online accounts.
 
-A typical person would include several of these threats in their threat model, weighing some more heavily than others.
+Most users will address several of these threats simultaneously, prioritizing them based on their personal context. For example, a software engineer might focus on preventing unauthorized device access (protecting code signing keys and system credentials), while a standard user might prioritize blocking mass tracking and commercial profiling.
 
-For example, a software developer might mainly fear a hacker stealing their source code, signing keys, and secrets, but would also want privacy while browsing the web. Likewise, an average person might mainly worry about mass surveillance and service providers, but would also need good security to prevent a hacker from stealing their data.
+For whistleblowers, journalists, or activists, the requirements are more severe: they require true **anonymity** (hiding their identity) in addition to **confidentiality** (hiding their data), which demands a much more rigorous operational security posture.
 
-For whistleblowers, the threat model is far more extreme. On top of everything mentioned above, they need **anonymity**. They must not only hide what they do and the data they hold, avoiding being hacked by bad actors or governments, but also conceal their own identity.
+## Mitigating Service Provider Exposure {#privacy-dai-fornitori-di-servizi}
 
-## Privacy from Service Providers {#privacy-dai-fornitori-di-servizi}
+Most communication platforms store messages, emails, and attachments on centralized databases. A service provider (or an attacker who compromises their servers) can access this unencrypted data at will. This is the default status for SMS, standard email, Telegram channels, and Discord servers.
 
-In most cases, our "private" messages, emails, and social interactions are stored on a server somewhere. The obvious problem is that the service provider (or a hacker who has compromised the server) can access your private conversations whenever and however they want, without your knowledge. This applies to many common services such as SMS, Telegram, Discord, and others.
+### The Role of End-to-End Encryption (E2EE)
+End-to-end encryption secures communications locally on your device before transmission. The service provider acts merely as a blind transit relay; they cannot decrypt the content because they do not hold your private keys.
 
-With **end-to-end encryption**, you can mitigate this problem by encrypting communications between you and your recipients before they're sent to the server. The confidentiality of your messages is guaranteed, as long as the service provider doesn't have access to both parties' private keys.
+However, the implementation details of E2EE matter:
 
-In practice, the effectiveness of different end-to-end encryption implementations varies. Applications like **Signal** run natively on your device, and every copy of the app is identical across all installations. If the service provider inserted a backdoor into the app to steal your private keys, this could be detected through reverse engineering.
+* **Native Applications**: Clients like **Signal** compile code that runs locally on your device. This code can be audited and reverse-engineered to verify that key management is secure.
+* **Web Applications**: Web-based E2EE tools (such as webmail interfaces or browser vaults) receive their cryptographic code dynamically from the provider's server during every session. A compromised server can push malicious JavaScript to a targeted user to extract their local decryption keys, making web-based E2EE harder to audit.
 
-By contrast, web-based end-to-end encryption implementations, such as **Proton Mail**'s webmail or **Bitwarden**'s web vault, rely on the server dynamically serving JavaScript code to the browser to handle cryptographic operations. A malicious server could target a specific user and serve them malicious JavaScript code to steal their encryption key, and it's extremely hard for the user to notice.
+**Best Practice**: For sensitive communications and password management, prefer native, audited applications over web-based browser clients.
 
-**Therefore, when relying on end-to-end encryption, you should prefer native apps over web clients whenever possible.**
+### Metadata Exposure
+While E2EE protects the body of your messages, it rarely conceals metadata. Service providers can still record:
+* Whom you communicate with.
+* The timestamp and frequency of your connections.
+* Your IP address and device fingerprint.
 
-Even with end-to-end encryption, service providers can profile you through **metadata**, which is usually unprotected. While they can't read your messages, they can still observe who you talk to, how often you message, and when you're active. Metadata protection is fairly rare; if this concerns you, you should carefully check the technical documentation of the software you use to see whether it offers metadata minimization or protection.
+If metadata leakage is a concern under your threat model, look for platforms that implement metadata minimization or route traffic through decentralized networks (such as SimpleX or onion routing).
 
-## Protection from Cross-Site/Service Tracking {#protezione-dal-tracciamento-cross-siteservice}
+## Defending Against Mass Tracking {#protezione-dal-tracciamento-cross-siteservice}
 
-You can be tracked across websites and services through various identifiers, including:
+Advertising networks correlate your activities across the web using several persistent tracking signals:
 
-- **Your IP address**
-- **Browser cookies**
-- **Your browser's fingerprint**
-- **The data you send to websites**
-- **Correlation of payment methods**
+* Your public IP address.
+* Persistent browser cookies and local storage tokens.
+* Unique browser canvas and hardware fingerprints.
+* Consistent telemetry shared during account creation.
+* Credit card transactions and payment records.
 
-Your goals should be:
+To prevent tracking networks from aggregating your data:
 
-- **Separating your online identities**
-- **Blending in with the crowd**
-- **Avoiding giving out identifying information as much as possible**
+1. **Compartmentalize Identities**: Use distinct, separated browser profiles or virtual machines for different tasks (e.g., separate personal browsing from online shopping).
+2. **Blend in with the Crowd**: Avoid custom browser extensions or configurations that make your device signature unique. Enforce anti-fingerprinting configurations (like Firefox's `arkenfox` setup or Tor).
+3. **Minimize Information Disclosure**: Obfuscate personal data using temporary email aliases (e.g., SimpleLogin) and virtual credit cards.
+4. **Encrypt Files Locally**: Use tools like **Cryptomator** to encrypt files locally before uploading them to commercial cloud providers (like Google Drive or OneDrive).
+5. **Secure Your Network Footprint**: Route traffic through a trusted VPN or the Tor network to hide your public IP address.
 
-Instead of relying on privacy policies (promises that will almost certainly be broken), try to **obfuscate your information** so it becomes hard for various providers to correlate data and build a profile on you. This can include:
-
-- **Using encryption tools like Cryptomator** before uploading data to cloud services
-- **Using prepaid cards or cryptocurrencies** to protect your credit/debit card information
-- **Using a VPN or Tor** to hide your IP address
-
-> **A privacy policy should only be considered a last resort**, once you've exhausted every option for real privacy and must place full trust in your service provider (after doing everything you can to protect your data, you can consider things like the legislation of the services or servers you use, but that's certainly not the priority).
-
-Remember that companies can hide their ownership or share your information with data brokers, even if they don't operate in the advertising industry. So it makes little sense to focus exclusively on the "ad-tech" industry as the threat in your threat model. It's more logical to protect yourself from **service providers as a whole**; doing so addresses any kind of corporate surveillance threat most people worry about, all at once.
+> [!IMPORTANT]
+> A privacy policy is merely a legal promise, not a technical control. It should be treated as your last line of defense. Focus your efforts on deploying technical controls (like encryption and tracker blocking) rather than trusting corporate policies.
 
 ## Limiting Public Information {#limitare-le-informazioni-pubbliche}
 
-The best way to ensure the privacy of your data is simply **not to disclose it**. Removing personal information you find online is one of the best first steps toward reclaiming your privacy.
+The most effective way to protect your data is to **never disclose it**.
 
-On sites where you share information, it's essential to **check your account's privacy settings** to limit how widely your data spreads. For example, if your accounts offer a "private mode," turn it on to make sure your profile isn't indexed by search engines and can't be viewed by unauthorized people.
+* **Audit Privacy Settings**: Go through your social media and email accounts and set permissions to the most restrictive options (e.g., hide profiles from search indexers).
+* **Opt-Out from Data Brokers**: Submit removal requests to data brokers and public record indexers to remove your phone numbers, physical addresses, and email associations from search results.
+* **Obfuscate Real Data**: If a platform requires information but does not verify it (such as a username or date of birth), use fake identifiers or randomized details to pollute their databases.
 
-If you've already given your real information to various sites that shouldn't have it, consider using **disinformation tactics**, such as submitting fake information tied to the same online identity, to make your real information indistinguishable from the fake.
+## Security Against Malware and Device Compromise {#protezione-da-malware-e-hacker}
 
-## Protection from Malware and Hackers {#protezione-da-malware-e-hacker}
+Privacy is impossible without security. If an attacker compromises your device at the operating system level, they can bypass E2EE and capture your keystrokes.
 
-Security is essential for ensuring privacy: using tools that seem private is pointless if attackers can easily exploit them to leak your data later on.
+Because you cannot guarantee that any third-party application is entirely secure or free of vulnerabilities, implement **security through compartmentalization**:
 
-When it comes to application security, we generally don't know (and sometimes can't know) whether the software we use is malicious or could become so. Even with the most trustworthy developers, there's no guarantee their software is free of serious vulnerabilities that could be exploited later.
+* **Dedicated Hardware**: Use separate physical devices for work and personal activities.
+* **Virtualization**: Run untrusted software inside disposable virtual machines.
+* **Hardened Operating Systems**: Run platforms that enforce strict sandboxing at the OS level (like Qubes OS for desktops or GrapheneOS for mobile devices).
 
-To minimize the potential damage caused by malicious software, you should adopt **security through compartmentalization**. This can include:
+### Sandbox Models across Platforms
+* **Mobile OS (iOS, Android)**: Enforce a strong sandboxing model by default. Applications run as unprivileged users and cannot access other apps' data directories without permission.
+* **Desktop OS (macOS, Windows 11)**: macOS provides robust application controls, runtime notarization, and opt-in sandboxing. Windows 11 implements virtualization-based security (VBS) and smart app control. Both, however, collect telemetry by default.
+* **Linux Desktop**: Traditional Linux distributions provide limited native app sandboxing. A compromised application can easily read your entire home directory. You must configure sandboxing yourself using Flatpak overrides, virtualization, or MAC policies (SELinux/AppArmor).
 
-- **Using different computers for different tasks**
-- **Using virtual machines** to separate groups of related applications
-- **Adopting a secure operating system** with a strong focus on application sandboxing and access control
+### Physical Security Considerations
+If your threat model includes physical theft or device seizure:
+* Ensure **Full-Disk Encryption** is active.
+* Use a hardware **TPM**, **Secure Enclave**, or **Secure Element** to enforce decryption delays, blocking automated passphrase cracking.
+* Require a strong alphanumeric passcode instead of a simple 4-digit PIN.
 
-Mobile operating systems are generally more secure than desktop ones in terms of application sandboxing. Apps can't gain root access and can only access the system resources you grant them.
+## Common Threat Modeling Pitfalls {#cattive-pratiche}
 
-Desktop operating systems generally lag behind in proper sandboxing. **ChromeOS** offers sandboxing properties similar to Android, and **macOS** has full control over system permissions and opt-in application sandboxing (for developers); however, these operating systems send identifying information to their respective OEMs. **Linux** tends not to send information to system vendors, but offers limited protection against exploits and malicious apps. This can be partly mitigated with specialized distributions that make heavy use of virtual machines or containers, such as **Qubes OS**.
+Avoid these common mistakes when designing your security model:
 
-Web browsers, email clients, and office applications frequently run untrusted code sent by third parties. Running multiple virtual machines to separate such applications from the main system, and from each other, is a useful technique to prevent an exploit from compromising the entire system. Technologies like **Qubes OS** or **GrapheneOS** provide practical ways to implement this separation transparently.
+### 1. Brand-Level Distrust vs. Technical Mitigation
+Distrusting a specific brand (e.g., Google) without addressing the technical reason for your distrust is a pitfall. Simply migrating your files from Google Drive to another unencrypted hosting provider does not improve your security; it merely shifts trust to a different company. The correct mitigation is adopting **client-side encryption** (e.g., using Cryptomator or Proton Drive's native E2EE), making the hosting provider's identity irrelevant.
 
-If you're concerned about physical attacks, you should use an operating system with a secure **secure boot** implementation, such as **Android**, **iOS**, **ChromeOS**, or **macOS**. Make sure your disk is encrypted and that the operating system uses a **TPM**, **Secure Enclave**, or **Secure Element** to limit the number of attempts at guessing your encryption passphrase. Avoid sharing your computer with people you don't trust, since most desktop operating systems don't encrypt data separately per user.
+### 2. Over-Reliance on Privacy Policies
+Privacy policies do not prevent data collection. Focus on implementing technical boundaries (like firewalls, local encryption, and Tor) that make compliance monitoring unnecessary.
 
-## Bad Practices {#cattive-pratiche}
+### 3. \"Badness Enumeration\"
+Do not focus on building infinite blacklists of \"bad actors\" or malicious tracking servers. Blocking specific domains is a losing battle because tracking servers change hostnames daily. Instead, configure **systemic blocks** (e.g., disable network access globally for local tools, block all unencrypted DNS, and enforce strict canvas scrambling).
 
-As a beginner, you might fall into a few bad practices while building a threat model, including:
-
-- **Focusing exclusively on advertising networks instead of service providers as a whole**
-- **Relying heavily on privacy policies**
-- **Blindly shifting trust from one service provider to another**
-- **Over-relying on Badness Enumeration instead of systematically solving the problem**
-- **Blindly trusting open-source software**
-
-As discussed, focusing only on advertising networks and relying solely on privacy policies doesn't make for an effective threat model. When you switch service providers, identify the underlying problem and check whether the new provider offers an adequate technical solution.
-
-For example, you might dislike **Google Drive** because it gives Google access to all your data. The actual problem here is the **lack of end-to-end encryption**, which you can solve by using an encryption tool like **Cryptomator** or by switching to a provider that offers it natively, such as **Proton Drive**. Blindly moving from Google Drive to a provider that doesn't offer end-to-end encryption makes no sense.
-
-Remember that Badness Enumeration — i.e. drawing up a list of actors considered malicious (like Google, Amazon, Meta, etc.) and trying to block every single thing they do — doesn't work, can't work, and never will. This approach is ineffective because threats are constantly evolving, and focusing on a specific list won't protect you from unknown actors or new attack techniques. Build your defense strategy not around a list of enemies, but around a generic way to stop a whole range of attacks (the solution isn't to stop giving data to Google specifically, but to stop giving out data in general!).
-
-Another important point is that **open-source software** isn't automatically private or secure. Malicious code can be introduced by project developers, contributors, library authors, or whoever compiles the code. Moreover, open-source software sometimes has weaker security properties than its proprietary counterpart.
-
-For instance, most traditional desktop Linux distributions lack secure boot, system integrity protection, or full app access control by default compared to macOS. When building a threat model, it's essential to evaluate the privacy and security properties of every piece of software you use and build a threat model tied to your own security and privacy needs, instead of blindly trusting something just because it's open-source.
+### 4. Blind Trust in Open Source
+While open-source software is transparent, it is not automatically secure. Project repositories can be compromised, developers can be coerced, and dependencies can introduce vulnerabilities. Furthermore, desktop Linux distributions (which are open source) often have a weaker hardware security and sandboxing baseline compared to commercial, closed-source operating systems like macOS. Always evaluate software based on its active security architecture and features, rather than its license alone.
 
 ## Conclusion {#conclusioni}
 
-Building a threat model is a fundamental step toward protecting your online privacy and security. By understanding the different threats and adopting proactive measures, you can significantly improve your protection against surveillance, tracking, and cyberattacks.
+Developing a threat model is a fundamental step toward securing your digital identity. By defining your assets, identifying realistic adversaries, and implementing technical controls, you can protect your privacy without making your daily workflows unusable.
 
-Remember, the key is to stay informed, critical, and proactive in your technology choices.
+Stay informed, critically analyze new tools, and prioritize technical mitigations over marketing promises.
 
 ---
 
-Thanks for reading this guide! If you found it useful, share it with friends and colleagues interested in digital security.
+Thanks for reading this guide! If you found it helpful, please share it to promote digital security awareness.
 
 ---
 
 ## Related Guides
 
-- **[De-Google Android: The Complete Privacy Guide](/android)** - Apply your threat model to your phone with a de-googled setup
-- **[GrapheneOS: The Complete Guide to the Best Privacy OS](/graphene)** - The mobile operating system with the best security level
-- **[Self-Hosted VPN with AdBlock](/vpn)** - Protect your network traffic with a personal VPN
+- **[De-Google Android: The Complete Privacy Guide](/android)** — Implement your threat model on a secure mobile device.
+- **[GrapheneOS: The Definitive Guide](/graphene)** — Deep-dive into mobile OS hardening and profile isolation.
+- **[Self-Hosted VPN with Ad Blocking](/vpn)** — Secure your network traffic on public systems.

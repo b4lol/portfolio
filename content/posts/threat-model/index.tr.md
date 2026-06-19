@@ -53,142 +53,135 @@ howto:
 ---
 
 > **Özet** - Bu rehberde öğrenecekleriniz:
-> - Bir tehdidi doğru şekilde nasıl tanımlarsınız (sadece "büyük teknoloji şirketleri" değildir)
-> - 4 temel tehdit kategorisi: servis sağlayıcılar, toplu gözetim, kötü amaçlı yazılım ve saldırganlar
-> - Uçtan uca şifreleme, kimlik ayrımı ve bölmeleme ile kendinizi nasıl korursunuz
-> - Tehdit modelinizi oluştururken kaçınmanız gereken kötü uygulamalar
+> - Bir tehdidi doğru şe## Özet
 
-## Özet
+Tehdit modeli; neyi, kimden korumak istediğinizi, saldırganların hangi yeteneklere sahip olduğunu ve bu tehditlere karşı hangi gerçekçi önlemleri alacağınızı belirlediğiniz bir süreçtir. Doğru bir tehdit modeli olmadan, işe yaramaz araçlar satın alma, asıl riskleri göz ardı etme veya güvenliği gerçekten artırmadan dijital yaşamınızı gereksiz yere zorlaştırma riskiyle karşı karşıya kalırsınız.
 
-Bir tehdit modeli, ne korumak istediğinizi, kimden korumak istediğinizi, saldırganın hangi yeteneklere sahip olduğunu ve hangi gerçekçi karşı tedbirleri alacağınızı belirlediğiniz süreçtir. Bir tehdit modeli olmadan, işe yaramaz araçlar satın alma, somut riskleri göz ardı etme veya güvenliği gerçekten artırmadan dijital hayatınızı daha külfetli hale getirme riskiyle karşı karşıya kalırsınız.
+Kime karşı korunduğunuzu bilmeden bir VPN kurmak veya Signal kullanmaya başlamak tek başına yeterli değildir. Birçok yeni başlayan kullanıcı, kendi tehdit modelini belirlemeden gizlilik araçlarına zaman ve bütçe harcamakta, sonuçta da yanlış risklere karşı önlem almaktadır. Tehdit modeli oluşturmak, dijital gizlilik yolculuğunun en temel ilk adımıdır; gerçek zayıf noktalarınızı fark etmenizi ve en doğru karşı tedbirleri seçmenizi sağlar.
 
-Kimden korunduğunuzu bilmiyorsanız bir VPN kurmak veya Signal'e geçmek hiçbir işe yaramaz. Çok fazla yeni başlayan kişi, önce kendi tehdit modelini tanımlamadan gizlilik araçlarına zaman ve para harcıyor ve sonunda yanlış risklere karşı korunmuş oluyor. Bir tehdit modeli oluşturmak en temel ilk adımdır: gerçek zayıf noktalarınızı anlamanızı ve doğru karşı tedbirleri seçmenizi sağlar.
-
-Bir kişinin gizliliğini ve güvenliğini korumak için atması gereken ilk adım bir **Tehdit modeli** oluşturmaktır.
+Bir bireyin gizliliğini ve güvenliğini korumak için atması gereken ilk adım, kendi **Tehdit Modelini** oluşturmaktır.
 
 ## Bir Tehdidin Tanımı {#definizione-di-una-minaccia}
 
-Bir tehdit modeli oluşturmak için önce bir tehdidin ne olduğunu tanımlamamız gerekir. Gizlilik dünyasına yeni adım atan kişilerin yaptığı yaygın bir hata, "büyük teknoloji şirketlerini" tehdit olarak görmektir. Bu yaklaşımın temel bir sorunu vardır:
+Tehdit modeli oluşturmak için öncelikle bir tehdidin ne olduğunu tanımlamamız gerekir. Gizlilik dünyasına yeni adım atanların yaptığı en yaygın hata, doğrudan "büyük teknoloji şirketlerini" birincil tehdit olarak görmektir. Oysa bu yaklaşım yapısal bir mantık hatası barındırır:
 
-> **"Büyük teknoloji şirketlerine" güvenmiyoruz, ama sonra güvenimizi "küçük teknoloji şirketlerine" mi kaydırıyoruz? Bu "küçük teknoloji şirketleri" kötü niyetli çıkarsa veya katlanarak büyürse ne olur?**
+> **"Büyük teknoloji şirketlerine" güvenmiyoruz diye güvenimizi "küçük teknoloji şirketlerine" mi kaydıracağız? Peki ya bu "küçük teknoloji şirketleri" de kötü niyetli çıkarsa veya gelecekte devasa boyutlara ulaşırsa ne olacak?**
 
-Burada tehdidi tanımlamanın doğru yolu **"servis sağlayıcı"**dır, "büyük teknoloji şirketleri" değil.
+Burada tehdidi tanımlamanın doğru yolu, "büyük teknoloji şirketleri" gibi özel marka isimleri yerine genel olarak **"servis sağlayıcıları"**dır.
 
-Genel olarak, bir kişinin kendini korumak isteyebileceği dört temel tehdit vardır:
+Genel olarak, bir bireyin kendisini korumak isteyebileceği dört temel tehdit kategorisi mevcuttur:
 
-1. **Kendi kullanıcılarını gözetleyen bir servis sağlayıcı**
-2. **Siteler/servisler arası takip ve veri paylaşımı**, yani "toplu gözetim"
-3. **Kullanıcıları kötü amaçlı yazılımı aracılığıyla gözetleyen bir uygulama geliştiricisi**
-4. **Kullanıcıların bilgisayarlarına erişmeye çalışan bir saldırgan**
+1. **Kullanıcı verilerini izleyen/gözetleyen servis sağlayıcıları**
+2. **Siteler ve servisler arası takip ile veri paylaşımı (toplu gözetim)**
+3. **Kullanıcıları kötü amaçlı yazılımlar aracılığıyla izleyen uygulama geliştiricileri**
+4. **Cihazlara veya hesaplara yetkisiz erişim sağlamaya çalışan saldırganlar**
 
-Tipik bir kişi, tehdit modeline bu tehditlerden birkaçını dahil eder ve bazılarına diğerlerinden daha fazla önem verir.
+Bilinçli bir kullanıcı, tehdit modeline bu tehditlerin birkaçını dahil eder ve kendi önceliklerine göre bazılarına daha fazla ağırlık verir.
 
-Örneğin, bir yazılım geliştiricisi öncelikle bir saldırganın kaynak kodunu, imzalama anahtarlarını ve sırlarını çalmasından korkabilir; ancak web'de gezinirken gizlilik de isteyecektir. Aynı şekilde, sıradan bir kişi öncelikle toplu gözetim ve servis sağlayıcılar konusunda kaygılanabilir, ama bir saldırganın verilerini çalmasını önlemek için iyi bir güvenliğe de ihtiyaç duyacaktır.
+Örneğin, bir yazılım geliştiricisi öncelikle kaynak kodlarının, imzalama anahtarlarının ve API sırlarının çalınmasından endişe duyabilir; bunun yanı sıra internette gezinirken gizlilik de talep edecektir. Sıradan bir kullanıcı ise öncelikle toplu gözetim ve servis sağlayıcıların veri toplaması konusunda kaygılanabilir, fakat aynı zamanda cihaz güvenliğini de üst seviyede tutmak isteyecektir.
 
-Muhbirler (whistleblower) için tehdit modeli çok daha uçtur. Yukarıda bahsedilenlere ek olarak **anonimliğe** ihtiyaçları vardır. Sadece ne yaptıklarını ve sahip oldukları verileri gizlemeleri, kötü niyetli kişiler veya hükümetler tarafından hacklenmekten kaçınmaları gerekmez, aynı zamanda kendi kimliklerini de gizlemeleri gerekir.
+Muhbirler (whistleblowers) veya yüksek riskli profiller için tehdit modeli çok daha katıdır. Bu kişilerin yalnızca verilerini korumaları ve siber saldırılardan kaçınmaları yetmez, aynı zamanda internet üzerindeki tüm kimliklerini gizli tutmaları, yani tam bir **anonimlik** sağlamaları gerekir.
 
 ## Servis Sağlayıcılardan Gizlilik {#privacy-dai-fornitori-di-servizi}
 
-Çoğu durumda, "özel" mesajlarımız, e-postalarımız ve sosyal etkileşimlerimiz bir yerdeki bir sunucuda saklanır. Açık olan sorun, servis sağlayıcının (veya sunucuyu ele geçirmiş bir saldırganın) sizin haberiniz olmadan istediği zaman ve şekilde özel konuşmalarınıza erişebilmesidir. Bu, SMS, Telegram, Discord ve diğerleri gibi birçok yaygın servis için geçerlidir.
+Çoğu durumda; özel mesajlarımız, e-postalarımız ve sosyal etkileşimlerimiz bir servis sağlayıcının sunucularında barındırılır. Buradaki temel risk, servis sağlayıcının (veya sunucuyu ele geçiren bir saldırganın) bilginiz dışında bu verilere kolayca erişebilmesidir. Bu durum SMS, Telegram, Discord gibi pek çok yaygın platform için geçerlidir.
 
-**Uçtan uca şifreleme** ile, iletişimlerinizi sunucuya gönderilmeden önce siz ve alıcılarınız arasında şifreleyerek bu sorunu azaltabilirsiniz. Servis sağlayıcının her iki tarafın da özel anahtarlarına erişimi olmadığı sürece mesajlarınızın gizliliği garanti edilir.
+**Uçtan uca şifreleme (E2EE)** kullanarak, iletişimlerinizi sunucuya gönderilmeden önce kendi cihazınızda şifreleyebilir ve bu riski en aza indirebilirsiniz. Servis sağlayıcı özel anahtarlarınıza erişemediği sürece mesajlarınızın gizliliği korunur.
 
-Pratikte, farklı uçtan uca şifreleme uygulamalarının etkinliği değişir. **Signal** gibi uygulamalar cihazınızda yerel olarak çalışır ve uygulamanın her kopyası tüm kurulumlarda aynıdır. Servis sağlayıcı özel anahtarlarınızı çalmak için uygulamaya bir arka kapı (backdoor) eklerse, bu tersine mühendislik yoluyla tespit edilebilir.
+Pratikte, farklı uçtan uca şifreleme uygulamalarının güvenlik seviyeleri değişiklik gösterir. **Signal** gibi yerel çalışan uygulamalar, tüm cihazlarda aynı kod tabanını kullanır. Eğer servis sağlayıcı anahtarlarınızı çalmak amacıyla uygulamaya bir arka kapı (backdoor) eklemeye çalışırsa, bu durum tersine mühendislik çalışmalarıyla tespit edilebilir.
 
-Buna karşılık, **Proton Mail**'in webmail'i veya **Bitwarden**'ın web kasası gibi web tabanlı uçtan uca şifreleme uygulamaları, kriptografik işlemleri yönetmek için sunucunun tarayıcıya dinamik olarak JavaScript kodu sunmasına dayanır. Kötü niyetli bir sunucu belirli bir kullanıcıyı hedef alabilir ve şifreleme anahtarını çalmak için ona kötü amaçlı JavaScript kodu gönderebilir; kullanıcının bunu fark etmesi son derece zordur.
+Buna karşın, **Proton Mail** web arayüzü veya **Bitwarden** web kasası gibi tarayıcı tabanlı uçtan uca şifreleme çözümleri, kriptografik işlemleri yönetmek için sunucudan gelen dinamik JavaScript kodlarına güvenir. Kötü niyetli bir sunucu, hedef aldığı belirli bir kullanıcıya anahtarlarını sızdıracak şekilde modifiye edilmiş JavaScript kodları gönderebilir ve kullanıcının bunu fark etmesi son derece zordur.
 
-**Bu nedenle, uçtan uca şifrelemeye güvendiğinizde, mümkün olduğunda web istemcileri yerine yerel uygulamaları tercih etmelisiniz.**
+**Bu nedenle, uçtan uca şifreli servisleri kullanırken, mümkün mertebe web istemcileri yerine yerel (masaüstü/mobil) uygulamaları tercih etmelisiniz.**
 
-Uçtan uca şifrelemeyle bile, servis sağlayıcılar genellikle korunmayan **metadata** aracılığıyla sizi profilleyebilir. Mesajlarınızı okuyamasalar da, kiminle iletişim kurduğunuzu, mesajlaşma sıklığınızı ve aktif olduğunuz saatleri gözlemleyebilirler. Metadata koruması oldukça nadirdir; bu konu sizi rahatsız ediyorsa, kullandığınız yazılımın metadata azaltma veya koruması sunup sunmadığını görmek için teknik belgelerini dikkatlice incelemelisiniz.
+Uçtan uca şifreleme kullanılsa dahi, servis sağlayıcılar korunmayan **üst veriler (metadata)** aracılığıyla hakkınızda profil oluşturabilir. Mesajlarınızın içeriğini okuyamasalar da kiminle iletişim kurduğunuzu, mesajlaşma sıklığınızı ve aktif olduğunuz saatleri analiz edebilirler. Üst verilerin korunması teknik olarak zordur; bu konuda endişeleriniz varsa kullandığınız yazılımın teknik belgelerini inceleyerek metadata azaltma özellikleri sunup sunmadığını kontrol etmelisiniz.
 
-## Siteler/Servisler Arası Takipten Korunma {#protezione-dal-tracciamento-cross-siteservice}
+## Siteler ve Servisler Arası Takipten Korunma {#protezione-dal-tracciamento-cross-siteservice}
 
-Aşağıdakiler de dahil olmak üzere çeşitli tanımlayıcılar aracılığıyla web siteleri ve servisler üzerinde takip edilebilirsiniz:
+İnternette gezinirken şu tanımlayıcılar aracılığıyla sürekli olarak takip edilirsiniz:
 
 - **IP adresiniz**
 - **Tarayıcı çerezleri**
-- **Tarayıcınızın parmak izi (fingerprint)**
-- **Web sitelerine gönderdiğiniz veriler**
-- **Ödeme yöntemlerinin ilişkilendirilmesi**
+- **Tarayıcı parmak iziniz (fingerprint)**
+- **Web sitelerine gönderdiğiniz form verileri**
+- **Kişisel ödeme yöntemleriniz**
 
-Hedefleriniz şunlar olmalı:
+Bu takibi zorlaştırmak için hedefleriniz şunlar olmalıdır:
 
-- **Çevrimiçi kimliklerinizi ayırmak**
-- **Kalabalığa karışmak**
+- **Çevrimiçi kimliklerinizi birbirinden ayırmak (bölmeleme)**
+- **İnternet trafiğinde genel kullanıcı kalabalığına karışmak**
 - **Mümkün olduğunca kimliği belirleyici bilgi vermekten kaçınmak**
 
-Gizlilik politikalarına güvenmek (kesinlikle ihlal edilecek vaatler) yerine, çeşitli sağlayıcıların verileri ilişkilendirip sizinle ilgili bir profil oluşturmasını zorlaştıracak şekilde **bilgilerinizi belirsizleştirmeye** çalışın. Bu şunları içerebilir:
+Gizlilik sözleşmelerinin (çoğu zaman ihlal edilen) vaatlerine güvenmek yerine, sağlayıcıların verilerinizi ilişkilendirip profil oluşturmasını zorlaştıracak teknik önlemler almalısınız. Bu önlemler şunları içerebilir:
 
 - Bulut servislerine veri yüklemeden önce **Cryptomator gibi şifreleme araçları kullanmak**
-- Kredi/banka kartı bilgilerinizi korumak için **ön ödemeli kartlar veya kripto para kullanmak**
-- IP adresinizi gizlemek için **VPN veya Tor kullanmak**
+- Gerçek kredi/banka kartı bilgilerinizi gizlemek için **tek kullanımlık sanal kartlar veya gizlilik odaklı kripto paralar kullanmak**
+- IP adresinizi maskelemek için **güvenilir bir VPN veya Tor ağı kullanmak**
 
-> **Bir gizlilik politikası, gerçek gizlilik için tüm seçenekleri tükettiğinizde ve servis sağlayıcınıza tam güven duymanız gerektiğinde, sadece son çare olarak değerlendirilmelidir** (verilerinizi korumak için elinizden geleni yaptıktan sonra, kullandığınız servislerin veya sunucuların bulunduğu yargı bölgesinin yasaları gibi konuları değerlendirmeyi düşünebilirsiniz, ama bu kesinlikle öncelik değildir).
+> **Bir gizlilik sözleşmesi, tüm teknik gizlilik önlemlerini tükettiğinizde ve servis sağlayıcınıza tamamen güvenmek zorunda kaldığınızda başvuracağınız son çare olmalıdır.**
 
-Şirketlerin sahipliklerini gizleyebileceğini veya reklamcılık sektöründe faaliyet göstermeseler bile bilgilerinizi veri komisyoncularıyla (data broker) paylaşabileceğini unutmayın. Bu nedenle, tehdit modelinizde sadece "reklam teknolojisi" sektörüne odaklanmanın bir anlamı yoktur. Kendinizi **servis sağlayıcıların bütününden** korumak daha mantıklıdır; bunu yaptığınızda, çoğu insanın endişelendiği her tür kurumsal gözetim tehdidi aynı anda ele alınmış olur.
+Şirketlerin gerçek sahiplik yapılarını gizleyebileceğini veya doğrudan reklamcılık yapmasalar bile bilgilerinizi veri simsarlarıyla (data broker) paylaşabileceğini unutmayın. Bu nedenle, tehdit modelinizde yalnızca "reklam teknolojisi" sektörüne odaklanmak yetersizdir. Kendinizi tüm servis sağlayıcılardan koruyacak genel bir strateji benimsemeniz daha mantıklıdır; böylece kurumsal gözetim tehditlerini de en başından bertaraf etmiş olursunuz.
 
 ## Kamuya Açık Bilgileri Sınırlamak {#limitare-le-informazioni-pubbliche}
 
-Verilerinizin gizliliğini sağlamanın en iyi yolu basitçe **onları paylaşmamaktır**. Çevrimiçi bulduğunuz kişisel bilgileri silmek, gizliliğinizi geri kazanmak için atabileceğiniz en iyi ilk adımlardan biridir.
+Verilerinizin gizliliğini sağlamanın en kesin yolu, **onları paylaşmamaktır**. İnternet üzerinde açıkta bulunan kişisel bilgilerinizi temizletmek, dijital gizliliğinizi geri kazanmak için atabileceğiniz en önemli adımdır.
 
-Bilgi paylaştığınız sitelerde, verilerinizin yayılmasını sınırlamak için hesabınızın **gizlilik ayarlarını kontrol etmeniz** çok önemlidir. Örneğin, hesaplarınız bir "gizli mod" sunuyorsa, profilinizin arama motorları tarafından dizine eklenmemesini ve yetkisiz kişiler tarafından görüntülenememesini sağlamak için bunu etkinleştirin.
+Bilgi paylaştığınız platformlarda, verilerinizin yayılmasını sınırlamak için hesaplarınızın gizlilik ayarlarını yapılandırmanız son derece önemlidir. Örneğin, kullandığınız servisler bir "gizli profil" seçeneği sunuyorsa, profilinizin arama motorları tarafından dizine eklenmesini önlemek ve üçüncü şahıslar tarafından görüntülenmesini engellemek için bu seçeneği etkinleştirin.
 
-Sahip olmaması gereken çeşitli sitelere zaten gerçek bilgilerinizi verdiyseniz, gerçek bilgilerinizi sahte olanlardan ayırt edilemez hale getirmek için aynı çevrimiçi kimlikle ilişkilendirilmiş sahte bilgiler göndermek gibi **yanlış bilgilendirme taktikleri** kullanmayı düşünebilirsiniz.
+Verilerinizin bulunmaması gereken çeşitli platformlara geçmişte gerçek bilgilerinizi verdiyseniz, mevcut gerçek bilgilerinizi sahte olanlarla karıştırmak ve ayırt edilemez hale getirmek amacıyla yanlış bilgilendirme (obfuscation) yöntemlerine başvurabilirsiniz.
 
 ## Kötü Amaçlı Yazılım ve Saldırganlardan Korunma {#protezione-da-malware-e-hacker}
 
-Güvenlik, gizliliği sağlamak için temeldir: özel görünen araçları kullanmak, bunlar saldırganlar tarafından gelecekte verilerinizi ifşa etmek için kolayca istismar edilebiliyorsa anlamsızdır.
+Güvenlik, gizliliği sağlamak için temeldir. Özel görünen araçları kullanmak, bunlar saldırganlar tarafından kolayca istismar edilebiliyorsa anlamsızdır.
 
-Uygulama güvenliği söz konusu olduğunda, genellikle kullandığımız yazılımın kötü niyetli olup olmadığını veya öyle hale gelip gelmeyeceğini bilemeyiz (bazen bilmemiz de mümkün değildir). En güvenilir geliştiriciler için bile, yazılımlarının daha sonra istismar edilebilecek ciddi güvenlik açıkları içermediğine dair bir garanti yoktur.
+Uygulama güvenliği söz konusu olduğunda, kullandığımız yazılımın gelecekte kötü niyetli hale gelip gelmeyeceğini kesin olarak bilmemiz mümkün değildir. En güvenilir geliştiricilerin yazılımları bile istismar edilebilecek kritik güvenlik açıkları barındırabilir.
 
-Kötü amaçlı yazılımın yol açabileceği potansiyel zararı en aza indirmek için **bölmeleme (compartmentalization) yoluyla güvenlik** benimsemelisiniz. Bu şunları içerebilir:
+Kötü amaçlı yazılımların yol açabileceği potansiyel zararları en aza indirmek için **bölmelere ayırma (compartmentalization) yöntemini** benimsemelisiniz. Bu yöntem şunları içerebilir:
 
-- **Farklı görevler için farklı bilgisayarlar kullanmak**
-- İlgili uygulama gruplarını ayırmak için **sanal makineler kullanmak**
-- Uygulama sandboxing'i ve erişim kontrolüne güçlü bir şekilde odaklanan **güvenli bir işletim sistemi benimsemek**
+- **Farklı işler için tamamen farklı fiziksel bilgisayarlar kullanmak**
+- Uygulama gruplarını izole etmek için **sanal makineler (VM) kullanmak**
+- Uygulama sandboxing'i (yalıtımı) ve erişim kontrolüne odaklanan **güvenli bir işletim sistemi benimsemek**
 
-Mobil işletim sistemleri, uygulama sandboxing'i açısından genellikle masaüstü sistemlerden daha güvenlidir. Uygulamalar root erişimi elde edemez ve yalnızca onlara verdiğiniz sistem kaynaklarına erişebilir.
+Mobil işletim sistemleri, uygulama sandboxing'i açısından masaüstü sistemlere göre genellikle çok daha avantajlıdır. Uygulamalar sisteme doğrudan erişemez ve yalnızca izin verdiğiniz kaynakları kullanabilir.
 
-Masaüstü işletim sistemleri genellikle uygun sandboxing konusunda geride kalır. **ChromeOS**, Android'e benzer sandboxing özellikleri sunar ve **macOS**, sistem izinleri üzerinde tam kontrole ve (geliştiriciler için) isteğe bağlı uygulama sandboxing'ine sahiptir; ancak bu işletim sistemleri kendi OEM üreticilerine kimliği belirleyici bilgiler gönderir. **Linux**, sistem sağlayıcılarına bilgi göndermeme eğilimindedir, ama exploit'lere ve kötü amaçlı uygulamalara karşı sınırlı koruma sunar. Bu durum, **Qubes OS** gibi sanal makineleri veya konteynerleri yoğun şekilde kullanan özel dağıtımlarla kısmen azaltılabilir.
+Masaüstü işletim sistemleri ise bu konuda biraz geriden gelmektedir. **ChromeOS**, Android benzeri başarılı bir sandboxing sunarken, **macOS** sistem izinleri üzerinde sıkı bir kontrol uygular; ancak her iki sistem de üreticilerine telemetri verileri göndermektedir. **Linux** ise sistem üreticisine veri göndermez fakat varsayılan kurulumlarda kötü amaçlı yazılımlara karşı yalıtım özellikleri zayıftır. Bu durum, **Qubes OS** gibi sanal makine tabanlı özel dağıtımlarla aşılabilir.
 
-Web tarayıcıları, e-posta istemcileri ve ofis uygulamaları sık sık üçüncü taraflarca gönderilen güvenilmeyen kodları çalıştırır. Bu tür uygulamaları ana sistemden ve birbirlerinden ayırmak için birden fazla sanal makine çalıştırmak, bir exploit'in tüm sistemi ele geçirmesini önlemek için yararlı bir tekniktir. **Qubes OS** veya **GrapheneOS** gibi teknolojiler bu ayrımı şeffaf bir şekilde uygulamak için pratik yöntemler sunar.
+Web tarayıcıları, e-posta istemcileri ve ofis yazılımları internetten gelen güvenilmeyen kodları çalıştırır. Bir güvenlik açığının tüm sistemi ele geçirmesini önlemek için bu uygulamaları ana sistemden izole etmek gerekir. **Qubes OS** veya **GrapheneOS** gibi işletim sistemleri bu yalıtımı kullanıcıya hissettirmeden uygulayabilen en başarılı örneklerdir.
 
-Fiziksel saldırılar konusunda kaygılıysanız, **Android**, **iOS**, **ChromeOS** veya **macOS** gibi güvenli bir **secure boot** (doğrulanmış önyükleme) uygulamasına sahip bir işletim sistemi kullanmalısınız. Diskinizin şifrelendiğinden ve işletim sisteminin şifreleme parolanızı tahmin etme girişimlerini sınırlamak için bir **TPM**, **Secure Enclave** veya **Secure Element** kullandığından emin olun. Çoğu masaüstü işletim sistemi verileri kullanıcı bazında ayrı şifrelemediğinden, bilgisayarınızı güvenmediğiniz kişilerle paylaşmaktan kaçının.
+Fiziksel saldırılara karşı koruma sağlamak için cihazınızda güvenli bir **secure boot** (güvenli önyükleme) mekanizması bulunmalıdır. Diskinizin şifrelendiğinden ve şifre çözme anahtarlarınızın tahmin edilmesini (kaba kuvvet saldırılarını) engellemek için **TPM**, **Secure Enclave** veya **Secure Element** gibi donanımsal koruyucuların kullanıldığından emin olun.
 
-## Kötü Uygulamalar {#cattive-pratiche}
+## Yanlış Yaklaşımlar {#cattive-pratiche}
 
-Yeni başlayan biri olarak, bir tehdit modeli oluştururken şu kötü uygulamalara düşebilirsiniz:
+Yeni başlayanların tehdit modeli oluştururken düştüğü bazı hatalı yaklaşımlar şunlardır:
 
-- **Servis sağlayıcıların bütünü yerine yalnızca reklam ağlarına odaklanmak**
-- **Gizlilik politikalarına büyük ölçüde güvenmek**
-- **Güveni bir servis sağlayıcıdan diğerine körü körüne kaydırmak**
-- **Sorunu sistematik olarak çözmek yerine Badness Enumeration'a (kötülük sayımı) aşırı güvenmek**
-- **Açık kaynaklı yazılıma körü körüne güvenmek**
+- **Tüm veri akışını engellemek yerine yalnızca bilinen reklam ağlarına odaklanmak**
+- **Gizlilik politikası vaatlerine gereğinden fazla güvenmek**
+- **Güveni bir servis sağlayıcıdan diğerine sorgulamadan aktarmak**
+- **Sorunları yapısal olarak çözmek yerine yalnızca bilinen zararlıları engellemeye (Badness Enumeration) çalışmak**
+- **Açık kaynaklı yazılımlara koşulsuz ve körü körüne güvenmek**
 
-Tartışıldığı gibi, yalnızca reklam ağlarına odaklanmak ve sadece gizlilik politikalarına güvenmek etkili bir tehdit modeli oluşturmaz. Servis sağlayıcı değiştirdiğinizde, altta yatan sorunu belirleyin ve yeni sağlayıcının uygun bir teknik çözüm sunup sunmadığını kontrol edin.
+Belirttiğimiz gibi, yalnızca reklam ağlarını hedef almak veya gizlilik politikası vaatlerine güvenmek etkili bir koruma sağlamaz. Servis sağlayıcınızı değiştirmek istediğinizde, öncelikle çözmek istediğiniz temel sorunu tanımlayın ve yeni sağlayıcının bu soruna teknik bir çözüm sunup sunmadığını kontrol edin.
 
-Örneğin, **Google Drive**'ı sevmeyebilirsiniz çünkü Google'a tüm verilerinize erişim sağlar. Buradaki gerçek sorun **uçtan uca şifreleme eksikliğidir**; bunu **Cryptomator** gibi bir şifreleme aracı kullanarak veya **Proton Drive** gibi bunu yerel olarak sunan bir sağlayıcıya geçerek çözebilirsiniz. Google Drive'dan uçtan uca şifreleme sunmayan bir sağlayıcıya körü körüne geçmek mantıklı değildir.
+Örneğin, Google Drive'ı verilerinize tam erişim sahibi olduğu için kullanmak istemeyebilirsiniz. Buradaki asıl sorun, verilerin uçtan uca şifrelenmemiş olmasıdır. Bu problemi Cryptomator gibi bir şifreleme aracıyla veya Proton Drive gibi dahili uçtan uca şifreleme sunan bir servise geçerek çözebilirsiniz. Google Drive'dan yine şifreleme sunmayan başka bir bulut sağlayıcısına geçmek anlamlı bir kazanç sağlamayacaktır.
 
-Badness Enumeration'ın (kötülük sayımının) — yani kötü niyetli kabul edilen aktörlerin (Google, Amazon, Meta vb. gibi) bir listesini çıkarıp her bir eylemlerini engellemeye çalışmanın — işe yaramadığını, işe yaramayacağını ve hiçbir zaman işe yaramayacağını unutmayın. Bu yaklaşım etkisizdir çünkü tehditler sürekli evrim geçirir ve belirli bir listeye odaklanmak sizi bilinmeyen aktörlerden veya yeni saldırı tekniklerinden korumaz. Savunma stratejinizi bir düşman listesi üzerine değil, bir dizi saldırıyı durdurmaya yarayan genel bir yöntem üzerine kurun (çözüm sadece Google'a veri vermemek değil, genel olarak veri vermemektir!).
+Sadece belirli aktörleri (Google, Amazon, Meta vb.) kara listeye alıp onların servislerini engellemeye çalışmanın (Badness Enumeration/Kötülük Sayımı) kalıcı bir çözüm olmadığını unutmayın. Tehditler sürekli evrilir ve belirli bir düşman listesine odaklanmak sizi yeni aktörlerden veya farklı saldırı tekniklerinden korumaz. Savunma stratejinizi bir düşman listesi üzerine değil, veri sızıntılarını genel olarak önleyen sistemler üzerine kurun (asıl çözüm yalnızca Google'a veri vermemek değil, verilerinizi üçüncü şahıslarla paylaşmamaktır).
 
-Önemli bir başka husus da **açık kaynaklı yazılımın** otomatik olarak gizli veya güvenli olmadığıdır. Kötü amaçlı kod, proje geliştiricileri, katkıda bulunanlar, kütüphane geliştiricileri veya kodu derleyen kişiler tarafından eklenebilir. Ayrıca, açık kaynaklı bir yazılım bazen kapalı kaynak karşılığına göre daha düşük güvenlik özelliklerine sahip olabilir.
-
-Örneğin, çoğu geleneksel masaüstü Linux dağıtımı, macOS'a kıyasla varsayılan olarak secure boot, sistem bütünlüğü koruması veya uygulamalar için tam erişim kontrolünden yoksundur. Bir tehdit modeli oluştururken, kullandığınız her yazılımın gizlilik ve güvenlik özelliklerini değerlendirmek ve sadece açık kaynaklı olduğu için körü körüne güvenmek yerine kendi güvenlik ve gizlilik ihtiyaçlarınıza bağlı bir tehdit modeli oluşturmak çok önemlidir.
+Bir diğer önemli husus ise açık kaynaklı yazılımların kendiliğinden güvenli veya gizlilik dostu olmadığıdır. Kötü amaçlı kodlar; projenin geliştiricileri, katkı sağlayanlar veya tedarik zincirindeki kütüphaneler aracılığıyla sisteme sızabilir. Ayrıca açık kaynaklı bir yazılım, masaüstü Linux dağıtımları ile macOS kıyaslamasında olduğu gibi, kapalı kaynaklı alternatiflerine kıyasla bazı modern güvenlik özelliklerinden (secure boot, katı sandboxing vb.) yoksun olabilir. Bir tehdit modeli oluştururken, yazılımlara körü körüne güvenmek yerine kendi güvenlik ve gizlilik ihtiyaçlarınızı temel alan rasyonel kararlar almalısınız.
 
 ## Sonuç {#conclusioni}
 
-Bir tehdit modeli oluşturmak, çevrimiçi gizliliğinizi ve güvenliğinizi korumak için temel bir adımdır. Farklı tehditleri anlayarak ve proaktif tedbirler alarak, gözetim, takip ve siber saldırılara karşı korumanızı önemli ölçüde artırabilirsiniz.
+Tehdit modeli oluşturmak, çevrimiçi gizliliğinizi ve dijital güvenliğinizi korumanın ilk ve en önemli adımıdır. Karşı karşıya olduğunuz riskleri doğru analiz ederek ve buna uygun orantılı karşı tedbirler alarak, dijital dünyada kendinizi çok daha güvenli bir konuma taşıyabilirsiniz.
 
-Unutmayın, anahtar, teknoloji seçimlerinizde bilgili, eleştirel ve proaktif olmaktır.
+Unutmayın; güvenlik bir ürün değil, dinamik bir süreçtir.
 
 ---
 
-Bu rehberi okuduğunuz için teşekkürler! Faydalı bulduysanız, siber güvenlikle ilgilenen arkadaşlarınız ve meslektaşlarınızla paylaşın.
+Bu rehberi okuduğunuz için teşekkürler! Faydalı bulduysanız, dijital gizliliğe önem veren arkadaşlarınızla paylaşabilirsiniz.
 
 ---
 
 ## İlgili Rehberler
 
-- **[De-Google Android: Eksiksiz Gizlilik Rehberi](/tr/android)** - De-Google'lanmış bir kurulumla tehdit modelinizi telefonunuza uygulayın
-- **[GrapheneOS: En İyi Gizlilik İşletim Sistemi Rehberi](/tr/graphene)** - En iyi güvenlik seviyesine sahip mobil işletim sistemi
-- **[AdBlock ile Kendi Sunucunuzda VPN](/tr/vpn)** - Kişisel bir VPN ile ağ trafiğinizi koruyun
+- **[De-Google Android: Eksiksiz Gizlilik Rehberi](/tr/android)** - De-google edilmiş bir telefon kurarak tehdit modelinizi mobil cihazınızda uygulayın.
+- **[GrapheneOS Gelişmiş Kurulum Rehberi](/tr/graphene)** - En üst düzey güvenlik sunan mobil işletim sistemi rehberi.
+- **[Reklam Engelleyicili Kişisel VPN Kurulumu](/tr/vpn)** - Kendi sunucunuz üzerinden internet trafiğinizi güvenceye alın.

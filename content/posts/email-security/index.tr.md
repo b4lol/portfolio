@@ -10,18 +10,18 @@ url: /tr/email-security
 series: ["Dijital Gizlilik", "Güvenlik"]
 topics: ["privacy-security"]
 faq:
-  - question: "E-posta güvenli mi?"
-    answer: "Varsayılan olarak değil. E-posta, hiçbir şifreleme içermeyen bir protokol olarak doğdu. Bugün STARTTLS, SMTPS ve PGP gibi korumalar mevcut, ancak e-postaların büyük çoğunluğu hâlâ uçtan uca şifreleme olmadan yol alıyor. Yalnızca Proton Mail gibi sağlayıcılar kendi kullanıcıları arasında E2EE sunuyor."
+  - question: "E-posta güvenli midir?"
+    answer: "Varsayılan olarak güvenli değildir. E-posta, başlangıçta herhangi bir şifreleme mekanizması içermeyen bir protokol olarak tasarlanmıştır. Günümüzde STARTTLS, SMTPS ve PGP gibi korumalar yaygınlaşmış olsa da, e-postaların büyük kısmı hâlâ uçtan uca şifreleme olmadan iletilmektedir. Proton Mail gibi bazı özel sağlayıcılar ise kendi kullanıcıları arasında varsayılan olarak uçtan uca şifreleme (E2EE) sunmaktadır."
   - question: "SPF, DKIM ve DMARC nedir?"
-    answer: "Bunlar üç e-posta kimlik doğrulama protokolüdür. SPF, gönderen sunucunun yetkili olup olmadığını doğrular, DKIM e-postaları dijital olarak imzalayarak değiştirilip değiştirilmediğini tespit eder, DMARC ise bu kontroller başarısız olduğunda ne yapılacağını belirler (reddetme, spam'e gönderme veya görmezden gelme)."
+    answer: "Bunlar e-posta gönderici kimliğini doğrulamak için kullanılan üç temel protokoldür. SPF, gönderen sunucunun yetkili olup olmadığını kontrol eder. DKIM, e-postaları kriptografik imza ile işaretleyerek yolda değiştirilip değiştirilmediğini doğrular. DMARC ise bu kontroller başarısız olduğunda alıcı sunucunun nasıl davranacağını (reddetme, spam'e gönderme veya kabul etme) belirler."
   - question: "STARTTLS ile SMTPS arasındaki fark nedir?"
-    answer: "STARTTLS, şifrelemeyi bağlantı düz metin olarak başladıktan sonra müzakere eder ve bu da onu downgrade saldırılarına karşı zayıf kılar. SMTPS ise HTTPS gibi doğrudan şifreli bir bağlantıyla başlar ve bu zayıflığı ortadan kaldırır."
-  - question: "PGP, e-posta için hâlâ işe yarar mı?"
-    answer: "PGP uçtan uca şifreleme sunar, ancak ciddi sorunları vardır: karmaşık anahtar yönetimi, forward secrecy'nin olmaması ve şifrelenmemiş meta veriler. Çoğu kullanıcı için, Proton Mail gibi yerleşik E2EE'ye sahip bir sağlayıcı daha pratik ve daha güvenlidir."
-  - question: "E-postamı bugün nasıl koruyabilirim?"
-    answer: "Donanım anahtarıyla 2FA'yı etkinleştirin, e-posta istemcinizde HTML ve uzak görselleri devre dışı bırakın, hesap kurtarma yöntemi olarak e-postayı çevrimdışı kodlarla değiştirin ve Proton Mail gibi uçtan uca şifrelemeye sahip bir sağlayıcı kullanmayı düşünün."
-  - question: "E-posta neden çevrimiçi güvenliğin zayıf noktası?"
-    answer: "E-posta, hemen hemen her hesap için varsayılan şifre sıfırlama ve 2FA kurtarma yöntemidir. Bir saldırgan gelen kutunuza erişirse, bağlı tüm hizmetlerin şifrelerini sıfırlayabilir."
+    answer: "STARTTLS şifrelemeyi, bağlantı düz metin olarak başladıktan sonra müzakere eder. Bu durum, bağlantının araya girilerek şifresiz kalmaya zorlandığı 'sürüm düşürme' (downgrade) saldırılarına kapı aralar. SMTPS ise HTTPS protokolünde olduğu gibi doğrudan şifreli bir TLS bağlantısıyla başlar ve bu güvenlik açığını giderir."
+  - question: "PGP e-posta güvenliği için hâlâ kullanılabilir mi?"
+    answer: "PGP uçtan uca şifreleme sağlar ancak anahtar yönetiminin zorluğu, geçmişe dönük gizlilik (forward secrecy) sunmaması ve e-postanın konu, gönderici gibi meta verilerini şifreleyememesi gibi dezavantajları vardır. Çoğu kullanıcı için Proton Mail gibi yerleşik şifreleme sunan e-posta servisleri daha pratiktir."
+  - question: "E-posta güvenliği nasıl artırılabilir?"
+    answer: "Donanım anahtarı (FIDO2) ile iki faktörlü kimlik doğrulamayı (2FA) etkinleştirin, e-posta istemcinizde uzak görsellerin otomatik yüklenmesini ve HTML görünümünü kapatın, hesap kurtarma e-postası yerine çevrimdışı yedek kodları tercih edin."
+  - question: "E-posta neden dijital güvenliğin en zayıf halkasıdır?"
+    answer: "E-posta, neredeyse tüm çevrimiçi platformlarda varsayılan şifre sıfırlama ve kurtarma kanalıdır. Bir saldırgan e-posta hesabınızı ele geçirirse, bu hesaba bağlı tüm diğer üyeliklerin şifresini kolayca sıfırlayabilir."
 howto:
   name: "Bir e-posta hesabı nasıl korunur"
   description: "Güvenilir bir sağlayıcı, MFA, güvenli bir istemci, ayrı hesap kurtarma ve alan adı kimlik doğrulaması ile e-posta riskini azaltmak için bir prosedür."
@@ -54,225 +54,150 @@ howto:
 ---
 
 > **TL;DR** - Bu rehberde öğrenecekleriniz:
-> - E-posta şifrelemesi nasıl işler ve STARTTLS neden yeterli değildir
-> - SPF, DKIM ve DMARC nedir ve sahtecilikten nasıl korurlar
-> - E-posta, tüm hesaplarınızın güvenliğinde neden zayıf nokta
-> - Gelecekte bizi ne bekliyor: uçtan uca şifreleme, DKIM2 ve düz metin e-postalara elveda
+> - E-posta şifrelemesinin nasıl çalıştığı ve STARTTLS protokolünün neden yetersiz kaldığı,
+> - SPF, DKIM ve DMARC protokollerinin ne olduğu ve e-posta sahteciliğini (spoofing) nasıl engelledikleri,
+> - E-postanın, tüm dijital hesaplarınızın güvenliğinde neden en zayıf halka olduğu,
+> - Gelecekteki e-posta güvenliği standartları: Uçtan uca şifreleme, DKIM2 ve şifrelenmemiş e-postalara veda süreci.
 
 ## Özet
 
-E-posta varsayılan olarak güvenli değildir: meta verileri kötü korur, genellikle yalnızca hop-by-hop şifreleme kullanır ve hâlâ hemen hemen her hesabın parola kurtarma noktasıdır. Riski azaltmak için donanım tabanlı 2FA, güvenilir bir sağlayıcı, devre dışı bırakılmış uzak görseller, ayrı hesap kurtarma ve SPF, DKIM ve DMARC ile alan adı kimlik doğrulaması gerekir.
+E-posta varsayılan olarak güvenli bir iletişim yöntemi değildir: Meta verileri koruyamaz, çoğunlukla sunucular arası (hop-by-hop) geçici şifreleme kullanır ve neredeyse tüm dijital hesapların şifre sıfırlama noktasıdır. Güvenlik risklerini en aza indirmek için donanım tabanlı iki faktörlü kimlik doğrulama (2FA), güvenilir servis sağlayıcılar, uzak görsellerin yüklenmesinin devre dışı bırakılması, bağımsız hesap kurtarma yöntemleri ve SPF, DKIM ile DMARC alan adı kimlik doğrulamaları kullanılmalıdır.
 
-E-posta, dijital hayatınızın görünmez omurgasıdır. Oluşturduğunuz her hesap, sıfırladığınız her parola, her önemli iletişim... neredeyse her zaman e-postadan geçer. Ama gerçekte ne kadar güvenli olduğunu hiç düşündünüz mü?
+E-posta, dijital hayatın temel omurgasını oluşturur. Oluşturulan tüm hesaplar, sıfırlanan şifreler ve kritik yazışmalar neredeyse her zaman e-posta adresi üzerinden gerçekleştirilir. Ancak bu iletişim kanalının gerçekte ne kadar güvenli olduğunu bilmek önem taşır.
 
-Cevap, ne yazık ki: düşündüğünüzden daha az. E-posta, siber güvenliğin tam olarak öncelik olmadığı 1980'lerde doğmuş bir protokoldür. O zamandan beri katman katman koruma eklendi, ancak sonuç karmaşık, parçalı ve genellikle yanlış yapılandırılmış bir sistem oldu.
+E-posta, siber güvenliğin öncelikli olmadığı 1980'li yıllarda tasarlanmış bir protokoldür. Zaman içerisinde üzerine ek güvenlik katmanları eklenmiş olsa da, günümüzde karmaşık ve genellikle hatalı yapılandırılan bir mimariye dönüşmüştür.
 
-Bu rehberde, şifrelemeden kimlik doğrulamaya kadar e-posta güvenliğinin güncel durumunu birlikte inceleyecek ve geleceğin bize ne sunduğuna bir göz atacağız. Gözlerinizi açık tutun, çünkü epey sürpriz var.
+Bu rehberde, veri aktarım şifrelemesinden alan adı doğrulamasına kadar e-posta güvenliğinin güncel durumunu inceleyecek ve gelecekte bizi nelerin beklediğini ele alacağız.
 
 ## E-posta Şifrelemesi {#crittografia-delle-email}
 
-Temellerden başlayalım: e-postalarınız aktarım sırasında ve depolanırken nasıl korunuyor? Durumun... karmaşık olduğunu söyleyelim.
+E-postalarınızın ağ üzerinde iletilirken ve sunucularda depolanırken nasıl korunduğunu detaylarıyla inceleyelim.
 
-### STARTTLS: çıkarılabilen kilit
+### STARTTLS: Sürüm Düşürme Riskleri
 
-STARTTLS, e-postaları aktarım sırasında şifrelemek için en yaygın kullanılan mekanizmadır. Fikir basit: e-posta istemcisi, mesajı göndermeden önce sunucuyla bir TLS (şifreli) bağlantı müzakere eder.
+STARTTLS, e-postaları aktarım sırasında şifrelemek için en yaygın kullanılan mekanizmalardan biridir. Bu yöntemde e-posta istemcisi, mesajı göndermeden önce sunucuyla bir TLS (şifreli) bağlantı müzakere eder.
 
-Sorun ne mi? Müzakere aşaması **düz metin olarak** gerçekleşir. Bu, ağ üzerinde konumlanmış bir saldırganın trafikten STARTTLS komutunu tamamen çıkarabileceği ve bağlantıyı şifrelenmemiş halde tutmaya zorlayabileceği anlamına gelir. Buna *downgrade saldırısı* denir ve istemciniz bunu hiç fark etmeyebilir.
+Temel zayıflığı, şifreleme müzakeresinin düz metin (cleartext) olarak başlamasıdır. Ortadaki adam (MITM) konumundaki bir saldırgan, ağ trafiğindeki STARTTLS komutunu engelleyerek bağlantıyı şifrelenmemiş olarak kalmaya zorlayabilir. Sürüm düşürme (downgrade) saldırısı olarak adlandırılan bu durumu e-posta istemcileri çoğunlukla fark edemez.
 
-Şöyle düşünün: zırhlı bir kapıya vurmak gibi, ama siz içeri girmeden önce biri kapıyı söküp sizi korumasız bir açıklıkla karşı karşıya bırakabiliyor.
+Ayrıca STARTTLS sorunsuz çalışsa bile şifreleme yalnızca sunucular arasında (hop-by-hop) gerçekleşir. Mesajın şifresi, uğradığı her ara sunucuda çözülür ve yeniden şifrelenir. Bu durum uçtan uca şifreleme (E2EE) sağlamaz; dolayısıyla veri iletim yolundaki sunucular içeriği okuyabilir.
 
-Ayrıca, STARTTLS doğru çalıştığında bile şifreleme yalnızca *hop-by-hop*'tur: mesaj her ara sunucuda şifresi çözülür ve yeniden şifrelenir. Bu uçtan uca şifreleme değildir — zincirdeki her sunucu içeriği okuyabilir.
+### SMTPS: Doğrudan Şifreli Bağlantı
 
+SMTPS (Implicit TLS), sürüm düşürme risklerini ortadan kaldırır. Bağlantı kurulduktan sonra şifrelemeyi müzakere etmek yerine, web sitelerindeki HTTPS bağlantısı gibi doğrudan şifreli bir kanal üzerinden iletişime başlar.
 
-
-### SMTPS: geliştirilmiş versiyon
-
-SMTPS (Implicit TLS), downgrade sorununu çözer. Bağlantı kurulduktan sonra şifrelemeyi müzakere etmek yerine, web siteleri için HTTPS'nin yaptığı gibi doğrudan şifreli bir bağlantıyla başlar.
-
-SMTPS için standart port **465**'tir, **587** ise STARTTLS için kalır. Teoride bu net bir iyileştirmedir; pratikte ise yıllar süren port karmaşası (25, 465, 587, 2525) sağlayıcılar arasında ciddi bir standardizasyon karmaşası yaratmıştır.
+SMTPS protokolü varsayılan olarak **465** portunu kullanırken, STARTTLS ise **587** portunu tercih eder. Güvenlik standartları açısından SMTPS net bir gelişme olsa da, geçmişten günümüze süregelen port karmaşası sağlayıcılar arasında yapılandırma farklılıklarına neden olabilmektedir.
 
 ### POP3S ve IMAPS
 
-Posta sunuculardan *indirmek* için kullanılan protokoller de şifrelemeyi destekler:
+Posta sunucusundan e-postaları almak için kullanılan protokoller de şifreli sürümleri desteklemektedir:
 
-- **POP3S**, **995** portunda TLS kullanır
-- **IMAPS**, **993** portunda TLS kullanır
+- **POP3S**, **995** portu üzerinden şifreli bağlantı kurar.
+- **IMAPS**, **993** portunu kullanarak verileri TLS ile korur.
 
-Bunlar, e-postaların sunucudan alınmasının şifreli bir kanal üzerinden gerçekleşmesini garanti eder. İyi, ama içeriğin kendisinin şifrelenmesi sorununu çözmezler.
+Bu protokoller e-postaların yerel istemcinize güvenle indirilmesini sağlasa da, mesajların sunucudaki depolama şifrelemesi sorununu tek başlarına çözemezler.
 
-### OpenPGP: güçlü ama pratik değil
+### OpenPGP: Güçlü Mimari, Zor Kullanılabilirlik
 
-Pretty Good Privacy (PGP), e-posta şifrelemesinin büyükbabasıdır. 1991'de Phil Zimmermann tarafından oluşturulmuş, daha sonra OpenPGP olarak standartlaştırılmıştır.
+OpenPGP, e-posta şifrelemesinin en eski ve bilinen yöntemlerinden biridir. Açık ve gizli anahtar çiftine dayalı asimetrik şifreleme mimarisi sunar. Gönderici, alıcının açık anahtarı (public key) ile veriyi şifreler; alıcı ise kendi gizli anahtarı (private key) ile şifreyi çözer. Aracı konumundaki sunucular veriyi okuyamaz.
 
-Kavram sağlamdır: açık ve gizli anahtarlarla asimetrik şifreleme. Gönderen, alıcının açık anahtarıyla şifreler, alıcı da kendi gizli anahtarıyla şifreyi çözer. Hiçbir aracı mesajı okuyamaz.
+Ancak anahtar yönetiminin zorluğu kullanımı kısıtlamaktadır:
 
-**Sorun ne mi?** Anahtar yönetimi bir kabustur. Şunları yapmanız gerekir:
-- Bir anahtar çifti oluşturmak
-- Açık anahtarınızı dağıtmak
-- Başkalarının anahtarlarını doğrulamak (ünlü *key signing party*'ler)
-- Gizli anahtarınızı son derece dikkatli bir şekilde korumak
+- Anahtar çifti oluşturma ve açık anahtarı güvenli şekilde paylaşma gereksinimi,
+- Gizli anahtarın çalınması durumunda geçmişe dönük tüm şifreli yazışmaların ifşa olması (forward secrecy eksikliği),
+- E-postanın meta verilerinin (gönderici, alıcı, gönderim tarihi ve konu başlığı) şifrelenememesi.
 
+### S/MIME: Kurumsal Çözüm
 
+S/MIME, e-postaları şifrelemek için X.509 dijital sertifikalarını kullanır. Sertifika yönetimi yetkili kuruluşlar (CA) üzerinden yürütüldüğü için PGP'ye kıyasla daha entegre bir yapı sunar. Ancak sertifika maliyetleri ve geçmişe dönük gizlilik sunmaması gibi nedenlerle genellikle merkezi yönetime sahip kurumsal şirketlerde tercih edilmektedir.
 
-Gizli anahtarınız ele geçirilirse, **geçmişteki tüm mesajlar** okunabilir hale gelir. Bunun nedeni, OpenPGP'nin *forward secrecy*'yi desteklememesidir; bu özellik bence 2026'da olması gereken asgari standart olmalıdır.
+### Web Key Directory (WKD)
 
-Başka bir kritik nokta: OpenPGP **meta verileri şifrelemez**. Gönderen, alıcı, tarih, konu... hepsi düz metin olarak kalır. Bir gözlemci içeriği okuyamaz, ama kimin kiminle, ne zaman ve hangi konuda konuştuğunu tam olarak bilir.
+WKD, PGP açık anahtarlarının dağıtımını otomatikleştiren modern bir çözümdür. İstemciniz, alıcının açık anahtarını bulmak için harici sunucular yerine doğrudan alıcının e-posta alan adını sorgulayarak kriptografik anahtarı otomatik olarak çeker. Ancak henüz tüm sağlayıcılar tarafından desteklenmemektedir.
 
-### S/MIME: kullanıcı deneyimi daha iyi, cüzdan için daha kötü
+## E-posta Kimlik Doğrulama Protokolleri {#autenticazione-delle-email}
 
-S/MIME, e-postaları şifrelemek ve doğrulamak için X.509 dijital sertifikalarını (web'de kullanılanların aynısı) kullanır. Sertifika yönetimi sertifika yetkilileri (CA'lar) aracılığıyla kısmen otomatikleştirildiği için PGP'den daha kullanıcı dostudur.
+Şifreleme mesajın içeriğini korurken, kimlik doğrulama protokolleri ise gönderenin iddia ettiği kişi olup olmadığını denetler.
 
-Madalyonun diğer yüzü? Sertifikalar para tutar, süresi dolar ve yenilenmeleri gerekir. PGP gibi, S/MIME de forward secrecy'yi desteklemez. Pratikte, BT departmanının her şeyi merkezi olarak yönettiği kurumsal ortamlarda neredeyse münhasıran kullanılır.
+### SPF (Sender Policy Framework)
 
-### Web Key Directory
+SPF, bir alan adının hangi sunucular üzerinden e-posta göndermeye yetkili olduğunu listeleyen bir DNS kaydıdır. Alıcı sunucu, gelen e-postanın yetkili sunucudan gelip gelmediğini bu DNS kaydı üzerinden doğrular.
 
-WKD, PGP anahtarlarının dağıtımı sorununa zarif bir çözümdür. Güvenilirliği şüpheli açık anahtar sunucularında anahtar aramak yerine, e-posta istemciniz alıcının açık anahtarını almak için doğrudan onun alan adını sorgular.
+SPF'nin sınırları:
+- DNS protokolünün kendi güvenlik zaafiyetlerinden etkilenir.
+- Gönderici bazlı değil, yalnızca sunucu bazlı doğrulama yapar.
+- DNS kaydındaki politikanın gevşek tanımlanması (örneğin `~all` veya `+all`) koruma etkisini azaltır.
 
-Kriptografik anahtarlar için otomatik bir telefon rehberi gibidir. Basit, merkeziyetsiz ve işe yarıyor. Ne yazık ki benimsenmesi hâlâ sınırlı.
+### DKIM (DomainKeys Identified Mail)
 
-## E-posta Kimlik Doğrulama {#autenticazione-delle-email}
+DKIM, giden e-postalara kriptografik bir dijital imza ekler. Gönderici sunucu giden mesajı kendi gizli anahtarıyla imzalar, alıcı sunucu ise DNS üzerinde yayınlanan açık anahtarı kullanarak mesajın yolda değiştirilmediğini doğrular. DKIM veriyi şifrelemez, yalnızca bütünlüğünü ve kaynağını garanti eder.
 
-Şifreleme *içeriği* korurken, kimlik doğrulama *kimliği* korur. `banka@ornek.com` adresinden gelen bir e-postanın gerçekten bankanızdan geldiğini ve bir dolandırıcıdan değil olduğunu nasıl bilebilirsiniz?
+### DMARC (Domain-based Message Authentication)
 
-### SPF: davetli listesi
+DMARC, SPF ve DKIM protokollerini birleştiren ve yöneten üst katmandır. SPF veya DKIM doğrulamalarından geçemeyen şüpheli e-postalara alıcı sunucunun ne yapacağını belirler:
 
-SPF (Sender Policy Framework), bir partideki davetli listesi gibi çalışır. Bir alan adının sahibi, o alan adı için e-posta göndermeye yetkili tüm sunucuları listeleyen bir DNS kaydı yayınlar.
+- **none:** Herhangi bir engelleme yapma (yalnızca raporla).
+- **quarantine:** Şüpheli postayı gereksiz (spam) klasörüne taşı.
+- **reject:** E-postayı tamamen reddet ve teslim etme.
 
-Alıcının sunucusu bir e-posta aldığında şunu kontrol eder: "Bu sunucu yetkili listede mi?" Değilse, e-posta şüphelidir.
+Sıkı güvenlik politikasına sahip bir DMARC kaydı örneği:
 
-**SPF'nin sınırlamaları:**
-- Kendi başına hiçbir kimlik doğrulama mekanizması olmayan DNS'e dayanır
-- Tek tek kullanıcıyı değil, yalnızca sunucuyu doğrular
-- İsteğe bağlı uygulama modları vardır: bir alan adı `-all` (listede olmayan her şeyi reddet), `~all` (uyarıyla birlikte yine de kabul et) veya hatta `+all` (her şeyi kabul et) şeklinde yapılandırılabilir. Güvenlik tamamen yapılandırmaya bağlıdır
-
-### DKIM: dijital imza
-
-DKIM (DomainKeys Identified Mail), e-postalara kriptografik bir imza ekler. Sağlayıcı bir anahtar çifti oluşturur, açık anahtarı DNS'de yayınlar ve giden her e-postayı gizli anahtarla imzalar.
-
-Alıcı sunucu imzayı doğrular: mesaj aktarım sırasında değiştirildiyse, imza artık eşleşmez. Bu, kurcalamayı tespit etmek için etkili bir sistemdir.
-
-**Ancak dikkat:** anahtarlar sizde değil, e-posta sağlayıcınızda. Sağlayıcınız teorik olarak bir mesajı imzalamadan önce değiştirebilir. Ayrıca, DKIM hiçbir şeyi şifrelemez, yalnızca alan adının bütünlüğünü ve özgünlüğünü doğrular.
-
-### DMARC: fedai
-
-DMARC (Domain-based Message Authentication, Reporting and Conformance), SPF ve DKIM'i bir araya getiren parçadır. Alıcı sunuculara şunu söyler: "Bir e-posta SPF ve DKIM kontrollerini geçemezse, yapılması gereken şu."
-
-Olası politikalar şunlardır:
-- **none**: hiçbir şey yapma (yalnızca izleme)
-- **quarantine**: spam'e gönder
-- **reject**: tamamen reddet
-
-İyi yapılandırılmış bir DMARC kaydı şuna benzer:
-
-```
+```text
 v=DMARC1; p=reject; adkim=s; aspf=s;
 ```
 
-Burada `p=reject` doğrulanmamış e-postaların reddedilmesini söyler, `adkim=s` / `aspf=s` ise sıkı (*strict*) hizalama uygular.
+Burada `p=reject` doğrulanmayan postaların doğrudan reddedileceğini, `adkim=s` ve `aspf=s` ise sıkı eşleme kurallarının uygulanacağını gösterir.
 
+### DNSSEC: DNS Protokolünü Güvenli Hale Getirme
 
+E-posta doğrulama kayıtlarının (SPF, DKIM, DMARC) tamamı DNS sorgularına dayanır. Ancak standart DNS protokolü sorgu yanıtlarının değiştirilmesine (DNS önbellek zehirlenmesi - cache poisoning) karşı korumasızdır. DNSSEC, DNS yanıtlarını kriptografik olarak imzalayarak bu verilerin doğruluğunu garanti altına alır.
 
-### DNSSEC: DNS'in kendisini doğrulamak
+### DANE ve MTA-STS
 
-SPF, DKIM ve DMARC'ın tamamı DNS'e dayanır. Ancak DNS, 1980'lerde hiçbir güvenlik önlemi olmadan oluşturulmuştur. DNS yanıtlarını manipüle etmeyi başaran bir saldırgan (cache poisoning), bu kontrollerin tamamını atlayabilir.
+Bu protokoller e-posta sunucuları arasındaki aktarım şifrelemesini (TLS) zorunlu kılmak için kullanılır:
 
-Carnegie Mellon'un 2014 tarihli bir araştırması, görünüşte Gmail, Yahoo! ve Outlook.com'dan gelen e-postaların kötü amaçlı sunucular üzerinden ele geçirilebileceğini göstermiştir. Pek de güven verici değil.
+- **DANE:** Güvenliğini DNSSEC altyapısına dayandırır ve TLSA kayıtları aracılığıyla sertifikaları doğrular.
+- **MTA-STS:** Web platformundaki HSTS mantığına benzer şekilde çalışır. HTTPS protokolünü kullanarak sunucunun yalnızca şifreli TLS bağlantılarını kabul edeceğini bildirir.
 
-DNSSEC, DNS yanıtlarını dijital olarak imzalayarak ve IANA tarafından yönetilen kök bölgeye (root zone) kadar uzanan bir güven zinciri oluşturarak bu sorunu çözer. Her DNS yanıtının özgün olduğunu onaylayan bir noter gibidir.
+## Güvenlik Zayıflığı Olarak E-posta Yetkilendirmesi {#lemail-come-punto-debole}
 
-### DANE ve MTA-STS: şifrelemeyi zorunlu kılmak
+E-posta adresiniz, dijital dünyadaki hemen hemen tüm hesaplarınızın şifre sıfırlama kanalıdır. Bir saldırgan e-posta kutunuza erişim sağladığında, bu hesaba bağlı diğer tüm platformlardaki şifrelerinizi kolayca sıfırlayabilir.
 
-Bu iki protokol aynı sorunla ilgilenir — e-posta sunucuları arasında TLS kullanımını zorunlu kılmak — ama farklı yaklaşımlarla:
+Bu riskleri en aza indirmek için:
 
-- **DANE**, DNSSEC'e dayanır ve TLS sertifikalarını DNS adlarına bağlamak için TLSA kayıtlarını kullanarak geleneksel CA'ları atlar
-- **MTA-STS**, web siteleri için HSTS'in nasıl çalıştığına benzer şekilde HTTPS'i ve mevcut web PKI'sini kullanır. Uygulanması daha kolaydır ama CA'lara ek bir bağımlılık getirir
+1. E-posta hesabınızın giriş güvenliğini donanım anahtarı (FIDO2) gibi güçlü iki faktörlü kimlik doğrulamalarla (2FA) koruyun.
+2. Hesap kurtarma seçeneklerinde yedek e-posta adresi yerine yerel olarak saklanan çevrimdışı kurtarma kodlarını tercih edin.
+3. E-posta adresinizi tüm üyeliklerinizde tek bir ortak anahtar gibi kullanmaktan kaçının.
 
-İkisi de mevcut duruma kıyasla önemli bir ileri adımdır.
+### Üçüncü Taraf İstemcilerin Saldırı Yüzeyi {#client-di-terze-parti-e-superficie-dattacco}
 
-## Zayıf Nokta Olarak E-posta {#lemail-come-punto-debole}
-
-Bence diğer hepsinden daha fazla ilgi gerektiren nokta budur.
-
-E-posta, pratik olarak her çevrimiçi hesap için varsayılan kurtarma yöntemi haline geldi. Parolanızı mı unuttunuz? E-posta. İki faktörlü doğrulama mı? E-posta. Cihaz değişikliği mi? E-posta.
-
-Bu, **tüm hesaplarınızın güvenliğinin e-postanızın güvenliğine bağlı olduğu** anlamına gelir. Birisi gelen kutunuza erişirse, kalenin anahtarlarına sahip olur.
-
-Bu, SMS tabanlı 2FA'nın zayıflığına benzer bir durumdur; farkı, e-postanın tipik olarak uçtan uca şifrelemeye sahip olmaması nedeniyle daha da az güvenli olmasıdır.
-
-**Bugün yapabilecekleriniz:**
-1. E-posta hesabının kendisinde iki faktörlü kimlik doğrulamayı etkinleştirin (mümkünse SMS değil, donanım anahtarıyla)
-2. Mümkün olduğunda, e-postayı kurtarma yöntemi olarak çevrimdışı saklanan **kurtarma kodlarıyla** değiştirin
-3. E-postayı ne içinse onun için kullanın: mesajlaşma ve iletişim, evrensel bir anahtarlık değil
-
-### Üçüncü Taraf İstemciler ve Saldırı Yüzeyi {#client-di-terze-parti-e-superficie-dattacco}
-
-Üçüncü taraf bir e-posta istemcisi (Thunderbird, Apple Mail, vb.) kullanmak esneklik sağlar, ama güven zincirine bir halka daha ekler. Her ek istemci, güvenlik açıkları için potansiyel bir giriş noktasıdır.
-
-E-posta istemcilerinin sürpriz derecede büyük bir saldırı yüzeyi vardır: çoğu JavaScript ve karmaşık HTML'i destekler, bu da onları neredeyse web tarayıcısı haline getirir, ama aynı düzeyde sıkılaştırma ve denetime sahip olmadan. Herkes size her an bir e-posta gönderebileceğinden, istemci potansiyel olarak kötü amaçlı içeriklere karşı sürekli kendini savunmak zorundadır.
-
-Mümkün olduğunda uzak görsellerin yüklenmesini ve HTML/JavaScript çalıştırılmasını devre dışı bırakmanızı şiddetle öneririm. Pratik değil, ama daha güvenli.
+Harici e-posta istemcileri kullanmak esneklik sunsa da sisteme yeni bir yazılım bağımlılığı ekler. E-posta istemcileri karmaşık HTML ve JavaScript kodlarını işleyebildiği için web tarayıcılarına benzer bir saldırı yüzeyi oluştururlar. Güvenliği artırmak için istemci ayarlarından HTML yerine düz metin (plain text) görünümünü seçmeniz ve uzak görsellerin otomatik yüklenmesini kapatmanız önerilir.
 
 ## E-posta Güvenliğinin Geleceği
 
-Şimdiye kadar tablo pek de pembe değildi. Ama ufukta, durumu önemli ölçüde değiştirebilecek umut verici gelişmeler var.
+E-posta mimarisini daha güvenli hale getirmek için geliştirilen yeni standartlar:
 
-### OpenPGP'deki iyileştirmeler
+* **Kuantum Sonrası Kriptografi:** Gelecekteki kuantum bilgisayarların şifre çözme kapasitesine karşı PGP ve S/MIME standartlarının güncellenmesi.
+* **DKIM2:** İmzalanmış e-postaların kopyalanarak farklı alan adları üzerinden spam amacıyla yeniden gönderilmesini (replay attack) önlemek için her sunucunun kendi imzasını eklemesini zorunlu kılan yeni sürüm.
+* **MTA-STS Yaygınlaşması:** Sunucular arası şifresiz e-posta trafiğinin tamamen devre dışı bırakılması.
+* **Passkey Kullanımı:** Parolasız kimlik doğrulama standartlarının yaygınlaşmasıyla, şifre sıfırlama işlemlerinde e-posta adreslerine olan ihtiyacın azalması.
+* **Protokol Seviyesinde E2EE:** Farklı e-posta sağlayıcıları arasında da varsayılan olarak uçtan uca şifreli veri iletimi sağlayacak SMTP geliştirmeleri.
 
-IETF çalışma grubu önemli güncellemeler üzerinde çalışıyor:
-- **Kuantum sonrası kriptografi**: gelecekteki kuantum bilgisayarlara karşı koruma
-- **Forward secrecy**: nihayet! Bir anahtar ele geçirilirse, geçmiş mesajlar korunmaya devam eder
-- **Key Transparency**: WhatsApp'ın uyguladığına benzer şekilde, anahtarlar için herkese açık, doğrulanabilir ve kurcalamaya karşı dayanıklı kayıtlar. Bu, anahtar doğrulamasını otomatik ve şeffaf hale getirebilir
-- **QR kod ile doğrulama**: modern mesajlaşma uygulamalarındaki gibi, kişilerin kimliğini yüz yüze doğrulamak için
+## Sonuç ve Öneriler
 
-### S/MIME'deki iyileştirmeler
+E-posta altyapısı eski standartlar üzerine kurulu olsa da doğru yapılandırmalarla güvenli hale getirilebilir. Alabileceğiniz temel önlemler:
 
-LAMPS çalışma grubu, geleneksel ve kuantum sonrası kriptografiyi birleştiren "çift imza" şemalarıyla kuantum sonrası kriptografiye odaklanıyor. Tedbirli bir yaklaşım: iki sistemden biri kırılırsa, diğeri yine de koruma sağlar.
+1. Alan adınızın SPF, DKIM ve DMARC kayıtlarının doğru ve sıkı politikalarla yapılandırıldığından emin olun.
+2. E-posta hesaplarınızda donanım anahtarı tabanlı 2FA kullanın.
+3. İstemcinizde uzak görsellerin otomatik indirilmesini engelleyin.
+4. Önemli hesap kurtarma işlemlerinde e-posta yerine çevrimdışı yedek kodları tercih edin.
+5. Kritik yazışmalar için uçtan uca şifreli e-posta servislerini (örneğin Proton Mail) kullanın.
 
-### DKIM2: toplu spam'e son
-
-DKIM'in mevcut sürümünün ciddi bir sorunu var: bir saldırgan, meşru bir şekilde imzalanmış bir e-postayı alıp farklı alan adlarından binlerce kez yeniden gönderebilir ve bu da orijinal alan adının itibarını mahveder.
-
-DKIM2, **her hop'un mesajı imzalamasını** zorunlu kılarak bu sorunu çözer ve böylece kötüye kullanımın zincirdeki tam noktaya atfedilmesini sağlar. Ayrıca, kafa karıştırıcı seçenekleri ortadan kaldırarak ve en iyi uygulamalarla uyumlu, tutarlı bir imzalanacak başlık kümesi belirleyerek standardı basitleştirir.
-
-### DMARCbis: daha fazla titizlik, daha az açık kapı
-
-DMARC'ın yeni evrimi, mevcut standardın tarihsel belirsizliklerinden bazılarını azaltarak politika yönetimini daha açık ve daha titiz hale getirmeyi amaçlıyor. Ele alınan konular arasında var olmayan alt alan adlarının daha iyi yönetilmesi ve kontrolleri atlamak için kullanılan bazı teknikleri sınırlamak amacıyla daha açık test mekanizmaları bulunuyor.
-
-### Düz metin e-postalara elveda
-
-Her seviyede mevcut olan aktarım şifreleme protokolleriyle, sağlayıcıların **şifrelenmemiş e-posta desteğini tamamen ortadan kaldırması** için çalışması esastır. Aktarım şifrelemesi, bir seçenek olmaktan çıkıp asgari gereklilik haline gelmelidir.
-
-### Passkey'ler ve Kimlik Doğrulamanın Geleceği {#passkey-e-il-futuro-dellautenticazione}
-
-Passkey'lerin benimsenmesi, hesap kurtarma için e-postaya olan bağımlılığı sonunda kırabilir. Artık bir parolaya ihtiyacınız yoksa, onu sıfırlamak için bir e-postaya da ihtiyacınız yoktur.
-
-Bu, e-postayı uygunsuz "ana anahtar" rolünden kurtarır ve onu doğal işlevine geri döndürür: iletişim kurmak. Passkey'leri destekleyen birçok hizmet hâlâ bir e-posta talep ediyor, ama gidilen yön doğru.
-
-### SMTP'de yerleşik uçtan uca şifreleme
-
-Bu, nihai hedeftir. Bugün, Proton Mail gibi sağlayıcılar Proton kullanıcıları arasındaki e-postaları otomatik olarak uçtan uca şifreliyor. Ama bu, yalnızca kendi sınırları içinde işleyen tescilli bir çözüm.
-
-E2EE'yi doğrudan SMTP protokolüne entegre etmek, **herhangi bir** sağlayıcı arasındaki **herhangi bir** e-postanın varsayılan olarak uçtan uca şifrelenebileceği anlamına gelir. Bu yönde zaten RFC önerileri mevcut. Kolay olmayacak, ama hak ettiğimiz gelecek bu.
-
-## Sonuç
-
-E-posta güvenliği; protokollerden, kısaltmalardan ve ödünlerden oluşan bir labirenttir. Ama iyi haber şu ki durum iyileşiyor. DKIM2, DMARCbis, kuantum sonrası kriptografi ve SMTP'de yerleşik E2EE, hepsi bilim kurgu değil, somut gelişmeler.
-
-**Bugün, hemen yapabilecekleriniz:**
-1. E-posta sağlayıcınızın SPF, DKIM ve DMARC'ı sıkı politikalarla desteklediğini doğrulayın
-2. E-posta hesabınızda donanım anahtarıyla 2FA'yı etkinleştirin
-3. E-posta istemcinizde HTML ve uzak görselleri devre dışı bırakın
-4. Mümkün olduğunda e-postayı kurtarma yöntemi olarak çevrimdışı kodlarla değiştirin
-5. Hassas iletişimler için Proton Mail gibi yerleşik E2EE'ye sahip sağlayıcıları değerlendirin
-
-Buraya kadar geldiyseniz, tebrikler: artık e-posta güvenliği konusunda dışarıdaki çoğu insandan daha fazla şey biliyorsunuz. Helal olsun, siz gerçek zırhlı kaplumbağalarsınız! 🐢
-
-Okuduğunuz için çok teşekkürler! Bu rehber size yardımcı olduysa, ihtiyacı olabilecek kişilerle paylaşın.
+Bu doğrultuda bilinçli adımlar atarak dijital güvenliğinizi önemli ölçüde artırabilirsiniz. 🐢
 
 ---
 
 ## İlgili Rehberler
 
-- **[Tehdit Modeli Nasıl Oluşturulur](/tr/threat-model)** - Çevrimiçi gizliliğinizi gerçekten korumanın ilk adımı
-- **[Wireguard ile Kendi Barındırdığınız VPN](/tr/vpn)** - Yerleşik reklam engelleme özelliğiyle kendi kişisel VPN'inizi kurun
-- **[GrapheneOS Üzerine Nihai Rehber](/tr/graphene)** - Dünyanın en güvenli mobil işletim sistemi
+- **[Tehdit Modeli Nasıl Oluşturulur](/tr/threat-model)** - Güvenlik risklerini analiz etme ve koruma stratejisi belirleme.
+- **[WireGuard ile Self-Hosted VPN](/tr/vpn)** - Kendi sunucunuzda reklam engelleme özellikli güvenli VPN kurun.
+- **[GrapheneOS Hakkında Nihai Rehber](/tr/graphene)** - Güvenlik ve gizlilik odaklı mobil işletim sistemi.

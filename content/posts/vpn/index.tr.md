@@ -11,19 +11,19 @@ series: ["Dijital Gizlilik", "Güvenlik"]
 topics: ["self-hosting"]
 faq:
   - question: "Ticari bir VPN kullanmak yerine neden kendi VPN'imi kurmalıyım?"
-    answer: "Ticari VPN'ler genellikle verilerinizi satarak para kazanır. Kendi sunucunda barındırdığın bir VPN ile bağlantın üzerinde tam kontrol sahibi olursun, reklam ve takipçilere karşı filtre ekleyebilir ve sunucunun bulunduğu ülkeyi kendin seçebilirsin."
+    answer: "Pek çok ticari VPN sağlayıcısı, kullanıcı verilerini işleyerek veya satarak gelir elde eder. Kendi sunucunuzda barındıracağınız bir VPN ile bağlantınız üzerinde tam kontrol sahibi olur, reklamlar ile izleyicilere karşı DNS düzeyinde engelleme yapabilir ve sunucu lokasyonunu kendiniz belirlersiniz."
   - question: "Bu kurulum için hangi bileşenlere ihtiyacım var?"
-    answer: "Üç bileşene ihtiyacın var: trafiği şifrelemek için VPN sunucusu olarak WireGuard, reklam ve takipçileri DNS seviyesinde engellemek için Pi-hole, ve üçüncü taraflara bağımlı kalmamak için yerel DNS çözümleyici olarak Unbound."
-  - question: "Kendi sunucunda barındırılan bir VPN'i çalıştırmanın maliyeti nedir?"
-    answer: "Maliyet seçtiğin VPS sağlayıcısına göre değişir ve sık sık değişebilir. Genellikle giriş seviyesi bir kurulum ayda birkaç euroya başlar, ama satın almadan önce her zaman güncel fiyatları, dahil edilen bant genişliğini ve politikaları kontrol etmekte fayda var."
+    answer: "Temel olarak üç ana bileşene ihtiyacınız vardır: İnternet trafiğinizi şifreli tünellerden geçirmek için WireGuard, reklamları ve izleyicileri engellemek için Pi-hole ve DNS sorgularınızı bağımsız çözmek için Unbound."
+  - question: "Kendi sunucumda barındırılan bir VPN'i çalıştırmanın maliyeti nedir?"
+    answer: "Maliyet, tercih edeceğiniz sanal sunucu (VPS) sağlayıcısına göre değişiklik gösterir. Genellikle giriş seviyesi bir sunucu aylık birkaç euro/dolar karşılığında kiralanabilir. Sunucu satın almadan önce güncel fiyatları ve trafik limitlerini incelemeniz önerilir."
   - question: "VPS sunucusuna hangi işletim sistemini kurmalıyım?"
-    answer: "Debian veya Ubuntu gibi Debian tabanlı bir dağıtım önerilir. WireGuard ve Pi-hole kurulum betikleri bu dağıtımlar için optimize edilmiştir."
-  - question: "Cihazlarımı VPN'e nasıl bağlayabilirim?"
-    answer: "Cihazına WireGuard uygulamasını kur, VPS üzerinde betiği kullanarak yapılandırmayı oluştur ve telefonundan QR kodu tarat. Linux PC'lerde .conf dosyasını /etc/wireguard içine kaydet ve bağlantıyı etkinleştirmek için wg-quick kullan."
+    answer: "Debian veya Ubuntu gibi kararlı ve yaygın kullanılan dağıtımlar önerilir. WireGuard, Pi-hole ve Unbound kurulum araçları bu sistemlerde sorunsuz çalışmaktadır."
+  - question: "Cihazlarımı VPN sunucusuna nasıl bağlayabilirim?"
+    answer: "Mobil cihazınıza WireGuard uygulamasını yükledikten sonra sunucuda oluşturduğunuz QR kodunu taratarak kolayca bağlanabilirsiniz. Linux bilgisayarlarda ise yapılandırma dosyasını /etc/wireguard dizinine taşıyıp wg-quick aracıyla tüneli aktif edebilirsiniz."
   - question: "VPN'in ve reklam engellemenin düzgün çalıştığını nasıl kontrol ederim?"
-    answer: "IP adresinin VPN sunucusunun IP'siyle eşleştiğini kontrol etmek için vpntesting.com adresini ziyaret et. Ardından reklam engelleyiciyi d3ward.github.io/toolz/adblock.html üzerinde test et: %70-80'in üzerinde bir sonuç her şeyin çalıştığı anlamına gelir."
-  - question: "Kendi sunucunda barındırılan bir VPN beni tamamen anonim yapar mı?"
-    answer: "Hayır. Çıkış IP'si sadece sen kullandığın için, paylaşımlı bir VPN'e kıyasla takip edilmesi daha kolaydır. Ayrıca VPS sağlayıcısı gerçek IP'ni görebilir, bu yüzden sağlayıcıyı dikkatli seçmek önemlidir."
+    answer: "IP adresinizi ve sızıntıları kontrol etmek için vpntesting.com adresini kullanabilirsiniz. Reklam engelleme performansını ölçmek için ise d3ward.github.io/toolz/adblock.html adresindeki testi çalıştırabilirsiniz."
+  - question: "Kendi sunucumda barındırılan bir VPN beni tamamen anonim yapar mı?"
+    answer: "Hayır. Çıkış IP adresi yalnızca size özel olacağından, milyonlarca kullanıcının IP'sini paylaşan ticari VPN'lere kıyasla takibiniz daha kolay olabilir. Bu kurulum genel anonimlikten ziyade veri gizliliğinizi korumaya yöneliktir."
 howto:
   name: "WireGuard, Pi-hole ve Unbound ile kendi sunucunda barındırılan bir VPN nasıl kurulur"
   description: "Bir VPS seçme, WireGuard kurma, Pi-hole ile DNS seviyesinde engelleme ekleme ve Unbound'u yerel çözümleyici olarak kullanma prosedürü."
@@ -62,73 +62,63 @@ howto:
 
 ## Özet
 
-WireGuard, Pi-hole ve Unbound ile kendi sunucunda barındırılan bir VPN, cihazların ile bir VPS arasındaki trafiği şifreler, reklam ve takipçilere yönelen isteklerin büyük bir kısmını DNS seviyesinde engeller ve alan adlarını ticari bir çözümleyiciye bağımlı kalmadan çözer. Seni anonim yapmaz: güveni VPN sağlayıcısından VPS sağlayıcısına kaydırır.
+WireGuard, Pi-hole ve Unbound ile kendi sunucunuzda barındıracağınız bir VPN; cihazlarınız ile VPS arasındaki trafiği şifreler, reklam ve takipçilere yönelen isteklerin büyük bir kısmını DNS seviyesinde engeller ve alan adlarını ticari bir çözümleyiciye bağımlı kalmadan yerel olarak çözer. Sizi tamamen anonim yapmaz; yalnızca güven sınırınızı ticari VPN sağlayıcısından sunucuyu kiraladığınız VPS firmasına kaydırır.
 
-Ticari VPN'ler gizlilik vadeder, ama iş modelleri genellikle tam olarak verilerini toplamaya dayanır. Alternatif? Kendi kişisel VPN'ini kurmak. WireGuard, Pi-hole ve Unbound ile şifreli bir bağlantı, yerleşik reklam/takipçi engelleme ve tamamen bağımsız bir DNS çözümlemesine sahip olabilirsin — hepsi senin kontrolünde. İşte nasıl yapılacağı.
+Ticari VPN servisleri mutlak gizlilik vadeder ancak iş modelleri genellikle kullanıcı verilerini analiz etmeye veya toplamaya dayanır. En kararlı alternatif, kendi kişisel VPN sunucunuzu kurmaktır. WireGuard, Pi-hole ve Unbound entegrasyonu sayesinde; şifreli bir bağlantıya, yerleşik reklam/takipçi filtresine ve tamamen bağımsız bir DNS çözümleyicisine sahip olabilirsiniz. Üstelik her şey tamamen sizin kontrolünüzde olur. İşte adım adım yapılması gerekenler:
 
-Bu rehber, WireGuard kullanarak kendi VPN'ini kurmak ve Pi-hole ile oluşturulmuş bir AdBlocking filtresiyle reklam bağlantılarını ve takipçileri filtrelemek için eksiksiz bir kılavuz olmayı hedefliyor.
+## Amaç
 
-Bu rehber iyileştirme ve önerilere açıktır; kullanılabilirlik/gizlilik dengesi açısından en iyi bulduğum yapılandırmayı anlatacağım, ağ uzmanı değilim ve buradaki rehber seni sihirli bir şekilde anonim ve takip edilemez yapmayacaktır.
+Bu rehberin nihai amacı; reklam ve takipçi engelleme filtresine sahip kendi özel VPN sunucunuzu barındırmaktır. Bu yaklaşım, hazır bir ticari VPN servisi kullanmaya kıyasla bazı avantajlar ve dezavantajlar barındırır:
 
-Bana öneride bulunmak, rehbere katkıda bulunmak veya çeviri yapmak istersen, [GitHub](https://github.com/b4lol/portfolio) üzerinden bir pull request açabilirsin.
+### Avantajlar
 
-## Hedef
+* **Güven Sınırı:** İş modeli genellikle kullanıcı verilerini satmaya veya işlemeye dayalı olan ticari VPN sağlayıcılarına güvenmek zorunda kalmazsınız.
+* **DNS Seviyesinde Filtreleme:** Reklamlar ve takipçiler için özel filtre listeleri ekleyebilirsiniz. Bazı ticari VPN'ler de bu özelliği sunar ancak genellikle filtre kalitesi oldukça düşüktür.
+* **Tam Kontrol ve Esneklik:** Kurulumu tamamen kendi ihtiyaçlarınıza göre özelleştirebilirsiniz: Daha hızlı tüneller oluşturabilir, özel reklam engelleme listeleri tanımlayabilir ve bağlantıyı ailenizle paylaşabilirsiniz.
+* **Yargı Yetkisi Seçimi:** Kiralayacağınız sunucunun lokasyonunu ve dolayısıyla tabi olacağı yasal çerçeveyi (dijital gizliliğe en çok önem veren ülkeleri tercih ederek) kendiniz belirleyebilirsiniz.
 
-Bu rehberin nihai hedefi, tamamen kendi başına, reklam ve takipçi filtresine sahip bir VPN'i kendi sunucunda barındırmaktır. Bu yaklaşım, normal bir ticari VPN kullanmaya kıyasla bazı avantaj ve dezavantajlar getirir:
+### Dezavantajlar
 
-### artılar
+* **Dar Anonimlik Kümesi:** VPN sunucunuzu çok sayıda kişiyle paylaşmadığınız sürece, sunucunun çıkış IP adresini kullanan tek kişi siz olursunuz. Bu durum, IP adresinin doğrudan sizinle ilişkilendirilmesini kolaylaştıracağı için genel anonimlik düzeyinizi azaltır.
+* **Sağlayıcıya Güven:** Ticari bir VPN firmasına veri akışını engelleseniz bile, sunucuyu kiraladığınız VPS sağlayıcısı teorik olarak trafiğin nereden gelip nereye gittiğini görebilir (güven sınırını VPN firmasından sunucu firmasına taşımış olursunuz). Bu nedenle sunucu kiralayacağınız şirketi dikkatli seçmeniz kritik önem taşır.
 
-*   Ne yazık ki iş modeli genellikle kişisel verilerimizi satmak olan bir VPN sağlayıcısına güvenmek zorunda kalmamak
-*   Reklam ve takipçiler için filtreler ekleyebilme; bazı VPN'ler bu hizmeti sunar, ama genellikle oldukça düşük kalitede
-*   Deneyimi tamamen özelleştirme: daha hızlı bir VPN mi istiyorsun? Belirli reklam filtreleri mi? Tüm aileyle paylaşmak mı istiyorsun? Kendi VPN'inle istediğin gibi yönetebilirsin
-*   Kiralayacağın sunucuların ülkesini ve dolayısıyla yasal yargı yetkisini seçebilme (ve dijital gizlilik için en uygun ülkelerden yararlanabilme)
+## Hosting Sağlayıcısını Seçmek {#scelta-dellhosting-provider}
 
-### eksiler
+Hosting sağlayıcısı, bu kurulumu gerçekleştireceğiniz sunucuyu kiralayacağınız şirket anlamına gelir. Gizliliğinizi koruyan bir yargı yetkisine (Five Eyes veya NATO dışı, ya da veri gizliliği yasaları güçlü olan İzlanda, İsveç, İsviçre gibi ülkeler) sahip bir şirket seçmek çok önemlidir. Tercih edilecek firmanın veri sızıntılarına karışmamış olması, resmi makamlarla minimum veri paylaşımı yapması ve kayıt sırasında minimum kişisel veri talep etmesi (Bitcoin ile ödeme, Tor adresi üzerinden erişim vb.) kritik kriterlerdir.
 
-*   IP adresinde daha küçük bir anonimlik kümesi: VPN'ini birçok aile üyesi ve arkadaşınla paylaşmadığın sürece, VPN'in çıkış IP adresini kullanan tek kişi sen olacaksın; bu bir dezavantajdır çünkü doğrudan sana bağlı olmasa da, sadece senin kullandığın benzersiz bir tanımlayıcıdır. Bu, seni takip etmeyi kolaylaştırdığı için gizlilik açısından pek iyi değildir
-*   Bir VPN sağlayıcısına veri vermesen de, çoğu durumda bu kurulumu bir VPS'te (kiralık bir sunucuda) yapacaksın, yani güvenini ticari bir VPN sağlayıcısından sunucu kiralayan bir şirkete kaydıracaksın (bu şirket VPN'i kullandığında IP adresini görecek). Bu nedenle sunucu sağlayıcısını dikkatlice seçmek veya bu kurulumu kendi adına kayıtlı olmayan bir internet bağlantısına sahip bir makinede yapmak çok önemlidir
+Bu rehberde size birkaç hosting sağlayıcısı önereceğim; genellikle gizlilik odaklı butik firmalar, büyük küresel sağlayıcılara göre biraz daha pahalıdır. İhtiyacınıza uygun sunucuyu seçerken CPU gücü, depolama ve trafik limitleri gibi teknik detaylara da dikkat etmelisiniz:
 
-## Hosting sağlayıcısını seçmek {#scelta-dellhosting-provider}
+*   [VPSbG](https://www.vpsbg.eu/aff/1e5d9e): Bant genişliği limitleri, kullanım kolaylığı ve ödeme yöntemleri arasında iyi bir denge sunan, bu alanda tecrübeli bir sağlayıcıdır.
+*   [1984 Hosting](https://1984.hosting/): İzlanda yargı yetkisine önem veriyorsanız ve geniş bir hizmet kataloğu arıyorsanız ideal bir seçenektir.
+*   [Njalla](https://njal.la/): Gizlilik topluluğunda oldukça popüler olan, kayıt esnasında e-posta dışında bilgi istemeyen ve kripto para ile ödemeyi destekleyen bir alternatiftir.
 
-Hosting sağlayıcısı, bu rehberdeki kurulumu yapacağın sunucuyu sana sağlayacak şirket anlamına gelir. Gizliliğini koruyan bir yargı yetkisine sahip bir host bulmak çok önemlidir (ilginç seçenekler arasında Five Eyes dışında, NATO dışında veya iyi veri politikalarına sahip ülkeler bulunur — İzlanda, İsveç, İsviçre, Cebelitarık vb. iyi örneklerdir), güvenilir görünen (önemsiz konularda veri sızdırmamış veya yetkililere mümkün olduğunca az veri vermek için gerçekten çabalıyor görünen) ve hizmetini kullanmak için mümkün olduğunca az kişisel veri isteyen (bitcoin ile ödeme, tor alan adı, telefon onayı olmadan giriş vb.) bir sağlayıcı.
+**Önemli:** Sunucu fiyatları, donanım özellikleri ve kullanım politikaları zamanla değişebilir. Satın alım yapmadan önce sağlayıcının resmi web sitesindeki güncel limitleri inceleyin ve sunucuda VPN trafiği oluşturulmasına izin verildiğinden emin olun.
 
-Bu rehberde sana birkaç hosting sağlayıcısı önereceğim; genellikle küçük olanlar veya ilginç gizlilik politikalarına sahip olanlar, büyük hosting şirketlerinden daha pahalıdır. İhtiyaçlarına en uygun sunucuyu seçmek için hangi hizmetlerin sunulduğuna da dikkat etmek önemlidir (güç, depolama kapasitesi ve bant genişliği hızı vb.).
+Hosting hizmetini seçtikten sonra, üzerine Debian tabanlı kararlı bir dağıtım (Debian veya Ubuntu) kurulu bir VPS satın almanızı ve güçlü bir giriş şifresi belirlemenizi öneririm.
 
-*   [VPSbG](https://www.vpsbg.eu/aff/1e5d9e): bant genişliği, kolaylık ve ödeme seçenekleri arasında genellikle iyi bir denge sunan köklü bir sağlayıcı.
-*   [1984 Hosting](https://1984.hosting/): İzlanda yargı yetkisine ve oldukça geniş bir hizmet kataloğuna değer veriyorsan ilginç bir seçenek.
-*   [Njalla](https://njal.la/): gizlilik alanında tanınan bir seçenek, bitcoin ile ödeme yapmak ve paylaşılan veriyi en aza indirmek istiyorsan kullanışlı.
+## SSH ile VPS Sunucusuna Bağlanmak {#connessione-al-server-vps-con-ssh}
 
-**Önemli:** fiyatlar, CPU, dahil edilen trafik ve politikalar sık sık değişebilir. Satın almadan önce her zaman güncel fiyat listelerini kontrol et ve sağlayıcının oluşturmak istediğin trafik türüne gerçekten izin verdiğinden emin ol.
+Uzak sunucuları yönetmek için en yaygın kullanılan yöntem SSH (Secure Shell) protokolüdür. VPS sunucunuza bağlanmak için bilgisayarınızda bir terminal açıp şu komutu yazın:
 
-Gizlilik, güvenlik, maliyet vb. açısından farklı maliyet ve ödünleşimlere sahip birçok başka VPS hizmeti vardır. Kendin biraz araştırma yapabilirsin ve yukarıda bahsettiklerimi kullanmak zorunda değilsin.
-Hosting hizmetini seçtikten sonra, üzerine Debian tabanlı bir dağıtım (Debian veya Ubuntu) kurulu bir makine satın almaya devam etmeni ve güçlü bir giriş şifresi belirlemeni şiddetle öneririm.
+`ssh [kullanici_adi]@[ip_adresi]`
 
-## SSH ile VPS sunucusuna bağlanmak {#connessione-al-server-vps-con-ssh}
+Örnek: `ssh root@192.34.33.25` (Burada "root" varsayılan yönetici kullanıcı adını, ardından gelen sayılar ise sunucunuzun IP adresini temsil eder. Bu bilgileri sunucuyu satın aldığınız şirketin yönetim panelinde bulabilirsiniz). Komutu çalıştırdıktan sonra, sizden istenen yönetici şifresini girerek sunucuya erişim sağlayın.
 
-Çoğu kişinin bildiği gibi, uzak sunuculara bağlanmak için genellikle SSH kullanılır: Linux terminaline entegre, uzak sunucu veya bilgisayarlara bağlanmak için kullanılan bir protokol. VPS'imize bağlanmak için herhangi bir bilgisayarımızda bir terminal açıp şu komutu veriyoruz:
-
-`ssh [kullanıcı adı]@[ip adresi]`
-
-bir örnek şu şekilde olabilir: ssh root@192.34.33.25 (root genellikle kullanıcı adıdır, ardından gelen sayı ise sunucunun IP adresidir; bunu genellikle satın aldığın makinenin hosting sitesindeki bilgilerinde bulabilirsin). Komutu verdikten sonra, sunucuya giriş yapmak için daha önce belirlediğin şifreyi girmen yeterli.
-
-SSH ile bağlandıktan sonra şu komutu verebiliriz:
+Bağlantıyı sağladıktan sonra, öncelikle sistem paketlerini güncellemek için şu komutu çalıştırın:
 
 `sudo apt update && sudo apt upgrade -y`
 
-böylece işletim sistemimizin tüm paketlerini güncelleriz.
-Bu rehberde, sunucumuzun güvenliği için basit ve minimal bir kurulum izleyeceğiz (böylece tüm kullanıcılara uygun olsun); daha gelişmiş bir kurulum istersen, sunucuna SSH genel anahtarı kullanarak nasıl giriş yapacağını çevrimiçi araştırmanı öneririm.
+Bu rehberde sunucu güvenliği için herkesin kolayca uygulayabileceği temel adımları izleyeceğiz. Eğer daha güvenli bir altyapı kurmak isterseniz, şifre ile giriş yerine SSH anahtarları (public/private key) kullanarak kimlik doğrulamayı araştırmanızı öneririm.
 
-Son olarak şu komutu verelim:
+Ardından, sunucuya yönelik kaba kuvvet (brute-force) saldırılarını engellemek ve şüpheli IP adreslerini kısıtlamak amacıyla fail2ban aracını kurun:
 
 `sudo apt install fail2ban`
 
-bu, sunucumuzda çok fazla yanlış şifre denemesi olduğunda erişimi sınırlamamızı sağlayan çok hafif bir yazılımı kurmak için (böylece sunucunun güvenliğini biraz daha artırırız).
+## VPN Sunucusu ve Filtreleme Kurulumu {#setup-della-vpn}
 
-## VPN'in kurulumu {#setup-della-vpn}
+Sunucu güncellemelerini ve temel güvenliğini tamamladıktan sonra asıl kuruluma başlayabiliriz. Öncelikle WireGuard VPN sunucusunu kurmak için şu hazır betikten faydalanacağız:
 
-VPS'imizi daha güvenli ve güncel hale getirmek için tüm ön hazırlık işlemlerini tamamladığımıza göre artık gerçek kuruluma geçebiliriz; WireGuard'ı şu komutlarla kuralım:
-
-Bu betik, üçüncü bir taraf tarafından sürdürülen bir kolaylık çözümüdür: çalıştırmadan önce, deponun hâlâ aktif olduğunu ve gerçekleştirmek istediğin kurulumla uyumlu olduğunu her zaman doğrula.
+*Bu betik üçüncü taraflarca geliştirilmiş ve güncellenen bir kolaylık aracıdır. Çalıştırmadan önce kaynak kodunu incelemeniz önerilir:*
 
 ```
 curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh
@@ -136,25 +126,25 @@ chmod +x wireguard-install.sh
 ./wireguard-install.sh
 ```
 
-bu noktada Pi-hole'u da kuralım (reklam, takipçi ve analitik filtresi olarak kullanacağımız yazılım):
+Ardından, DNS seviyesinde reklam ve takipçileri engelleyecek olan Pi-hole yazılımını kuralım:
 
 `curl -sSL https://install.pi-hole.net | bash`
 
-kurulum sırasında ağ arayüzü olarak "wg0" seçeneğini seç, özel dns seçeneğini kullan (çok önemli değil, sonradan zaten üzerine yazacağız) ve sihirbazı tamamla. Kurulum bittiğinde, web arayüzüne erişmek için şifreyi belirleyelim:
+Kurulum sihirbazı sırasında ağ arayüzü olarak **"wg0"** seçeneğini belirleyin. Özel DNS sunucusu kısmını geçici bir değerle geçebilirsiniz (sonrasında bu ayarı güncelleyeceğiz). Kurulum tamamlandıktan sonra web yönetim paneline erişimde kullanacağınız şifreyi şu komutla tanımlayın:
 
 `pihole setpassword`
 
-Seçtiğin şifreyi kaydet, daha sonra ihtiyacımız olacak.
+Belirlediğiniz şifreyi güvenli bir yere not edin.
 
-Şimdi Unbound'u kuralım; bu, hızlı bir yerel DNS çözümleyiciye sahip olmamızı sağlayan bir yazılımdır (basitleştirmek gerekirse, son kurulumumuzun eksiksiz, verimli ve hızlı olmasını bu sağlayacak).
+Şimdi, DNS sorgularımızı harici üçüncü taraf sunuculara göndermeden yerel olarak çözümlememizi sağlayacak olan Unbound yazılımını kuralım:
 
 `sudo apt install unbound`
 
-ve şununla yapılandıralım:
+Unbound ayarlarını yapmak için şu komutla yeni bir yapılandırma dosyası oluşturun:
 
 `nano /etc/unbound/unbound.conf.d/pi-hole.conf`
 
-Bu yapılandırmayı dosyanın içine yapıştır:
+Aşağıdaki yapılandırma bloğunu dosyanın içerisine yapıştırıp kaydedin:
 
 ```
 server:
@@ -190,11 +180,11 @@ server:
     private-address: fe80::/10
 ```
 
-şimdi Unbound'u yeniden başlatalım:
+Unbound servisini yeniden başlatarak ayarları aktif hale getirin:
 
 `sudo systemctl restart unbound`
 
-bu noktada yerel DNS'imizi doğru şekilde hazırladık. Şimdi Pi-hole'u, upstream DNS olarak Unbound'u kullanacak şekilde yapılandıralım. Pi-hole v6'da bu yapılandırma `/etc/pihole/pihole.toml` dosyası, web arayüzü veya CLI üzerinden yönetilir. En basit yol FTL CLI'sini kullanmaktır:
+Bu aşamada yerel DNS sunucumuz hazır durumdadır. Şimdi Pi-hole'u, DNS sorgularını çözümlerken Unbound'u kullanacak şekilde yapılandıralım. Pi-hole v6 üzerinde bu ayarlar CLI üzerinden şu komutlarla hızlıca yapılabilir:
 
 ```
 sudo pihole-FTL --config dns.upstreams '["127.0.0.1#5335"]'
@@ -202,18 +192,17 @@ sudo pihole-FTL --config dns.listeningMode 'local'
 sudo pihole-FTL --config dns.dnssec 'false'
 ```
 
-Bu komutlar Pi-hole'a, tek upstream DNS olarak Unbound'u (port 5335) kullanmasını ve yalnızca yerel arayüzlerde dinlemesini söyler. İstersen aynı değeri web arayüzünden de ayarlayabilirsin, ama Pi-hole v6'da eski `pihole --config` sözdizimi artık doğru değildir.
+Bu komutlar Pi-hole'a, tek yetkili DNS çözücü olarak yerel ağdaki Unbound'u (5335 portu) kullanmasını söyler.
 
-## Pi-hole ve Adlists yapılandırması {#configurazione-pihole-e-adlists}
+## Pi-hole ve Adlists Yapılandırması {#configurazione-pihole-e-adlists}
 
-Komut satırı kısmı artık bitti, başardın savaşçı! 🎉
-Teorik olarak şu anda her şey zaten çalışıyor, ama VPN'i kullanmadan önce reklam filtreleri ekleyelim!
-Herhangi bir tarayıcı aç ve adres çubuğuna şunu yaz:
+Komut satırı üzerindeki işlemlerimiz tamamlandı! 🎉 Artık VPN bağlantısını aktif etmeden önce reklam ve takipçi filtrelerini ekleyebiliriz. Tarayıcınızın adres çubuğuna şunu yazın:
 
-`http://{vpn ip adresi}/admin`
-örnek: http://84.177.121.221/admin
+`http://{sunucu_ip_adresiniz}/admin`
 
-Bu noktada Pi-hole'un (reklam, takipçi ve analitik filtreleme sistemimiz) giriş sayfasını görmelisin. `pihole setpassword` ile belirlediğin şifreyi kullan. Giriş yaptıktan sonra, yan menüdeki **Domains / Adlists** bölümüne git ve engellenecek çeşitli alan adı listeleri ekleyelim. Bu konu hakkında saatlerce konuşulabilir; temel fikir, eğer rastgele onlarca kaynak eklersek çok şeyi... fazlasını engelleyeceğimiz ve bu yüzden cihazlarımızdaki birçok web sitesinin veya uygulama özelliğinin çalışmayı durduracağıdır. En azından kısmen güvendiğimiz kişiler tarafından hazırlanmış az sayıda liste kullanmak daha iyidir. Aşağıda en önemli ve en bilinen birkaçını bırakıyorum; bu bölümü genişletmek istersen, yapılandırmaya bağlı olarak farklı artı ve eksiler olabileceğinden bunu kendi sorumluluğunda yapmanı öneririm.
+Örnek: `http://84.177.121.221/admin`
+
+Burada Pi-hole yönetim panelinin giriş ekranı ile karşılaşacaksınız. `pihole setpassword` komutuyla belirlediğiniz şifreyi kullanarak giriş yapın. Giriş yaptıktan sonra sol menüden **Adlists** bölümüne gidin. Bu kısma, engellenmesini istediğiniz alan adlarını içeren filtre listelerini ekleyeceğiz. Filtre listesi seçerken dikkatli olmak gerekir; zira çok fazla ve agresif listeler eklemek internetteki pek çok web sitesinin veya uygulamanın kararsız çalışmasına ya da tamamen açılmamasına yol açabilir. Güvenilir topluluklar tarafından güncellenen dengeli listeleri tercih etmek en sağlıklı yaklaşımdır. Başlangıç için aşağıdaki popüler listeleri ekleyebilirsiniz:
 
 ```
 https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
@@ -223,52 +212,48 @@ https://v.firebog.net/hosts/Easyprivacy.txt
 https://winhelp2002.mvps.org/hosts.txt
 ```
 
-Çeşitli engelleme listelerini ekledikten sonra, **Tools → Gravity**'ye git ve listeleri etkinleştirmek için güncellemeyi başlat. Bazı sitelerde sorun yaşaman durumunda (ben örneğin geçmişte bazı listelerle Twitter'ın "t.co" bağlantılarında sorun yaşamıştım), siteyi engellenecekler listesinden hariç tutmak için **Domains → Whitelist** bölümüne eklemen yeterli olacak. Değişiklik yaptığında her zaman bunları etkili kılmak için gravity güncellemesi yap.
+Listeleri ekledikten sonra **Tools → Gravity** sayfasına giderek güncellemeyi başlatın. Bu işlem listelerdeki alan adlarını veritabanına işleyecektir. Bazı web sitelerinde veya uygulamalarda erişim sorunları yaşamanız durumunda (örneğin bazı engelleme listeleri Twitter'ın yönlendirme bağlantısı olan `t.co` adresini engelleyebilir), ilgili alan adlarını **Domains → Whitelist** (Beyaz Liste) bölümüne ekleyebilirsiniz. Yaptığınız değişikliklerin etkin olması için Gravity veritabanını güncellemeyi unutmayın.
 
-## Yapılandırmaların dışa aktarılması
+## Yapılandırmaların Cihazlara Aktarılması
 
-Şimdi yapılandırmayı cihazlarımızda etkinleştirelim. Telefonlardan başlayalım:
+Şimdi oluşturduğumuz bu VPN yapılandırmasını cihazlarımızda aktif edelim.
 
-Cihazımıza [WireGuard](https://www.wireguard.com/install/) uygulamasını kuralım, bunu yaptıktan sonra VPS'imizin terminalini açıp şu komutu verelim:
+**Mobil Cihazlar (iOS / Android):**
+Cihazınıza resmi [WireGuard](https://www.wireguard.com/install/) uygulamasını yükleyin. Ardından sunucunuzun terminalinde şu komutu çalıştırın:
 
 `bash wireguard-install.sh`
 
-"add new client" seçeneğini seç, istediğin bir ad ver, DNS olarak "current system resolver" seçeneğini seç. Şimdi bize bir QR kod gösterilecek; mobil WireGuard uygulamamızla bunu tarayalım, bunu yaptıktan sonra bize şuna benzer bir ekran göstermelidir:
+Menüden yeni bir istemci ekleme seçeneğini (Add new client) seçin, istemciye bir isim verin ve DNS ayarı sorulduğunda varsayılan çözücüyü belirtin. Terminalde oluşturulan QR kodunu telefonunuzdaki WireGuard uygulamasına okutun.
 
+Uygulamadaki 'DNS Servers' kısmına VPS sunucunuzun IP adresini yazın. 'Endpoint' bölümünde ise sunucu IP adresiniz ve hemen ardından `:51820` port numarasının yer aldığını doğrulayın. Yapılandırmayı kaydedip VPN bağlantısını aktifleştirin.
 
+**Bilgisayarlar (Windows / macOS / Linux):**
+Bilgisayarınıza WireGuard istemcisini yükleyin. Sunucuda oluşturduğunuz `.conf` yapılandırma dosyasını bilgisayarınıza aktarın:
+* **Windows/macOS:** `.conf` dosyasını doğrudan WireGuard grafik arayüzüne aktarabilirsiniz.
+* **Linux:** Yapılandırma dosyasını `/etc/wireguard/` dizini altına (örneğin `vpn.conf` adıyla) kaydedin. Ardından bağlantıyı başlatmak için:
+  `sudo wg-quick up vpn`
+  Bağlantıyı kapatmak için ise:
+  `sudo wg-quick down vpn`
+  komutlarını kullanabilirsiniz.
 
-"DNS servers" bölümüne VPS'imizin IP adresini girelim, "Endpoint" bölümünde aynı IP adresinin ve portu belirten ":51820" yazısının bulunduğunu doğrulayalım; bunu yaptıktan sonra kaydetmek ve VPN'i etkinleştirmek yeterli olacak!
+Bilgisayar tarafında da DNS sunucusu ve Endpoint alanlarının sunucunuzun IP adresini gösterdiğinden emin olun.
 
-Bilgisayarlar için işlem benzerdir; WireGuard'ı kurmamız, yapılandırmayı VPS üzerinde oluşturmamız (yukarıda Android prosedüründe açıklanan komutu kullan) ve ardından bunu bilgisayara kopyalamamız yeterli olacak:
+## Çalışma Testi {#test-di-funzionamento}
 
-*   Windows'ta, yapılandırma WireGuard'ın grafik arayüzüne girilmelidir
-*   Linux'ta, yapılandırma /etc/wireguard klasöründe .conf uzantılı bir dosyaya kaydedilmelidir (örneğin, vpn.conf), ardından VPN'i terminal komutuyla etkinleştirmek için:
+VPN kurulumumuz tamamlandığına göre her şeyin beklendiği gibi çalışıp çalışmadığını test edebiliriz:
 
-    `sudo wg-quick up {.conf dosyasının adı}`
+1. Tarayıcınızdan [vpntesting.com](https://vpntesting.com/) adresini ziyaret ederek bir test başlatın. Tespit edilen dış IP adresinin ve konum bilgisinin kendi gerçek internetinize değil, kiraladığınız VPS sunucusuna ait olduğunu doğrulayın.
+2. Reklam engelleyicinin performansını ölçmek için [d3ward.github.io/toolz/adblock.html](https://d3ward.github.io/toolz/adblock.html) adresindeki testi çalıştırın. Sonucun %70-80'in üzerinde çıkması, Pi-hole filtrelerinizin başarıyla devrede olduğunu gösterir. (Testi yaparken tarayıcınızdaki diğer reklam engelleyici eklentileri geçici olarak devre dışı bırakın ki Pi-hole'un performansını doğrudan gözlemleyebilesiniz).
 
-    kapatmak için ise:
+Tüm bu adımları başarıyla tamamladıysanız tebrikler; kendi güvenli ve filtreli ağ geçidinizi kurdunuz! 🐉
 
-    `sudo wg-quick down {.conf dosyasının adı}`
+## Sonuç
 
-bilgisayarlarda da, 'DNS server' ve 'Endpoint' bölümlerini sunucumuzun IP adresiyle değiştirdiğimize dikkat edelim.
-
-## Çalışma testi {#test-di-funzionamento}
-
-VPN'imiz artık hazır ve etkin olduğuna göre, her şeyin doğru çalıştığını test edelim. Her şeyden önce herhangi bir tarayıcıda [VPN testing](https://vpntesting.com/) sitesini ziyaret edip bir test başlatalım. Ekranda gösterilen tüm IP adreslerinin ve konumların kendi ülkene ait değil, VPN sunucusuna ait olduğunu doğrula.
-
-Her şey doğruysa, VPN'in kendisini değil, reklam engelleyiciyi test etmek için [AdBlock test](https://d3ward.github.io/toolz/adblock.html) sitesini ziyaret edelim. Sonuç %70-80'in üzerindeyse, her şeyin doğru çalıştığı anlamına gelir (Pi-hole'a daha fazla veya daha az kara liste eklemek bu testin sonuçlarını değiştirebilir). Yanlış sonuçlar almamak için tarayıcındaki AdBlock uzantılarını geçici olarak devre dışı bırakmaya dikkat et. Kullandığın tarayıcı da test sonuçlarını etkileyebilir.
-
-Her iki testi de başarıyla geçersen, gerçek bir ejderhasın ve bu rehberi mükemmel bir şekilde takip etmeyi başardın!! 🐉
-
-## Sonuçlar
-
-Bu, kendi VPN sunucunuzu oluşturmak için mümkün olan birçok kurulumdan sadece biridir. Her yapılandırma türünde olduğu gibi, hizmeti kendi ödünleşimlerine uyacak şekilde değiştirebilirsin. Bu rehberde sunulan yapılandırma, bana göre güvenlik, işlevsellik ve gizlilik arasında iyi bir dengedir. İyileştirme önerilerin varsa veya hata bulduysan, [github deposu](https://github.com/b4lol/portfolio) üzerinden bana yardımcı olabilir ve sesini duyurabilirsin.
-
----
+Kendi sunucunuzda barındıracağınız bir VPN; gizlilik, esneklik ve reklam engelleme yetenekleri açısından oldukça dengeli bir çözümdür. Sunucu limitlerinizi ve filtre listelerinizi zamanla kendi ihtiyaçlarınıza göre optimize edebilirsiniz. Bu kurulum, gizliliğinizi ticari bir sağlayıcının inisiyatifine bırakmak istemeyenler için en kararlı yoldur.
 
 ## İlgili Rehberler
 
-- **[Tor Düğümü: Eksiksiz Kurulum](/tr/tor)** - Kendi röleni kurarak Tor ağına katkıda bulun
-- **[Tehdit Modeli Nasıl Oluşturulur](/tr/threat-model)** - Gizliliğini korumanın ilk adımı
-- **[Android'de Gizlilik](/tr/android)** - De-google edilmiş bir telefon için eksiksiz yapılandırma
-- **[GrapheneOS Üzerine Kesin Rehber](/tr/graphene)** - Mobil gizlilik için en iyi işletim sistemi
+- **[Tor Relay Kurulum Kılavuzu](/tr/tor)** - Kendi sunucunuz üzerinden Tor ağına katkıda bulunun.
+- **[Tehdit Modeli Nasıl Oluşturulur?](/tr/threat-model)** - Dijital gizlilik yolculuğunun ilk ve en önemli adımı.
+- **[De-Google Android: Eksiksiz Gizlilik Rehberi](/tr/android)** - Mobil cihazınızı Google servislerinden tamamen arındırın.
+- **[GrapheneOS Gelişmiş Kurulum Rehberi](/tr/graphene)** - Mobil gizlilik için en iyi işletim sistemi.

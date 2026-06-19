@@ -15,9 +15,9 @@ ShowBreadCrumbs: true
 
 I've never accepted a ready-made life handed to me. Instead of consuming whatever packaged system is put in front of me, I'd rather build my own from the ground up if I have to — because if you're not the architect of a structure, you can't truly be free inside it. This site is a natural extension of that conviction: I'm a digital privacy advocate and cybersecurity researcher, and for years I've been creating free, accessible guides to help people take back control of their digital lives.
 
-I firmly believe privacy isn't something to "hide" — it's a fundamental right to exercise every day, and I hold the same conviction about free expression, resistance to censorship, and the inviolability of individual rights. My work comes from the belief that **everyone should have the tools and knowledge to protect themselves**, without depending on paid services or companies that profit from personal data.
+I firmly believe privacy is not about having something to hide—it is a fundamental right to be exercised every day. I hold the same conviction regarding free expression, resistance to censorship, and the inviolability of individual rights. My work stems from the belief that **everyone should have the tools and knowledge to protect themselves**, without depending on paid services or companies that profit from personal data.
 
-My technical side reflects the same pursuit: from the depths of the Linux kernel to network protocol optimization, from Rust's memory safety to the edges of Android modding — it all serves one philosophy: pure, fast systems free of bloat. I have zero tolerance for code that serves no purpose or runs quietly in the background for no reason; I apply the same discipline at Coresoft Studio, where I build brand identity and corporate vision.
+My technical pursuits reflect the same philosophy: from the depths of the Linux kernel to network protocol optimization, and from Rust's memory safety to the cutting edge of Android modding—it all serves one goal: building pure, fast systems free of bloat. I have zero tolerance for code that serves no purpose or runs quietly in the background without reason. I apply this same discipline at Coresoft Studio, where I build brand identity and corporate vision.
 
 ---
 
@@ -25,19 +25,19 @@ My technical side reflects the same pursuit: from the depths of the Linux kernel
 
 The goal of this site is simple: **offer free, high-quality education on privacy and digital security**, with no compromises.
 
-Every guide here is the result of hours of research, testing and hands-on experimentation. You won't find sponsored content, hidden affiliations or advice driven by financial interests. What you read is what I believe in and what I personally use.
+Every guide here is the result of hours of research, testing, and hands-on experimentation. You won't find sponsored content, hidden affiliations, or advice driven by financial interests. What you read is what I believe in and personally use.
 
 ---
 
 ## Areas of Expertise
 
-Over the years I've researched and written detailed guides on:
+Over the years, I have researched and written detailed guides on:
 
-- **GrapheneOS** -- The privacy-focused Android operating system. From choosing a device to advanced configuration, including full de-googling.
-- **Self-Hosting** -- Setting up personal VPNs with WireGuard, Pi-hole and Unbound for tracker- and ad-free browsing.
-- **The Tor Network** -- Configuring Tor relays to contribute to the network and protect freedom of communication.
-- **Threat Modeling** -- How to build a personalized threat model, the essential first step of any privacy journey.
-- **Android Security** -- De-googling, app management, permissions and practices to reduce the attack surface of mobile devices.
+- **GrapheneOS** — The privacy-focused Android operating system. I cover everything from choosing a device to advanced configuration, including complete de-Googling.
+- **Self-Hosting** — Setting up personal VPNs with WireGuard, Pi-hole, and Unbound for tracker- and ad-free browsing.
+- **The Tor Network** — Configuring Tor relays to contribute to the network and protect free communication.
+- **Threat Modeling** — How to build a personalized threat model, which is the essential first step in any privacy journey.
+- **Android Security** — De-Googling, app management, permissions, and best practices to reduce the attack surface of mobile devices.
 
 ---
 
@@ -52,23 +52,23 @@ All guides are **completely free**, written to be accessible to both beginners a
 
 This site reflects the values it promotes:
 
-- **No analytics** -- I don't track visitors, collect data, or use profiling cookies.
-- **No advertising** -- No ads, banners, or sponsored content.
-- **No registration required** -- I don't ask for email addresses, accounts, or personal data.
-- **Open source** -- The site is open source; anyone can review, contribute to, or fork the project.
+- **No analytics** — I don't track visitors, collect data, or use profiling cookies.
+- **No advertising** — No ads, banners, or sponsored content.
+- **No registration required** — I don't ask for email addresses, accounts, or personal data.
+- **Open source** — The site is open source; anyone can review, contribute to, or fork the project.
 
 ---
 
 ## Get Involved and Stay in Touch
 
-The best way to support this project is to **share it**: on Telegram, on X, with friends and family. The more people we reach, the stronger the privacy culture becomes.
+The best way to support this project is to **share it**: on Telegram, on X, and with friends and family. The more people we reach, the stronger the privacy culture becomes.
 
 You can find and contact me here:
 
-- **GitHub**: [b4lol](https://github.com/b4lol) -- source code, contributions and projects
-- **Telegram**: [@b4lolx](https://t.me/b4lolx) -- for questions, suggestions and direct support
-- **X/Twitter**: [@b4lolx](https://x.com/b4lolx) -- updates and discussions
+- **GitHub**: [b4lol](https://github.com/b4lol) — source code, contributions, and projects
+- **Telegram**: [@b4lolx](https://t.me/b4lolx) — for questions, suggestions, and direct support
+- **X/Twitter**: [@b4lolx](https://x.com/b4lolx) — updates and discussions
 - **Instagram**: [@b4ioi](https://www.instagram.com/b4ioi)
-- **Email**: [admin@b4.lol](mailto:admin@b4.lol) -- for private communications
+- **Email**: [admin@b4.lol](mailto:admin@b4.lol) — for private communications
 
 Thanks to everyone who chooses to share or contribute. This site exists because of you.

@@ -1,0 +1,20 @@
+# Project-level i18n overrides/additions, merged with themes/WonderMod/i18n/tr.yaml.
+# Keys here are custom to this site (topic filters, "updated on" label, breadcrumb section name).
+
+- id: updated_on
+  translation: "Güncellendi"
+
+- id: topic_all
+  translation: "Tümü"
+
+- id: topic_privacy_security
+  translation: "Gizlilik & Güvenlik"
+
+- id: topic_android
+  translation: "Android"
+
+- id: topic_selfhosting
+  translation: "Self Hosting"
+
+- id: guides_section
+  translation: "Rehberler"

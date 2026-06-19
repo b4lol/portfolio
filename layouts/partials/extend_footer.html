@@ -1,0 +1,25 @@
+{{- /* ==========================================================================
+   extend_footer.html — Core Web Vitals: resource hints + lazy loading
+   Injected at the end of <body> via WonderMod's extension point.
+   ========================================================================== */}}
+
+{{- /* ---- Resource hints: dns-prefetch + preconnect for external origins ---- */}}
+{{- /* These are placed here (not in <head>) because extend_head.html is owned
+       by another partial. Link elements are valid in <body> per the HTML spec
+       for dns-prefetch and preconnect, and browsers process them regardless
+       of placement. */ -}}
+<link rel="dns-prefetch" href="https://github.com">
+
+{{- /* ---- Lazy loading for below-fold images not handled by render-image ----
+       This targets images injected by shortcodes, raw HTML, or cover images
+       that don't go through the markdown render hook. It skips images already
+       in the viewport (above the fold) to preserve LCP performance.
+       Externalized to assets/js/lazy-images.js so a strict CSP
+       (script-src 'self', no 'unsafe-inline') can be enforced. ---- */ -}}
+{{- $lazyImages := resources.Get "js/lazy-images.js" | resources.Minify }}
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $lazyImages = $lazyImages | fingerprint }}
+<script crossorigin="anonymous" src="{{ $lazyImages.RelPermalink }}" integrity="{{ $lazyImages.Data.Integrity }}"></script>
+{{- else }}
+<script crossorigin="anonymous" src="{{ $lazyImages.RelPermalink }}"></script>
+{{- end }}

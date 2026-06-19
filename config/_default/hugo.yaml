@@ -1,0 +1,40 @@
+# Core, language-independent site configuration.
+# Split out of the former single config.yaml for modular config
+# (see config/_default/languages.yaml, menus.*.yaml, params*.yaml, markup.yaml).
+#
+# If your site is in 'https', then make sure your base url isn't written using 'http' otherwise your sitemap would
+# contain http (as opposeed to https) URLs. This would affect Google indexing of your URLs.
+baseURL: "https://b4.lol"
+title: b4lol
+defaultContentLanguage: en
+timeZone: Europe/Rome
+theme: [WonderMod]
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+enableGitInfo: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+mainsections: ["posts"]
+
+sitemap:
+  changefreq: weekly
+  priority: 0.5
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+services:
+  instagram:
+    disableInlineCSS: true
+  x:
+    disableInlineCSS: true

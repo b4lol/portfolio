@@ -1,0 +1,20 @@
+# English is the default language (served at the site root, no /en/ prefix).
+# Turkish is served under /tr/ (defaultContentLanguageInSubdir is left at its
+# default of false, so only non-default languages get a path prefix).
+en:
+  weight: 1
+  label: English
+  locale: en-US
+  taxonomies:
+    category: categories
+    tag: tags
+    series: series
+
+tr:
+  weight: 2
+  label: Türkçe
+  locale: tr-TR
+  taxonomies:
+    category: categories
+    tag: tags
+    series: series

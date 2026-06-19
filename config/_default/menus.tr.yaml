@@ -1,0 +1,7 @@
+main:
+  - name: Ara
+    url: search/
+    weight: 10
+  - name: Hakkımda
+    url: about/
+    weight: 20

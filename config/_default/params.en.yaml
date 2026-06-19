@@ -1,0 +1,32 @@
+description: "Free guides on digital privacy and cybersecurity."
+homepageTitle: "b4lol | Privacy and Security Guides"
+
+person:
+  jobTitle: "Digital Privacy Advocate and Cybersecurity Researcher"
+  description: "Hüseyin (b4lol) — digital privacy advocate and cybersecurity researcher with a deep focus on Linux, network protocols and Rust."
+  knowsAbout: ["Digital Privacy", "Cybersecurity", "GrapheneOS", "Self-hosting", "Tor", "Linux", "Rust", "Network Protocols"]
+
+profileMode:
+  enabled: true
+  title: b4lol
+  subtitle: "🔒 Privacy | 🛡️ Security"
+  buttons:
+    - name: Guides
+      url: posts
+
+socialIcons:
+  - name: github
+    title: "View source on GitHub"
+    url: "https://github.com/b4lol"
+  - name: telegram
+    title: "Contact me"
+    url: "https://t.me/b4lolx"
+  - name: X
+    title: "Follow on X/Twitter"
+    url: "https://x.com/b4lolx"
+  - name: email
+    title: "Email"
+    url: "mailto:admin@b4.lol"
+  - name: instagram
+    title: "Instagram"
+    url: "https://www.instagram.com/b4ioi"

@@ -1,0 +1,32 @@
+description: "Dijital gizlilik ve siber güvenlik üzerine ücretsiz rehberler."
+homepageTitle: "b4lol | Gizlilik ve Güvenlik Rehberleri"
+
+person:
+  jobTitle: "Dijital Gizlilik Savunucusu ve Siber Güvenlik Araştırmacısı"
+  description: "Hüseyin (b4lol) — dijital gizlilik savunucusu ve siber güvenlik araştırmacısı; Linux, ağ protokolleri ve Rust üzerine derin ilgi sahibi."
+  knowsAbout: ["Dijital Gizlilik", "Siber Güvenlik", "GrapheneOS", "Self-hosting", "Tor", "Linux", "Rust", "Ağ Protokolleri"]
+
+profileMode:
+  enabled: true
+  title: b4lol
+  subtitle: "🔒 Gizlilik | 🛡️ Güvenlik"
+  buttons:
+    - name: Rehberler
+      url: posts
+
+socialIcons:
+  - name: github
+    title: "Kaynak kodunu GitHub'da görüntüle"
+    url: "https://github.com/b4lol"
+  - name: telegram
+    title: "Benimle iletişime geç"
+    url: "https://t.me/b4lolx"
+  - name: X
+    title: "X/Twitter'da takip et"
+    url: "https://x.com/b4lolx"
+  - name: email
+    title: "E-posta"
+    url: "mailto:admin@b4.lol"
+  - name: instagram
+    title: "Instagram"
+    url: "https://www.instagram.com/b4ioi"

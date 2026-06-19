@@ -1,0 +1,243 @@
+{{/* ============================================================
+     extend_head.html – SEO structured data
+     Injected into <head> via WonderMod's extension point.
+     Note: meta description, keywords, canonical, and robots are
+     already rendered by the theme's head.html — not duplicated here.
+     ============================================================ */}}
+
+{{/* Content-Security-Policy via meta tag: GitHub Pages serves no custom
+     HTTP headers, so this is the only CSP delivery mechanism available
+     without fronting the site with a proxy (e.g. Cloudflare). Note that
+     a meta-delivered CSP cannot enforce frame-ancestors — that directive
+     is only honored when sent as an HTTP header. style-src needs
+     'unsafe-inline' because content posts use inline style="" attributes
+     (e.g. heading color overrides) and embedded SVG diagrams. */}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+
+{{/* JSON-LD: WebSite + Person — homepage only */}}
+{{ if .IsHome -}}
+{{- $searchURL := printf "%ssearch/" site.BaseURL -}}
+{{- with site.GetPage "/search" }}{{ $searchURL = .Permalink }}{{ end -}}
+{{- $aboutURL := printf "%sabout/" site.BaseURL -}}
+{{- with site.GetPage "/about" }}{{ $aboutURL = .Permalink }}{{ end -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": {{ site.Title | jsonify | safeJS }},
+      "url": {{ site.BaseURL | jsonify | safeJS }},
+      "description": {{ site.Params.description | jsonify | safeJS }},
+      "inLanguage": {{ site.Language.Locale | jsonify | safeJS }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": {{ (printf "%s?q={search_term_string}" $searchURL) | jsonify | safeJS }}
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Hüseyin (b4lol)",
+      "url": {{ $aboutURL | jsonify | safeJS }},
+      "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
+      "description": {{ site.Params.person.description | jsonify | safeJS }},
+      "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}
+      {{- with site.Params.schema.sameAs }},
+      "sameAs": {{ . | jsonify | safeJS }}
+      {{- end }}
+    }
+  ]
+}
+</script>
+{{- end }}
+
+{{/* JSON-LD: SiteNavigationElement — homepage only */}}
+{{ if .IsHome -}}
+{{- $navItems := slice -}}
+{{- range site.Menus.main -}}
+  {{- $navItems = $navItems | append (dict "name" .Name "url" (cond (strings.HasPrefix .URL "http") .URL (.URL | absURL))) -}}
+{{- end -}}
+{{- range .Site.Language.Params.profileMode.buttons -}}
+  {{- $navItems = $navItems | append (dict "name" .name "url" (cond (strings.HasPrefix .url "http") .url (.url | absURL))) -}}
+{{- end -}}
+{{- /* Deduplicate by name */ -}}
+{{- $seen := slice -}}
+{{- $uniqueNav := slice -}}
+{{- range $navItems -}}
+  {{- if not (in $seen .name) -}}
+    {{- $seen = $seen | append .name -}}
+    {{- $uniqueNav = $uniqueNav | append . -}}
+  {{- end -}}
+{{- end -}}
+{{ if gt (len $uniqueNav) 0 -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {{- range $i, $nav := $uniqueNav }}
+    {
+      "@type": "SiteNavigationElement",
+      "position": {{ add $i 1 }},
+      "name": {{ $nav.name | jsonify | safeJS }},
+      "url": {{ $nav.url | jsonify | safeJS }}
+    }{{ if lt (add $i 1) (len $uniqueNav) }},{{ end }}
+    {{- end }}
+  ]
+}
+</script>
+{{- end }}
+{{- end }}
+
+{{/* JSON-LD: Article + BreadcrumbList — post pages only */}}
+{{ if and .IsPage (eq .Section "posts") -}}
+{{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
+{{- $modified := .Lastmod -}}
+{{- with .Params.lastmod -}}
+  {{- $modified = time.AsTime . -}}
+{{- end -}}
+{{- $image := "" -}}
+{{- if .Params.cover.image -}}
+  {{- if ne .Params.cover.relative true -}}
+    {{- $image = .Params.cover.image | absURL -}}
+  {{- else -}}
+    {{- $image = (path.Join .RelPermalink .Params.cover.image) | absURL -}}
+  {{- end -}}
+{{- else if .Params.images -}}
+  {{- $image = index .Params.images 0 | absURL -}}
+{{- else if site.Params.images -}}
+  {{- $image = index site.Params.images 0 | absURL -}}
+{{- end -}}
+{{- $aboutURL := printf "%sabout/" site.BaseURL -}}
+{{- with site.GetPage "/about" }}{{ $aboutURL = .Permalink }}{{ end -}}
+{{- $homeURL := site.Home.Permalink -}}
+{{- $postsURL := printf "%sposts/" site.BaseURL -}}
+{{- with site.GetPage "/posts" }}{{ $postsURL = .Permalink }}{{ end -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": {{ .Title | jsonify | safeJS }},
+      "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ .Summary | jsonify | safeJS }}{{ end }},
+      "datePublished": {{ .PublishDate.Format $iso8601 | jsonify | safeJS }},
+      "dateModified": {{ $modified.Format $iso8601 | jsonify | safeJS }},
+      "author": {
+        "@type": "Person",
+        "name": {{ with .Params.author }}{{ . | jsonify | safeJS }}{{ else }}"b4lol"{{ end }},
+        "url": {{ $aboutURL | jsonify | safeJS }}
+      },
+      {{- if $image }}
+      "image": {{ $image | jsonify | safeJS }},
+      {{- end }}
+      "url": {{ .Permalink | jsonify | safeJS }},
+      "inLanguage": {{ site.Language.Locale | jsonify | safeJS }}
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": {{ i18n "home" | jsonify | safeJS }},
+          "item": {{ $homeURL | jsonify | safeJS }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ i18n "guides_section" | jsonify | safeJS }},
+          "item": {{ $postsURL | jsonify | safeJS }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ .Title | jsonify | safeJS }},
+          "item": {{ .Permalink | jsonify | safeJS }}
+        }
+      ]
+    }
+  ]
+}
+</script>
+{{- end }}
+
+{{/* JSON-LD: FAQPage — posts with faq frontmatter */}}
+{{ if and .IsPage .Params.faq -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $i, $item := .Params.faq }}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify | safeJS }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | jsonify | safeJS }}
+      }
+    }{{ if lt (add $i 1) (len $.Params.faq) }},{{ end }}
+    {{- end }}
+  ]
+}
+</script>
+{{- end }}
+
+{{/* JSON-LD: HowTo — posts with howto frontmatter */}}
+{{ if and .IsPage .Params.howto -}}
+{{- $howto := .Params.howto -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": {{ with $howto.name }}{{ . | jsonify | safeJS }}{{ else }}{{ .Title | jsonify | safeJS }}{{ end }},
+  "description": {{ with $howto.description }}{{ . | jsonify | safeJS }}{{ else }}{{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ .Summary | plainify | jsonify | safeJS }}{{ end }}{{ end }},
+  "inLanguage": {{ site.Language.Locale | jsonify | safeJS }},
+  "mainEntityOfPage": {{ .Permalink | jsonify | safeJS }},
+  {{- with $howto.totalTime }}
+  "totalTime": {{ . | jsonify | safeJS }},
+  {{- end }}
+  {{- with $howto.supply }}
+  "supply": [
+    {{- range $i, $item := . }}
+    {
+      "@type": "HowToSupply",
+      "name": {{ $item | jsonify | safeJS }}
+    }{{ if lt (add $i 1) (len $howto.supply) }},{{ end }}
+    {{- end }}
+  ],
+  {{- end }}
+  {{- with $howto.tool }}
+  "tool": [
+    {{- range $i, $item := . }}
+    {
+      "@type": "HowToTool",
+      "name": {{ $item | jsonify | safeJS }}
+    }{{ if lt (add $i 1) (len $howto.tool) }},{{ end }}
+    {{- end }}
+  ],
+  {{- end }}
+  "step": [
+    {{- range $i, $step := $howto.steps }}
+    {
+      "@type": "HowToStep",
+      "position": {{ add $i 1 }},
+      "name": {{ $step.name | jsonify | safeJS }},
+      "text": {{ $step.text | jsonify | safeJS }}
+      {{- with $step.url }},
+      "url": {{ . | absURL | jsonify | safeJS }}
+      {{- end }}
+      {{- with $step.image }},
+      "image": {{ . | absURL | jsonify | safeJS }}
+      {{- end }}
+    }{{ if lt (add $i 1) (len $howto.steps) }},{{ end }}
+    {{- end }}
+  ]
+}
+</script>
+{{- end }}

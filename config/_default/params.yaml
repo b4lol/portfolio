@@ -1,0 +1,43 @@
+# Shared, language-neutral params. Language-specific text (description,
+# homepageTitle, profileMode, person, socialIcons titles) lives in
+# params.en.yaml / params.tr.yaml and is merged on top of this file.
+env: production
+author: b4lol
+defaultTheme: dark
+disableThemeToggle: false
+ShowShareButtons: false
+ShowReadingTime: true
+displayFullLangName: true
+ShowPostNavLinks: true
+ShowBreadCrumbs: true
+ShowCodeCopyButtons: true
+ShowRssButtonInSectionTermList: true
+ShowAllPagesInArchive: true
+ShowPageNums: true
+ShowToc: true
+
+schema:
+  sameAs:
+    - "https://github.com/b4lol"
+    - "https://x.com/b4lolx"
+    - "https://t.me/b4lolx"
+    - "https://www.instagram.com/b4ioi"
+
+fuseOpts:
+  isCaseSensitive: false
+  shouldSort: true
+  location: 0
+  distance: 1000
+  threshold: 0.1
+  minMatchCharLength: 1
+  limit: 5 # Refer to https://www.fusejs.io/api/methods.html#search
+  keys: ["title", "content"]
+
+assets:
+  disableHLJS: true
+  favicon: "/favicon.ico"
+  favicon16x16: "/favicon-16x16.png"
+  favicon32x32: "/favicon-32x32.png"
+  apple_touch_icon: "/apple-touch-icon.png"
+  safari_pinned_tab: "/safari-pinned-tab.svg"
+

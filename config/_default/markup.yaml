@@ -1,0 +1,11 @@
+highlight:
+  style: dracula
+  lineNos: false
+  noClasses: false
+  guessSyntax: true
+goldmark:
+  renderer:
+    # Content posts rely on raw HTML (details/table/div) in several guides
+    # (hardware-wallet, joinmarket, graphene, macos-security). Disabling this
+    # would break their rendering.
+    unsafe: true

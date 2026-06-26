@@ -33,11 +33,11 @@ Burada bulacağınız her rehber, saatlerce araştırma, test ve doğrudan deney
 
 Yıllar içinde şu konularda detaylı araştırma ve rehberler hazırladım:
 
-- **GrapheneOS** -- Gizlilik odaklı Android işletim sistemi: Cihaz seçiminden ileri seviye yapılandırmaya ve tam de-googling (Google servislerinden arındırma) sürecine kadar.
-- **Self-Hosting** -- İzleyicisiz ve reklamsız bir gezinti için WireGuard, Pi-hole and Unbound ile kişisel VPN kurulumu.
+- **GrapheneOS** -- Gizlilik odaklı Android işletim sistemi: Cihaz seçiminden ileri seviye yapılandırmaya ve tam Google servislerinden arındırma sürecine kadar.
+- **Self-Hosting** -- İzleyicisiz ve reklamsız bir gezinti için WireGuard, Pi-hole ve Unbound ile kişisel VPN kurulumu.
 - **Tor Ağı** -- Ağa katkıda bulunmak ve iletişim özgürlüğünü korumak için Tor relay yapılandırması.
 - **Tehdit Modellemesi** -- Her gizlilik yolculuğunun ilk ve en temel adımı olan, kişiselleştirilmiş bir tehdit modelinin nasıl oluşturulacağı.
-- **Android Güvenliği** -- Google servislerinden arındırma (de-googling), uygulama yönetimi, izinler ve mobil cihazların saldırı yüzeyini daraltma pratikleri.
+- **Android Güvenliği** -- Google servislerinden arındırma, uygulama yönetimi, izinler ve mobil cihazların saldırı yüzeyini daraltma pratikleri.
 
 ---
 

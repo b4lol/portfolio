@@ -76,7 +76,7 @@ Bu kılavuz iyileştirmelere ve önerilere açıktır. Katkıda bulunmak, hata b
 
 
 
-## Güvenlik için neden Linux kullanmalı? {#perche-linux style="color: white;"}
+## Güvenlik için neden Linux kullanılmalı? {#perche-linux style="color: white;"}
 
 Her şeyden önce: Linux'u neden kullanmalısınız? Önyargıdan değil, somut nedenlerden dolayı.
 
@@ -636,7 +636,7 @@ Daha ileri gitmek isteyenler için, ek sertleştirme yamalarına sahip çekirdek
 - **linux-hardened** (Arch Linux): güvenlik yamaları içerir, varsayılan olarak ayrıcalıksız user namespace'leri devre dışı bırakır (Podman/LXC/Flatpak'i bozabilir, uyumluluğu kontrol edin)
 - **grsecurity**: çekirdek sertleştirmesinin altın standardı, ama tescillidir ve ücretli bir abonelik gerektirir
 
-## Uygulama sandboxing'i: Flatpak, Firejail ve SELinux {#sandboxing style="color: white;"}
+## Uygulama Yalıtımı: Flatpak, Firejail ve SELinux {#sandboxing style="color: white;"}
 
 Standart bir Linux masaüstünde, herhangi bir uygulama neredeyse tüm kaynaklara (kullanıcı dosyaları, ağ bağlantıları, çevre birimleri ve diğer çalışan uygulamalar) erişebilir. Sandbox mimarisi bu erişimleri en aza indirir.
 
@@ -946,7 +946,7 @@ sudo ss -tulnp
 
 Tanımlanamayan veya şüpheli görünen dinleme portları varsa, devre dışı bırakılmadan önce araştırma yapılmalıdır.
 
-## Wayland ile X11: ekran sunucusu güvenliği {#wayland style="color: white;"}
+## Ekran Sunucusu Güvenliği: XWayland Yalıtımı {#wayland style="color: white;"}
 
 Daha önce bahsedildiği gibi, Wayland artık çoğu modern dağıtımda varsayılan grafik protokolüdür. Bu, güvenlik için büyük bir adımdır, çünkü eski X11'de pencereler arasında bir yalıtım mimarisi bulunmamaktaydı.
 

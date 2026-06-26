@@ -122,7 +122,7 @@ Gizlilik sözleşmelerinin (çoğu zaman ihlal edilen) vaatlerine güvenmek yeri
 
 Şirketlerin gerçek sahiplik yapılarını gizleyebileceğini veya doğrudan reklamcılık yapmasalar bile bilgilerinizi veri simsarlarıyla (data broker) paylaşabileceğini unutmayın. Bu nedenle, tehdit modelinizde yalnızca "reklam teknolojisi" sektörüne odaklanmak yetersizdir. Kendinizi tüm servis sağlayıcılardan koruyacak genel bir strateji benimsemeniz daha mantıklıdır; böylece kurumsal gözetim tehditlerini de en başından bertaraf etmiş olursunuz.
 
-## Kamuya Açık Bilgileri Sınırlamak {#limitare-le-informazioni-pubbliche}
+## Kamuya Açık Bilgileri Sınırlandırma {#limitare-le-informazioni-pubbliche}
 
 Verilerinizin gizliliğini sağlamanın en kesin yolu, **onları paylaşmamaktır**. İnternet üzerinde açıkta bulunan kişisel bilgilerinizi temizletmek, dijital gizliliğinizi geri kazanmak için atabileceğiniz en önemli adımdır.
 
@@ -182,6 +182,6 @@ Bu rehberi okuduğunuz için teşekkürler! Faydalı bulduysanız, dijital gizli
 
 ## İlgili Rehberler
 
-- **[De-Google Android: Eksiksiz Gizlilik Rehberi](/tr/android)** - De-google edilmiş bir telefon kurarak tehdit modelinizi mobil cihazınızda uygulayın.
+- **[Android'i Google Servislerinden Arındırma: Eksiksiz Gizlilik Kılavuzu](/tr/android)** - Google'dan arındırılmış bir telefon kurarak tehdit modelinizi mobil cihazınızda uygulayın.
 - **[GrapheneOS Gelişmiş Kurulum Rehberi](/tr/graphene)** - En üst düzey güvenlik sunan mobil işletim sistemi rehberi.
 - **[Reklam Engelleyicili Kişisel VPN Kurulumu](/tr/vpn)** - Kendi sunucunuz üzerinden internet trafiğinizi güvenceye alın.

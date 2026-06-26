@@ -1,7 +1,7 @@
 ---
-title: "Android'i De-Google'laştırma: Eksiksiz Gizlilik Kılavuzu"
-description: "Kullanılabilirlikten ödün vermeden maksimum gizlilik ve güvenliğe sahip, de-google'lanmış bir Android telefon kurun. Önerilen uygulamalarla adım adım kılavuz."
-summary: "Kullanılabilirlikten ödün vermeden maksimum gizlilik ve güvenliğe sahip, de-google'lanmış bir Android telefon kurun. Önerilen uygulamalarla adım adım kılavuz."
+title: "Android'i Google Servislerinden Arındırma: Eksiksiz Gizlilik Kılavuzu"
+description: "Kullanılabilirlikten ödün vermeden maksimum gizlilik ve güvenliğe sahip, Google servislerinden arındırılmış bir Android telefon kurun. Önerilen uygulamalarla adım adım kılavuz."
+summary: "Kullanılabilirlikten ödün vermeden maksimum gizlilik ve güvenliğe sahip, Google servislerinden arındırılmış bir Android telefon kurun. Önerilen uygulamalarla adım adım kılavuz."
 keywords: ["android gizlilik", "android de-google", "degoogle telefon", "android gizlilik kılavuzu", "graphene os", "özel android kurulumu", "degoogle edilmiş telefon", "android güvenlik kılavuzu"]
 author: "b4lol"
 date: 2026-03-04
@@ -12,8 +12,8 @@ aliases: ["/tr/android.html"]
 series: ["Dijital Gizlilik"]
 topics: ["android"]
 faq:
-  - question: "De-Google'lanmış telefon nedir ve neden kullanılmalıdır?"
-    answer: "De-Google'lanmış telefon, üzerinde Google servislerinin bulunmadığı bir Android cihazdır. Bu kurulum, Google'ın ve üçüncü taraf şirketlerin konum, kişiler ve arama geçmişi gibi kişisel verilerinizi arka planda toplamasını engeller."
+  - question: "Google servislerinden arındırılmış telefon nedir ve neden kullanılmalıdır?"
+    answer: "Google servislerinden arındırılmış (de-googled) telefon, üzerinde Google servislerinin bulunmadığı bir Android cihazdır. Bu kurulum, Google'ın ve üçüncü taraf şirketlerin konum, kişiler ve arama geçmişi gibi kişisel verilerinizi arka planda toplamasını engeller."
   - question: "Gizlilik için en iyi Android işletim sistemi hangisidir?"
     answer: "Desteklenen Pixel cihazlarda GrapheneOS en iyi seçenek olmayı sürdürmektedir. Cihazınız uyumlu değilse, LineageOS gibi bir ROM Google'a bağımlılığı azaltmak için kullanılabilir; ancak aynı seviyede güvenlik sıkılaştırması (hardening), güvenli önyükleme (verified boot) ve donanım güvenliği sunmayacaktır."
   - question: "Google Play Store olmadan nasıl uygulama yüklenebilir?"
@@ -27,7 +27,7 @@ faq:
   - question: "Invizible Pro ile zaten Tor kullanılıyorsa VPN'e ihtiyaç duyulur mu?"
     answer: "Tor kullanılan ana profilde ek bir VPN'e gerek yoktur. Ancak takip eden uygulamaların bulunduğu iş profilinde, Mullvad veya Proton gibi bir VPN trafiğinizi servis sağlayıcınızdan koruyabilir ve reklamlar ile izleyicileri filtreleyebilir."
 howto:
-  name: "Android'i gizlilik ve de-google için nasıl yapılandırılır"
+  name: "Android'i gizlilik ve Google servislerinden arındırma için nasıl yapılandırılır"
   description: "İşletim sistemini seçme, gizlilik dostu uygulamaları kurma, profilleri izole etme, izinleri yönetme ve Android trafiğini koruma prosedürü."
   totalTime: "PT2H"
   supply:
@@ -65,7 +65,7 @@ howto:
 
 ## Özet
 
-Android cihazları daha gizli hale getirmek için desteklenen bir Google Pixel cihazda GrapheneOS kullanmak, yüklenen uygulama sayısını azaltmak, izinleri ve internet erişimini sınırlandırmak, takip eden uygulamaları izole profillere ayırmak ve güvenilir uygulama mağazalarını tercih etmek gerekir. Google servislerinden arındırma (De-Google), gizliliği önemli ölçüde artırsa da sistem güncellemelerinin, güvenli önyüklemenin (verified boot) ve güvenli kullanım alışkanlıklarının yerini tutamaz.
+Android cihazları daha gizli hale getirmek için desteklenen bir Google Pixel cihazda GrapheneOS kullanmak, yüklenen uygulama sayısını azaltmak, izinleri ve internet erişimini sınırlandırmak, takip eden uygulamaları izole profillere ayırmak ve güvenilir uygulama mağazalarını tercih etmek gerekir. Google servislerinden arındırma (de-googling), gizliliği önemli ölçüde artırsa da sistem güncellemelerinin, güvenli önyüklemenin (verified boot) ve güvenli kullanım alışkanlıklarının yerini tutamaz.
 
 Akıllı telefonlar kullanıcılar hakkında neredeyse her şeyi bilir: gidilen yerler, iletişim kurulan kişiler ve yapılan aramalar bunlardan yalnızca birkaçıdır. Android cihazlara yüklü uygulamalar, her gün kişisel verileri sessizce Google'a ve onlarca üçüncü taraf şirkete gönderir. Bu kılavuz, günlük kullanım kolaylığından ödün vermeden Google'a bağımlılığı ortadan kaldırmayı ve gerçekten gizli bir mobil ortam kurarak cihazın kontrolünü nasıl geri alacağınızı açıklamaktadır.
 
@@ -90,7 +90,7 @@ Alternatif bir ROM (örneğin LineageOS) kurulum adımlarının kısa özeti şu
 
 **Dikkat:** Google uygulamalarını içermeyen temel sürümler gizlilik açısından önceliklidir. `microG` kullanımı uygulama uyumluluğunu artırsa da güvenlik açısından bir ödün niteliğindedir. GrapheneOS üzerinde, Google servislerine bağımlı uygulamaların çalıştırılması gerekiyorsa, kararsız alternatifler aramak yerine ilgili profilde yalıtılmış (sandboxed) Google Play servislerinin kullanılması daha kararlı ve güvenli bir yaklaşımdır.
 
-## Sistem Yapılandırması ve Temel Değişiklikler {#modifica-e-setup-del-sistema}
+## Sistem İnce Ayarları ve Kurulumu {#modifica-e-setup-del-sistema}
 
 Gizlilik odaklı bir cihaza sahip olmak için işletim sisteminde bazı yapılandırma değişiklikleri yapılması gerekir. Cihaz modeline göre menü isimleri değişebilse de temel olarak şu önlemler alınmalıdır:
 
@@ -102,7 +102,7 @@ Gizlilik odaklı bir cihaza sahip olmak için işletim sisteminde bazı yapılan
 * Yüklü uygulamaların ilk açılışında telemetri ve hata raporu paylaşım izinlerini reddedin.
 * Ciddi güvenlik riskleri oluşturabileceğinden, USB hata ayıklama (USB debugging) özelliğini kullandıktan hemen sonra kapatın (varsayılan olarak kapalı tutulmalıdır).
 
-## Uygulama Mağazaları {#store-per-il-download-delle-app}
+## Uygulama Dağıtım Platformları {#store-per-il-download-delle-app}
 
 Google Play Store kullanmadığımız bu kurulumda, uygulamaları güvenle indirebilmek için şu alternatif mağazalar tercih edilmelidir:
 

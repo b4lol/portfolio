@@ -1,5 +1,5 @@
 ---
-title: "Ara"
+title: "Arama"
 layout: "search"
 summary: "arama"
 placeholder: "Rehberlerde ara..."

@@ -82,7 +82,7 @@ Bu rehberin nihai amacı; reklam ve takipçi engelleme filtresine sahip kendi ö
 * **Dar Anonimlik Kümesi:** VPN sunucunuzu çok sayıda kişiyle paylaşmadığınız sürece, sunucunun çıkış IP adresini kullanan tek kişi siz olursunuz. Bu durum, IP adresinin doğrudan sizinle ilişkilendirilmesini kolaylaştıracağı için genel anonimlik düzeyinizi azaltır.
 * **Sağlayıcıya Güven:** Ticari bir VPN firmasına veri akışını engelleseniz bile, sunucuyu kiraladığınız VPS sağlayıcısı teorik olarak trafiğin nereden gelip nereye gittiğini görebilir (güven sınırını VPN firmasından sunucu firmasına taşımış olursunuz). Bu nedenle sunucu kiralayacağınız şirketi dikkatli seçmeniz kritik önem taşır.
 
-## Hosting Sağlayıcısını Seçmek {#scelta-dellhosting-provider}
+## Hosting Sağlayıcısı Seçimi {#scelta-dellhosting-provider}
 
 Hosting sağlayıcısı, bu kurulumu gerçekleştireceğiniz sunucuyu kiralayacağınız şirket anlamına gelir. Gizliliğinizi koruyan bir yargı yetkisine (Five Eyes veya NATO dışı, ya da veri gizliliği yasaları güçlü olan İzlanda, İsveç, İsviçre gibi ülkeler) sahip bir şirket seçmek çok önemlidir. Tercih edilecek firmanın veri sızıntılarına karışmamış olması, resmi makamlarla minimum veri paylaşımı yapması ve kayıt sırasında minimum kişisel veri talep etmesi (Bitcoin ile ödeme, Tor adresi üzerinden erişim vb.) kritik kriterlerdir.
 
@@ -96,7 +96,7 @@ Bu rehberde size birkaç hosting sağlayıcısı önereceğim; genellikle gizlil
 
 Hosting hizmetini seçtikten sonra, üzerine Debian tabanlı kararlı bir dağıtım (Debian veya Ubuntu) kurulu bir VPS satın almanızı ve güçlü bir giriş şifresi belirlemenizi öneririm.
 
-## SSH ile VPS Sunucusuna Bağlanmak {#connessione-al-server-vps-con-ssh}
+## SSH ile VPS Sunucusuna Bağlanma {#connessione-al-server-vps-con-ssh}
 
 Uzak sunucuları yönetmek için en yaygın kullanılan yöntem SSH (Secure Shell) protokolüdür. VPS sunucunuza bağlanmak için bilgisayarınızda bir terminal açıp şu komutu yazın:
 
@@ -194,7 +194,7 @@ sudo pihole-FTL --config dns.dnssec 'false'
 
 Bu komutlar Pi-hole'a, tek yetkili DNS çözücü olarak yerel ağdaki Unbound'u (5335 portu) kullanmasını söyler.
 
-## Pi-hole ve Adlists Yapılandırması {#configurazione-pihole-e-adlists}
+## Pi-hole ve Reklam Listesi Yapılandırması {#configurazione-pihole-e-adlists}
 
 Komut satırı üzerindeki işlemlerimiz tamamlandı! 🎉 Artık VPN bağlantısını aktif etmeden önce reklam ve takipçi filtrelerini ekleyebiliriz. Tarayıcınızın adres çubuğuna şunu yazın:
 
@@ -238,7 +238,7 @@ Bilgisayarınıza WireGuard istemcisini yükleyin. Sunucuda oluşturduğunuz `.c
 
 Bilgisayar tarafında da DNS sunucusu ve Endpoint alanlarının sunucunuzun IP adresini gösterdiğinden emin olun.
 
-## Çalışma Testi {#test-di-funzionamento}
+## İşlevselliğin Doğrulanması {#test-di-funzionamento}
 
 VPN kurulumumuz tamamlandığına göre her şeyin beklendiği gibi çalışıp çalışmadığını test edebiliriz:
 
@@ -255,5 +255,5 @@ Kendi sunucunuzda barındıracağınız bir VPN; gizlilik, esneklik ve reklam en
 
 - **[Tor Relay Kurulum Kılavuzu](/tr/tor)** - Kendi sunucunuz üzerinden Tor ağına katkıda bulunun.
 - **[Tehdit Modeli Nasıl Oluşturulur?](/tr/threat-model)** - Dijital gizlilik yolculuğunun ilk ve en önemli adımı.
-- **[De-Google Android: Eksiksiz Gizlilik Rehberi](/tr/android)** - Mobil cihazınızı Google servislerinden tamamen arındırın.
+- **[Android'i Google Servislerinden Arındırma: Eksiksiz Gizlilik Kılavuzu](/tr/android)** - Mobil cihazınızı Google servislerinden tamamen arındırın.
 - **[GrapheneOS Gelişmiş Kurulum Rehberi](/tr/graphene)** - Mobil gizlilik için en iyi işletim sistemi.

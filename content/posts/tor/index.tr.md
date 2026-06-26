@@ -122,7 +122,7 @@ Düğüm türlerine göre önerilen minimum sistem gereksinimleri şu şekildedi
 
 Sanal sunucunuzu (VPS) satın aldıktan sonra doğrudan yapılandırma adımına geçebilirsiniz!
 
-## Otomatik Kurulum Betiği (Script) ile Kurulum {#shelter style="color: greenyellow;"}
+## Otomatik Kurulum Betiği ile Kurulum (Önerilen) {#shelter style="color: greenyellow;"}
 
 Rehberimize, kurulum için en hızlı ve verimli yöntem olan Bash betiği ile başlayalım. Gereksinimler: Debian veya Ubuntu yüklü bir bilgisayar, sanal sunucu (VPS) veya Raspberry Pi. Sunucunuzun veya makinenizin terminaline (shell) bağlandıktan sonra, eğer doğrudan root yetkisine sahip bir VPS kullanıyorsanız aşağıdaki komutların başındaki `sudo` ifadesini yazmanıza gerek olmadığını unutmayın. Kuruluma başlamak için aşağıdaki komutları çalıştırabilirsiniz:
 
@@ -150,7 +150,7 @@ Bu aşamada kurulum betiği çalışmaya başlayarak işletim sistemini güncell
 
 Tebrikler, kurulum tamamlandı! Betiğin çalışması sırasında bir hata ile karşılaşırsanız [GitHub sayfası üzerinden](https://github.com/b4lol/Tor-node-script) bir hata bildirimi (issue) açabilir veya `/etc/tor/torrc` dosyasını manuel kontrol edebilirsiniz. Şimdi doğrudan [kurulum sonrası kontroller](#email) bölümüne geçebilirsiniz.
 
-## Resmi Depolar Üzerinden Manuel Kurulum {#app style="color: greenyellow;"}
+## Resmi Depolar Üzerinden Manuel Kurulum (Alternatif) {#app style="color: greenyellow;"}
 
 Eğer manuel kurulum yolunu tercih ederseniz, bu süreçte hata yapma olasılığının yüksek olduğunu ve sorun gidermenin vakit alabileceğini belirtmek isterim. Rehberin bu bölümünde, kurulum betiğimizin arka planda otomatik olarak yaptığı işlemleri adım adım elle gerçekleştireceğiz. Bu rehber Debian tabanlı sistemler için hazırlanmıştır. Farklı bir işletim sistemi kullanıyorsanız [Tor Projesi resmi kurulum belgelerini](https://community.torproject.org/relay/setup/) inceleyebilirsiniz.
 
@@ -304,7 +304,7 @@ Her iki yapılandırmada da elle değiştirilmesi gereken 3 alan bulunmaktadır:
 3. **$bandwidth:**\
    Bu alanda düğüme tahsis edilen haftalık bant genişliğini belirtmeniz gerekecektir. Kullanılabilecek birimler MB, GB veya TB şeklindedir. Örneğin aylık 1 TB bant genişliği sınırınız varsa, haftalık limit alanına `250 GB` yazabilirsiniz. Sayı, boşluk ve ölçü birimi biçimlendirmesine uymaya özen gösterin.
 
-## Kurulum Sonrası Kontroller {#email style="color: greenyellow;"}
+## Kurulum Sonrası Yönetim {#email style="color: greenyellow;"}
 
 Tebrikler! İster otomatik betiği kullanmış olun ister kurulumu elle yapmış olun, resmi olarak bir Tor düğümü oluşturdunuz. Yapılandırma değişikliklerinin uygulanması için öncelikle sistemimizdeki Tor servisini yeniden başlatalım:
 
@@ -328,7 +328,7 @@ sudo apt install nyx
 
 Ardından sadece `nyx` komutunu çalıştırarak düğüm istatistiklerini izlemeye başlayabilirsiniz.
 
-## Çalışma Testi {#cloud style="color: greenyellow;"}
+## Ağ Görünürlüğünü Doğrulama {#cloud style="color: greenyellow;"}
 
 Her şeyin yolunda gittiğini doğrulamak için son adım, düğümünüzün aktifleşmesinden **birkaç saat sonra** Tor Vakfı'nın tüm aktif düğümleri listelediği [resmi Tor Metrics web sitesini](https://metrics.torproject.org/rs.html) ziyaret etmektir. Arama kutusuna belirlediğiniz düğüm adını veya IP adresinizi yazarak arama yapabilirsiniz.
 

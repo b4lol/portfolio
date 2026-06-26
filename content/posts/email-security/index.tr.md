@@ -158,7 +158,7 @@ Bu protokoller e-posta sunucuları arasındaki aktarım şifrelemesini (TLS) zor
 - **DANE:** Güvenliğini DNSSEC altyapısına dayandırır ve TLSA kayıtları aracılığıyla sertifikaları doğrular.
 - **MTA-STS:** Web platformundaki HSTS mantığına benzer şekilde çalışır. HTTPS protokolünü kullanarak sunucunun yalnızca şifreli TLS bağlantılarını kabul edeceğini bildirir.
 
-## Güvenlik Zayıflığı Olarak E-posta Yetkilendirmesi {#lemail-come-punto-debole}
+## Tek Hata Noktası Olarak E-posta {#lemail-come-punto-debole}
 
 E-posta adresiniz, dijital dünyadaki hemen hemen tüm hesaplarınızın şifre sıfırlama kanalıdır. Bir saldırgan e-posta kutunuza erişim sağladığında, bu hesaba bağlı diğer tüm platformlardaki şifrelerinizi kolayca sıfırlayabilir.
 
@@ -168,7 +168,7 @@ Bu riskleri en aza indirmek için:
 2. Hesap kurtarma seçeneklerinde yedek e-posta adresi yerine yerel olarak saklanan çevrimdışı kurtarma kodlarını tercih edin.
 3. E-posta adresinizi tüm üyeliklerinizde tek bir ortak anahtar gibi kullanmaktan kaçının.
 
-### Üçüncü Taraf İstemcilerin Saldırı Yüzeyi {#client-di-terze-parti-e-superficie-dattacco}
+### Üçüncü Taraf İstemciler ve Saldırı Yüzeyi {#client-di-terze-parti-e-superficie-dattacco}
 
 Harici e-posta istemcileri kullanmak esneklik sunsa da sisteme yeni bir yazılım bağımlılığı ekler. E-posta istemcileri karmaşık HTML ve JavaScript kodlarını işleyebildiği için web tarayıcılarına benzer bir saldırı yüzeyi oluştururlar. Güvenliği artırmak için istemci ayarlarından HTML yerine düz metin (plain text) görünümünü seçmeniz ve uzak görsellerin otomatik yüklenmesini kapatmanız önerilir.
 

@@ -1,0 +1,23 @@
+{{- if eq .Lang "en" -}}
+# {{ site.Title }} — Full Content Dump
+
+> {{ site.Params.description }}
+> This file contains the full plain-text content of every guide on {{ site.BaseURL }} for LLM ingestion.
+> Generated: {{ now.Format "2006-01-02" }}
+
+---
+{{ range where site.RegularPages "Section" "posts" }}
+## {{ .Title }}
+
+URL: {{ .Permalink }}
+Published: {{ .PublishDate.Format "2006-01-02" }}
+Updated: {{ .Lastmod.Format "2006-01-02" }}
+Description: {{ .Description }}
+
+{{ .Plain }}
+
+---
+{{ end }}
+{{- else -}}
+See {{ absURL "/llms-full.txt" }} for the English version.
+{{- end -}}

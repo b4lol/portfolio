@@ -112,3 +112,40 @@
         max-height: calc(100% - 40px);
     }
 }
+
+/* ---------- Skip navigation link (accessibility) ----------
+   Visually hidden by default, revealed on keyboard focus so
+   screen-reader and keyboard users can skip the nav bar.
+   -------------------------------------------------------------- */
+.skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--theme);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    border: 2px solid var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.skip-nav:focus {
+    top: 8px;
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ---------- Restore focus-visible outlines (reset.css removes outline) ----------
+   The reset sets outline:0 on input/textarea to remove the browser default
+   which varies by OS. This adds it back using the modern :focus-visible
+   selector so mouse clicks don't show the ring but keyboard navigation does.
+   -------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}

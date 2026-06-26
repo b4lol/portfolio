@@ -18,3 +18,12 @@
 
 - id: guides_section
   translation: "Guides"
+
+- id: skip_to_content
+  translation: "Skip to main content"
+
+- id: main_nav
+  translation: "Main navigation"
+
+- id: toggle_theme
+  translation: "Toggle theme"

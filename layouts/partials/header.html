@@ -1,20 +1,16 @@
-{{- /* theme.js */}}
+{{- /* theme.js — inlined to eliminate the render-blocking external HTTP request
+     while keeping synchronous execution (required to prevent a flash of wrong
+     theme on dark-mode pages). The matching CSP hash is added in extend_head.html. */}}
 {{- if not site.Params.disableThemeToggle }}
 {{- $theme := resources.Get "js/theme.js" | resources.Minify }}
-{{- if not site.Params.assets.disableFingerprinting }}
-{{- $theme_js := (slice $theme) | resources.Concat "assets/js/theme.js" | fingerprint }}
-<script crossorigin="anonymous" src="{{ $theme_js.RelPermalink }}" integrity="{{ $theme_js.Data.Integrity }}"></script>
-{{- else }}
-{{- $theme_js := (slice $theme) | resources.Concat "assets/js/theme.js" }}
-<script crossorigin="anonymous" src="{{ $theme_js.RelPermalink }}"></script>
-{{- end }}
+<script>{{ $theme.Content | safeJS }}</script>
 {{- end }}
 
 <header class="header">
     {{- if ( and (.IsPage) (ne .Layout "archives") (ne .Layout "search")) }}
     <div id="progressBar"></div>
     {{- end }}
-    <nav class="nav">
+    <nav class="nav" aria-label="{{ i18n "main_nav" | default "Main navigation" }}">
         <div class="logo">
             {{- $label_text := (site.Params.label.text | default site.Title) }}
             {{- if site.Title }}
@@ -48,7 +44,7 @@
             {{- end }}
             <div class="logo-switches">
                 {{- if (not site.Params.disableThemeToggle) }}
-                <button type="button" id="theme-toggle" accesskey="t" title="(Alt + T)">
+                <button type="button" id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="{{ i18n "toggle_theme" | default "Toggle theme" }}">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">

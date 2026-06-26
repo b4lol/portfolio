@@ -1,9 +1,48 @@
 {{/* ============================================================
-     extend_head.html – SEO structured data
+     extend_head.html – SEO structured data + performance hints
      Injected into <head> via WonderMod's extension point.
      Note: meta description, keywords, canonical, and robots are
      already rendered by the theme's head.html — not duplicated here.
      ============================================================ */}}
+
+{{/* Color scheme: lets the browser apply correct default styles before
+     CSS loads, preventing a flash of wrong background color. */}}
+<meta name="color-scheme" content="dark light">
+
+{{/* Prevent iOS/Safari from auto-detecting and linking phone numbers,
+     dates, and emails in content — avoids unexpected CLS and layout
+     shifts caused by the injected anchor wrappers. */}}
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+
+{{/* Referrer policy: send origin on cross-origin requests, full URL on same-origin */}}
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+{{/* Apple PWA display hints */}}
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="{{ site.Title }}">
+
+{{/* DNS prefetch for external domains linked from content */}}
+<link rel="dns-prefetch" href="https://github.com">
+<link rel="dns-prefetch" href="https://x.com">
+<link rel="dns-prefetch" href="https://t.me">
+<link rel="dns-prefetch" href="https://www.instagram.com">
+
+{{/* LCP preload: for post pages that have a cover image, preload the
+     image early so the browser starts fetching before parsing <body>.
+     This is the single biggest LCP win for image-heavy pages. */}}
+{{- if and .IsPage (eq .Section "posts") .Params.cover.image -}}
+  {{- $coverURL := "" -}}
+  {{- $pageCover := (.Resources.ByType "image").GetMatch (printf "*%s*" .Params.cover.image) -}}
+  {{- if $pageCover -}}
+    {{- $coverURL = $pageCover.Permalink -}}
+  {{- else -}}
+    {{- $coverURL = .Params.cover.image | absURL -}}
+  {{- end -}}
+  {{- if $coverURL -}}
+<link rel="preload" as="image" href="{{ $coverURL }}" fetchpriority="high">
+  {{- end -}}
+{{- end }}
 
 {{/* Content-Security-Policy via meta tag: GitHub Pages serves no custom
      HTTP headers, so this is the only CSP delivery mechanism available
@@ -11,8 +50,16 @@
      a meta-delivered CSP cannot enforce frame-ancestors — that directive
      is only honored when sent as an HTTP header. style-src needs
      'unsafe-inline' because content posts use inline style="" attributes
-     (e.g. heading color overrides) and embedded SVG diagrams. */}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+     (e.g. heading color overrides) and embedded SVG diagrams.
+     script-src includes the SHA-256 hash of the inlined theme.js so the
+     browser accepts it without 'unsafe-inline'. The hash is computed at
+     build time from the minified resource, so it always stays in sync. */}}
+{{- $themeHash := "" -}}
+{{- if not site.Params.disableThemeToggle -}}
+  {{- $themeRes := resources.Get "js/theme.js" | resources.Minify | fingerprint "sha256" -}}
+  {{- $themeHash = $themeRes.Data.Integrity -}}
+{{- end -}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'{{ with $themeHash }} '{{ . }}'{{ end }}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
 {{/* JSON-LD: WebSite + Person — homepage only */}}
 {{ if .IsHome -}}
@@ -238,6 +285,60 @@
     }{{ if lt (add $i 1) (len $howto.steps) }},{{ end }}
     {{- end }}
   ]
+}
+</script>
+{{- end }}
+
+{{/* JSON-LD: ProfilePage — /about page */}}
+{{- $aboutPage := site.GetPage "/about" -}}
+{{- if and .IsPage $aboutPage (eq .Permalink $aboutPage.Permalink) -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "name": {{ .Title | jsonify | safeJS }},
+  "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ site.Params.person.description | jsonify | safeJS }}{{ end }},
+  "mainEntity": {
+    "@type": "Person",
+    "name": {{ with site.Params.person.name }}{{ . | jsonify | safeJS }}{{ else }}"Hüseyin (b4lol)"{{ end }},
+    "url": {{ .Permalink | jsonify | safeJS }},
+    "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
+    "description": {{ site.Params.person.description | jsonify | safeJS }},
+    "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}
+    {{- with site.Params.schema.sameAs }},
+    "sameAs": {{ . | jsonify | safeJS }}
+    {{- end }}
+  }
+}
+</script>
+{{- end }}
+
+{{/* JSON-LD: Blog — /posts section */}}
+{{- if and .IsSection (eq .Section "posts") -}}
+{{- $posts := first 10 .Pages -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": {{ (printf "%s %s" site.Title (i18n "guides_section" | default "Guides")) | jsonify | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "description": {{ site.Params.description | jsonify | safeJS }},
+  "inLanguage": {{ site.Language.Locale | jsonify | safeJS }}
+  {{- if $posts }},
+  "blogPost": [
+    {{- range $i, $post := $posts }}
+    {
+      "@type": "BlogPosting",
+      "headline": {{ $post.Title | jsonify | safeJS }},
+      "url": {{ $post.Permalink | jsonify | safeJS }},
+      "datePublished": {{ $post.PublishDate.Format "2006-01-02T15:04:05-07:00" | jsonify | safeJS }},
+      "dateModified": {{ $post.Lastmod.Format "2006-01-02T15:04:05-07:00" | jsonify | safeJS }},
+      "description": {{ with $post.Description }}{{ . | jsonify | safeJS }}{{ else }}{{ $post.Summary | jsonify | safeJS }}{{ end }}
+    }{{ if lt (add $i 1) (len $posts) }},{{ end }}
+    {{- end }}
+  ]
+  {{- end }}
 }
 </script>
 {{- end }}

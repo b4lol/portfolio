@@ -18,3 +18,12 @@
 
 - id: guides_section
   translation: "Rehberler"
+
+- id: skip_to_content
+  translation: "Ana içeriğe geç"
+
+- id: main_nav
+  translation: "Ana navigasyon"
+
+- id: toggle_theme
+  translation: "Tema değiştir"

@@ -17,6 +17,7 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: true
+disableHugoGeneratorInject: true
 mainsections: ["posts"]
 
 sitemap:
@@ -27,11 +28,25 @@ minify:
   disableXML: true
   minifyOutput: true
 
+outputFormats:
+  llmstxt:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+  llmsfull:
+    mediaType: text/plain
+    baseName: llms-full
+    isPlainText: true
+    notAlternative: true
+
 outputs:
   home:
     - HTML
     - RSS
     - JSON
+    - llmstxt
+    - llmsfull
 
 services:
   instagram:

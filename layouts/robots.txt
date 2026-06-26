@@ -1,8 +1,35 @@
 User-agent: *
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
 Disallow: /search/
-Content-Signal: search=yes, ai-input=yes, ai-train=no
 {{- else }}
 Disallow: /
 {{- end }}
 Sitemap: {{ "sitemap.xml" | absURL }}
+
+# AI training crawlers — content licensed for answering questions, not model training
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: PiplBot
+Disallow: /

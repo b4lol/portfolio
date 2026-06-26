@@ -5,31 +5,7 @@ Disallow: /search/
 Disallow: /
 {{- end }}
 Sitemap: {{ "sitemap.xml" | absURL }}
-
-# AI training crawlers — content licensed for answering questions, not model training
-User-agent: GPTBot
+{{ range site.Params.robots.disallowedCrawlers }}
+User-agent: {{ . }}
 Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: Bytespider
-Disallow: /
-
-User-agent: Diffbot
-Disallow: /
-
-User-agent: meta-externalagent
-Disallow: /
-
-User-agent: Omgilibot
-Disallow: /
-
-User-agent: cohere-ai
-Disallow: /
-
-User-agent: PiplBot
-Disallow: /
+{{ end -}}

@@ -88,7 +88,7 @@
     },
     {
       "@type": "Person",
-      "name": "Hüseyin (b4lol)",
+      "name": {{ site.Params.person.name | default site.Params.author | jsonify | safeJS }},
       "url": {{ $aboutURL | jsonify | safeJS }},
       "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
       "description": {{ site.Params.person.description | jsonify | safeJS }},
@@ -176,7 +176,7 @@
       "dateModified": {{ $modified.Format $iso8601 | jsonify | safeJS }},
       "author": {
         "@type": "Person",
-        "name": {{ with .Params.author }}{{ . | jsonify | safeJS }}{{ else }}"b4lol"{{ end }},
+        "name": {{ with .Params.author }}{{ . | jsonify | safeJS }}{{ else }}{{ site.Params.author | jsonify | safeJS }}{{ end }},
         "url": {{ $aboutURL | jsonify | safeJS }}
       },
       {{- if $image }}
@@ -301,7 +301,7 @@
   "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ site.Params.person.description | jsonify | safeJS }}{{ end }},
   "mainEntity": {
     "@type": "Person",
-    "name": {{ with site.Params.person.name }}{{ . | jsonify | safeJS }}{{ else }}"Hüseyin (b4lol)"{{ end }},
+    "name": {{ site.Params.person.name | default site.Params.author | jsonify | safeJS }},
     "url": {{ .Permalink | jsonify | safeJS }},
     "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
     "description": {{ site.Params.person.description | jsonify | safeJS }},

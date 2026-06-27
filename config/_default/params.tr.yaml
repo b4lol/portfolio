@@ -2,9 +2,11 @@ description: "Dijital gizlilik ve siber güvenlik üzerine ücretsiz rehberler."
 homepageTitle: "b4lol | Gizlilik ve Güvenlik Rehberleri"
 
 person:
+  name: "Hüseyin (b4lol)"
   jobTitle: "Dijital Gizlilik Savunucusu ve Siber Güvenlik Araştırmacısı"
   description: "Hüseyin (b4lol) — dijital gizlilik savunucusu ve siber güvenlik araştırmacısı; Linux, ağ protokolleri ve Rust üzerine derin ilgi sahibi."
   knowsAbout: ["Dijital Gizlilik", "Siber Güvenlik", "GrapheneOS", "Self-hosting", "Tor", "Linux", "Rust", "Ağ Protokolleri"]
+  twitterHandle: "@b4lolx"
 
 profileMode:
   enabled: true

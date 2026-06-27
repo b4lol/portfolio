@@ -28,6 +28,14 @@ minify:
   disableXML: true
   minifyOutput: true
 
+mediaTypes:
+  application/manifest+json:
+    suffixes:
+      - webmanifest
+  application/opensearchdescription+xml:
+    suffixes:
+      - xml
+
 outputFormats:
   llmstxt:
     mediaType: text/plain
@@ -39,14 +47,21 @@ outputFormats:
     baseName: llms-full
     isPlainText: true
     notAlternative: true
-
-outputs:
-  home:
-    - HTML
-    - RSS
-    - JSON
-    - llmstxt
-    - llmsfull
+  manifest:
+    mediaType: application/manifest+json
+    baseName: site
+    isPlainText: true
+    notAlternative: true
+  opensearch:
+    mediaType: application/opensearchdescription+xml
+    baseName: opensearch
+    isPlainText: true
+    notAlternative: true
+  serviceworker:
+    mediaType: text/javascript
+    baseName: sw
+    isPlainText: true
+    notAlternative: true
 
 services:
   instagram:

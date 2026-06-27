@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>b4lol</ShortName>
-  <Description>Search b4lol — Privacy and Security Guides</Description>
-  <InputEncoding>UTF-8</InputEncoding>
-  <Url type="text/html" template="https://b4.lol/search/?q={searchTerms}"/>
-  <Image height="16" width="16" type="image/x-icon">https://b4.lol/favicon.ico</Image>
-</OpenSearchDescription>

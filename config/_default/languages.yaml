@@ -5,6 +5,16 @@ en:
   weight: 1
   label: English
   locale: en-US
+  outputs:
+    home:
+      - HTML
+      - RSS
+      - JSON
+      - llmstxt
+      - llmsfull
+      - manifest
+      - opensearch
+      - serviceworker
   taxonomies:
     category: categories
     tag: tags
@@ -14,6 +24,11 @@ tr:
   weight: 2
   label: Türkçe
   locale: tr-TR
+  outputs:
+    home:
+      - HTML
+      - RSS
+      - JSON
   taxonomies:
     category: categories
     tag: tags

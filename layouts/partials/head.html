@@ -90,8 +90,8 @@
 <link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
 <meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="search" type="application/opensearchdescription+xml" title="{{ site.Title }}" href="/opensearch.xml">
+{{- with site.Home.OutputFormats.Get "manifest" }}<link rel="manifest" href="{{ .Permalink }}">{{ end }}
+{{- with site.Home.OutputFormats.Get "opensearch" }}<link rel="search" type="{{ .MediaType.Type }}" title="{{ site.Title }}" href="{{ .Permalink }}">{{ end }}
 
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}

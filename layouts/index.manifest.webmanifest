@@ -1,0 +1,23 @@
+{
+  "name": {{ site.Params.homepageTitle | default site.Title | jsonify }},
+  "short_name": {{ site.Title | jsonify }},
+  "description": {{ site.Params.description | jsonify }},
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": {{ site.Params.assets.background_color | default "#1d1e20" | jsonify }},
+  "theme_color": {{ site.Params.assets.theme_color | default "#2e2e33" | jsonify }},
+  "lang": {{ site.Language.Lang | jsonify }},
+  "icons": [
+    {
+      "src": {{ site.Params.assets.favicon32x32 | default "/favicon-32x32.png" | jsonify }},
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": {{ site.Params.assets.apple_touch_icon | default "/apple-touch-icon.png" | jsonify }},
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

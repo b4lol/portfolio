@@ -2,9 +2,11 @@ description: "Free guides on digital privacy and cybersecurity."
 homepageTitle: "b4lol | Privacy and Security Guides"
 
 person:
+  name: "Hüseyin (b4lol)"
   jobTitle: "Digital Privacy Advocate and Cybersecurity Researcher"
   description: "Hüseyin (b4lol) — digital privacy advocate and cybersecurity researcher with a deep focus on Linux, network protocols and Rust."
   knowsAbout: ["Digital Privacy", "Cybersecurity", "GrapheneOS", "Self-hosting", "Tor", "Linux", "Rust", "Network Protocols"]
+  twitterHandle: "@b4lolx"
 
 profileMode:
   enabled: true

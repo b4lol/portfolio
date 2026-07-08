@@ -45,7 +45,7 @@
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
 {{- end }}
 
-{{- $term := .Data.Term }}
+{{- $term := .Title }}
 
 {{- if not .IsHome }}
 <div class="topic-filters">

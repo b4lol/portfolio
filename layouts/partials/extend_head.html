@@ -108,7 +108,7 @@
 {{- range site.Menus.main -}}
   {{- $navItems = $navItems | append (dict "name" .Name "url" (cond (strings.HasPrefix .URL "http") .URL (.URL | absURL))) -}}
 {{- end -}}
-{{- range .Site.Language.Params.profileMode.buttons -}}
+{{- range site.Params.profileMode.buttons -}}
   {{- $navItems = $navItems | append (dict "name" .name "url" (cond (strings.HasPrefix .url "http") .url (.url | absURL))) -}}
 {{- end -}}
 {{- /* Deduplicate by name */ -}}

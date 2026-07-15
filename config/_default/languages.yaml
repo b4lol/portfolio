@@ -29,6 +29,11 @@ tr:
       - HTML
       - RSS
       - JSON
+      - llmstxt
+      - llmsfull
+      - manifest
+      - opensearch
+      - serviceworker
   taxonomies:
     category: categories
     tag: tags

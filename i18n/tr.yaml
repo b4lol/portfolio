@@ -14,7 +14,7 @@
   translation: "Android"
 
 - id: topic_selfhosting
-  translation: "Self Hosting"
+  translation: "Kendi Sunucumda Barındırma"
 
 - id: guides_section
   translation: "Rehberler"
@@ -27,3 +27,75 @@
 
 - id: toggle_theme
   translation: "Tema değiştir"
+
+- id: toggle_theme_alt
+  translation: "Koyu/Açık tema değiştir"
+
+- id: logo_alt
+  translation: "Ana Sayfa"
+
+- id: nav_menu
+  translation: "Ana Navigasyon"
+
+- id: go_to_top
+  translation: "Yukarı çık (Alt + G)"
+
+- id: draft
+  translation: "Taslak"
+
+- id: post_link_to
+  translation: "gönderi bağlantısı"
+
+- id: code_copy
+  translation: "kopyala"
+
+- id: code_copied
+  translation: "kopyalandı!"
+
+- id: search_placeholder
+  translation: "Ara"
+
+- id: search_no_js
+  translation: "Arama işlevini kullanmak için JavaScript'i etkinleştirin."
+
+- id: llms_guides
+  translation: "Rehberler"
+
+- id: llms_pages
+  translation: "Sayfalar"
+
+- id: llms_topics
+  translation: "İşlenen konular"
+
+- id: llms_full_content
+  translation: "Tam İçerik Dökümü"
+
+- id: about
+  translation: "Hakkımda"
+
+- id: llms_about_desc
+  translation: "Yazar ve site hakkında."
+
+- id: llms_search_desc
+  translation: "Tüm rehberlerde tam metin arama."
+
+- id: llms_rss_desc
+  translation: "Yeni rehberlere abone olun."
+
+- id: llms_full_desc
+  translation: "Tüm rehberlerin derin LLM bağlamı için düz metin tam içeriği."
+
+- id: llms_see_english
+  translation: "İngilizce LLM beslemesi için bkz."
+
+- id: llms_ingestion
+  translation: "LLM tüketimi için."
+
+- id: llms_generated
+  translation: "Oluşturulma"
+
+- id: llms_published
+  translation: "Yayınlanma"
+
+- id: llms_description
+  translation: "Açıklama"

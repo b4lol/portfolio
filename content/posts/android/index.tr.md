@@ -71,7 +71,7 @@ Akıllı telefonlar kullanıcılar hakkında neredeyse her şeyi bilir: gidilen 
 
 Bu kılavuz, kullanıcıların geri bildirimlerine ve önerilerine açıktır. Burada, kullanılabilirlik ve gizlilik arasında en iyi dengeyi sunan bir kurulum ele alınmaktadır. İlerleyen süreçte, belirli uygulamalarla sorun yaşayanlar için alternatif çözümler eklenerek içerik genişletilecektir. Öneride bulunmak veya katkı sağlamak isterseniz [GitHub](https://github.com/b4lol/portfolio) üzerinden bir çekme isteği (pull request) gönderebilirsiniz.
 
-Bu kılavuz Android'i genel olarak ele almaktadır. Özel olarak GrapheneOS işletim sistemini inceleyen rehbere [buradan](file:///tr/graphene) ulaşabilirsiniz.
+Bu kılavuz Android'i genel olarak ele almaktadır. Özel olarak GrapheneOS işletim sistemini inceleyen rehbere [buradan](/tr/graphene) ulaşabilirsiniz.
 
 ## İşletim Sistemi {#sistema-operativo}
 

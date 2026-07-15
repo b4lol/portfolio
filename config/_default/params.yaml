@@ -1,7 +1,6 @@
 # Shared, language-neutral params. Language-specific text (description,
 # homepageTitle, profileMode, person, socialIcons titles) lives in
 # params.en.yaml / params.tr.yaml and is merged on top of this file.
-env: production
 author: b4lol
 defaultTheme: dark
 disableThemeToggle: false

@@ -10,9 +10,9 @@ defaultContentLanguage: en
 timeZone: Europe/Rome
 theme: [WonderMod]
 
-enableInlineShortcodes: true
+enableInlineShortcodes: false
 enableRobotsTXT: true
-enableGitInfo: true
+enableGitInfo: false
 buildDrafts: false
 buildFuture: false
 buildExpired: false

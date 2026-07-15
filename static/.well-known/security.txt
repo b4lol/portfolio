@@ -1,0 +1,5 @@
+Contact: mailto:admin@b4.lol
+Expires: 2027-07-15T17:46:56.000Z
+Preferred-Languages: en, tr
+Canonical: https://b4.lol/.well-known/security.txt
+Policy: https://b4.lol/about/

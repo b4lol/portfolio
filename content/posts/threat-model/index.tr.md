@@ -53,7 +53,12 @@ howto:
 ---
 
 > **Özet** - Bu rehberde öğrenecekleriniz:
-> - Bir tehdidi doğru şe## Özet
+> - "Büyük Teknoloji" etiketinin ötesine geçerek bir tehdidi doğru şekilde tanımlamak.
+> - Dört temel tehdit vektörü: hizmet sağlayıcılar, kitlesel gözetim, uygulama geliştiriciler ve kötü niyetli aktörler.
+> - Uçtan uca şifreleme, kimlik ayrımı ve bölümlendirme kullanarak savunma oluşturmak.
+> - Tehdit modelinizi oluştururken kaçınılması gereken yaygın hatalar ve kötü uygulamalar.
+
+## Özet
 
 Tehdit modeli; neyi, kimden korumak istediğinizi, saldırganların hangi yeteneklere sahip olduğunu ve bu tehditlere karşı hangi gerçekçi önlemleri alacağınızı belirlediğiniz bir süreçtir. Doğru bir tehdit modeli olmadan, işe yaramaz araçlar satın alma, asıl riskleri göz ardı etme veya güvenliği gerçekten artırmadan dijital yaşamınızı gereksiz yere zorlaştırma riskiyle karşı karşıya kalırsınız.
 

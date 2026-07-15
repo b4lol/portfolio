@@ -71,7 +71,7 @@ Your smartphone knows everything about you: where you go, whom you talk to, and 
 
 This guide is open to improvements and suggestions. I will describe the setup that I believe offers the best balance between usability and privacy. Over time, I will expand the various sections and introduce alternatives for those who might prefer different apps or services. If you would like to offer suggestions or contribute, you can open a pull request on [GitHub](https://github.com/b4lol/portfolio).
 
-This guide covers Android in general; I have also written a guide specifically for GrapheneOS, which you can find [here](https://b4.lol/graphene).
+This guide covers Android in general; I have also written a guide specifically for GrapheneOS, which you can find [here](/graphene).
 
 
 ## Operating System {#sistema-operativo}

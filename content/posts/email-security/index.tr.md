@@ -50,7 +50,7 @@ howto:
       url: "/tr/email-security#autenticazione-delle-email"
     - name: "Kurtarmayı kritik hesaplardan ayırın"
       text: "Tek bir e-posta hesabının tüm önemli hesapları sıfırlayabilmesine izin vermeyin."
-      url: "/tr/email-security#passkey-e-il-futuro-dellautenticazione"
+      url: "/tr/email-security#passkeys-decoupling-recovery"
 ---
 
 > **TL;DR** - Bu rehberde öğrenecekleriniz:

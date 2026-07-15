@@ -22,17 +22,18 @@ self.addEventListener('fetch', e => {
             caches.match(request).then(cached => {
                 if (cached) return cached;
                 return fetch(request).then(res => {
-                    caches.open(CACHE).then(c => c.put(request, res.clone()));
-                    return res;
+                    return caches.open(CACHE).then(c => c.put(request, res.clone())).then(() => res);
                 });
             })
         );
     } else if (request.headers.get('accept')?.includes('text/html')) {
+        // Strip query strings so every tracking variant does not create a new cache entry.
+        const cacheKey = new URL(request.url);
+        cacheKey.search = '';
         e.respondWith(
             fetch(request).then(res => {
-                caches.open(CACHE).then(c => c.put(request, res.clone()));
-                return res;
-            }).catch(() => caches.match(request))
+                return caches.open(CACHE).then(c => c.put(cacheKey, res.clone())).then(() => res);
+            }).catch(() => caches.match(cacheKey))
         );
     }
 });

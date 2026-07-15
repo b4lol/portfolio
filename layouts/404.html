@@ -1,0 +1,13 @@
+{{- define "main" }}
+<div class="not-found">
+    {{- if eq .Lang "tr" }}
+    <h1>404</h1>
+    <p>Sayfa bulunamadı.</p>
+    <p><a href="{{ "" | absLangURL }}">Ana sayfaya dön</a></p>
+    {{- else }}
+    <h1>404</h1>
+    <p>Page not found.</p>
+    <p><a href="{{ "" | absLangURL }}">Go back home</a></p>
+    {{- end }}
+</div>
+{{- end }}

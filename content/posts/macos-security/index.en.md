@@ -49,7 +49,7 @@ howto:
       url: "/macos-security#firewall"
     - name: "Lock down your browser and communications"
       text: "Choose privacy-oriented browsers, configure Tor when needed, and use end-to-end encrypted messaging."
-      url: "/macos-security#browser"
+      url: "/macos-security#certificati"
     - name: "Manage passwords, backups, and metadata"
       text: "Use unique passwords, MFA, encrypted backups, and procedures for removing metadata from files."
       url: "/macos-security#password"

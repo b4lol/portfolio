@@ -30,10 +30,10 @@
                             {{- $img = $img.Resize "x30" }}
                         {{- end }}
                     {{- end }}
-                    <img src="{{ $img.Permalink }}" alt="" aria-label="logo"
+                    <img src="{{ $img.Permalink }}" alt="{{ i18n "logo_alt" | default site.Title }}"
                         height="{{- site.Params.label.iconHeight | default "30" -}}">
                 {{- else }}
-                <img src="{{- site.Params.label.icon | absURL -}}" alt="" aria-label="logo"
+                <img src="{{- site.Params.label.icon | absURL -}}" alt="{{ i18n "logo_alt" | default site.Title }}"
                     height="{{- site.Params.label.iconHeight | default "30" -}}">
                 {{- end -}}
                 {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
@@ -44,7 +44,7 @@
             {{- end }}
             <div class="logo-switches">
                 {{- if (not site.Params.disableThemeToggle) }}
-                <button type="button" id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="{{ i18n "toggle_theme" | default "Toggle theme" }}">
+                <button type="button" id="theme-toggle" accesskey="t" title="{{ i18n "toggle_theme" | default "Toggle theme" }} (Alt + T)" aria-label="{{ i18n "toggle_theme_alt" | default "Toggle theme" }}">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -92,7 +92,7 @@
             </div>
         </div>
         {{- $currentPage := . }}
-        <input name="hamburger-input" id="hamburger-input" type="checkbox" aria-label="Navigation Menu">
+        <input name="hamburger-input" id="hamburger-input" type="checkbox" aria-label="{{ i18n "nav_menu" | default "Navigation Menu" }}">
         <label id="hamburger-menu" for="hamburger-input"></label>
         <div class="overlay"></div>
         <ul id="menu">
@@ -101,14 +101,16 @@
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
             {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
             <li>
+                {{- $isExternalMenu := findRE "^([a-zA-Z][a-zA-Z0-9+.-]*:)?//" .URL -}}
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
-                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}>
+                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}
+                {{- if $isExternalMenu }} target="_blank" rel="noopener noreferrer"{{ end }}>
                     <span {{- if eq $menu_item_url $page_url }} class="active" {{- end }}>
                         {{- .Pre }}
                         {{- .Name -}}
                         {{ .Post -}}
                     </span>
-                    {{- if (findRE "://" .URL) }}&nbsp;
+                    {{- if $isExternalMenu }}&nbsp;
                     <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
                         <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>

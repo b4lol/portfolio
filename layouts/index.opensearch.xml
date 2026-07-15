@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>{{ site.Title }}</ShortName>
-  <Description>Search {{ site.Title }} — {{ site.Params.description }}</Description>
+  <ShortName>{{ site.Title | htmlEscape }}</ShortName>
+  <Description>{{ printf "Search %s — %s" site.Title site.Params.description | htmlEscape }}</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Url type="text/html" template="{{ absURL "search/?q={searchTerms}" }}"/>
   <Image height="16" width="16" type="image/x-icon">{{ site.Params.assets.favicon | default "/favicon.ico" | absURL }}</Image>

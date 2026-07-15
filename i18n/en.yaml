@@ -27,3 +27,75 @@
 
 - id: toggle_theme
   translation: "Toggle theme"
+
+- id: toggle_theme_alt
+  translation: "Toggle dark/light theme"
+
+- id: logo_alt
+  translation: "Home"
+
+- id: nav_menu
+  translation: "Navigation Menu"
+
+- id: go_to_top
+  translation: "Go to Top (Alt + G)"
+
+- id: draft
+  translation: "Draft"
+
+- id: post_link_to
+  translation: "post link to"
+
+- id: code_copy
+  translation: "copy"
+
+- id: code_copied
+  translation: "copied!"
+
+- id: search_placeholder
+  translation: "Search"
+
+- id: search_no_js
+  translation: "Enable JavaScript to use the search function."
+
+- id: llms_guides
+  translation: "Guides"
+
+- id: llms_pages
+  translation: "Pages"
+
+- id: llms_topics
+  translation: "Topics covered"
+
+- id: llms_full_content
+  translation: "Full Content Dump"
+
+- id: about
+  translation: "About"
+
+- id: llms_about_desc
+  translation: "About the author and site."
+
+- id: llms_search_desc
+  translation: "Full-text search across all guides."
+
+- id: llms_rss_desc
+  translation: "Subscribe to new guides."
+
+- id: llms_full_desc
+  translation: "Full plain-text content of all guides for deep LLM context."
+
+- id: llms_see_english
+  translation: "For the English LLMs feed, see"
+
+- id: llms_ingestion
+  translation: "for LLM ingestion."
+
+- id: llms_generated
+  translation: "Generated"
+
+- id: llms_published
+  translation: "Published"
+
+- id: llms_description
+  translation: "Description"

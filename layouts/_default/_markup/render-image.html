@@ -19,6 +19,11 @@
 {{- $alt := .Text -}}
 {{- $title := .Title -}}
 {{- $img := false -}}
+{{- /* Only allow safe image sources: relative paths, http/https, or data: */ -}}
+{{- $isAllowed := or (not (strings.Contains $src ":")) (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://") (strings.HasPrefix $src "data:image/") -}}
+{{- if not $isAllowed -}}
+  {{- $src = "#" -}}
+{{- end -}}
 
 {{- /* Try page resource first, then global resource */ -}}
 {{- with .Page.Resources.GetMatch $src -}}
@@ -31,7 +36,7 @@
 
 {{- if $isFirst -}}
 <img
-  src="{{ $src | safeURL }}"
+  src="{{ $src }}"
   alt="{{ $alt }}"
   {{- with $title }} title="{{ . }}"{{ end }}
   loading="eager"
@@ -44,7 +49,7 @@
 />
 {{- else -}}
 <img
-  src="{{ $src | safeURL }}"
+  src="{{ $src }}"
   alt="{{ $alt }}"
   {{- with $title }} title="{{ . }}"{{ end }}
   loading="lazy"

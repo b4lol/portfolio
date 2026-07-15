@@ -51,21 +51,17 @@
      is only honored when sent as an HTTP header. style-src needs
      'unsafe-inline' because content posts use inline style="" attributes
      (e.g. heading color overrides) and embedded SVG diagrams.
-     script-src includes the SHA-256 hash of the inlined theme.js so the
-     browser accepts it without 'unsafe-inline'. The hash is computed at
-     build time from the minified resource, so it always stays in sync. */}}
-{{- $themeHash := "" -}}
-{{- if not site.Params.disableThemeToggle -}}
-  {{- $themeRes := resources.Get "js/theme.js" | resources.Minify | fingerprint "sha256" -}}
-  {{- $themeHash = $themeRes.Data.Integrity -}}
-{{- end -}}
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'{{ with $themeHash }} '{{ . }}'{{ end }}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+     script-src allows 'unsafe-inline' so that inline JSON-LD structured
+     data blocks and the inlined theme.js can execute. A hash/nonce-based
+     policy is preferred but impractical for dynamic per-page JSON-LD; move
+     CSP to an HTTP header with a nonce when a proxy is available. */}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
 {{/* JSON-LD: WebSite + Person — homepage only */}}
 {{ if .IsHome -}}
-{{- $searchURL := printf "%ssearch/" site.BaseURL -}}
+{{- $searchURL := absURL "/search/" -}}
 {{- with site.GetPage "/search" }}{{ $searchURL = .Permalink }}{{ end -}}
-{{- $aboutURL := printf "%sabout/" site.BaseURL -}}
+{{- $aboutURL := absURL "/about/" -}}
 {{- with site.GetPage "/about" }}{{ $aboutURL = .Permalink }}{{ end -}}
 <script type="application/ld+json">
 {
@@ -92,10 +88,8 @@
       "url": {{ $aboutURL | jsonify | safeJS }},
       "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
       "description": {{ site.Params.person.description | jsonify | safeJS }},
-      "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}
-      {{- with site.Params.schema.sameAs }},
-      "sameAs": {{ . | jsonify | safeJS }}
-      {{- end }}
+      "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}{{- with site.Params.schema.sameAs -}},
+      "sameAs": {{ . | jsonify | safeJS }}{{- end -}}
     }
   ]
 }
@@ -162,7 +156,7 @@
 {{- $aboutURL := printf "%sabout/" site.BaseURL -}}
 {{- with site.GetPage "/about" }}{{ $aboutURL = .Permalink }}{{ end -}}
 {{- $homeURL := site.Home.Permalink -}}
-{{- $postsURL := printf "%sposts/" site.BaseURL -}}
+{{- $postsURL := absURL "/posts/" -}}
 {{- with site.GetPage "/posts" }}{{ $postsURL = .Permalink }}{{ end -}}
 <script type="application/ld+json">
 {
@@ -305,10 +299,8 @@
     "url": {{ .Permalink | jsonify | safeJS }},
     "jobTitle": {{ site.Params.person.jobTitle | jsonify | safeJS }},
     "description": {{ site.Params.person.description | jsonify | safeJS }},
-    "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}
-    {{- with site.Params.schema.sameAs }},
-    "sameAs": {{ . | jsonify | safeJS }}
-    {{- end }}
+    "knowsAbout": {{ site.Params.person.knowsAbout | jsonify | safeJS }}{{- with site.Params.schema.sameAs -}},
+    "sameAs": {{ . | jsonify | safeJS }}{{- end -}}
   }
 }
 </script>
@@ -324,8 +316,7 @@
   "name": {{ (printf "%s %s" site.Title (i18n "guides_section" | default "Guides")) | jsonify | safeJS }},
   "url": {{ .Permalink | jsonify | safeJS }},
   "description": {{ site.Params.description | jsonify | safeJS }},
-  "inLanguage": {{ site.Language.Locale | jsonify | safeJS }}
-  {{- if $posts }},
+  "inLanguage": {{ site.Language.Locale | jsonify | safeJS }}{{ if $posts }},
   "blogPost": [
     {{- range $i, $post := $posts }}
     {
@@ -337,8 +328,35 @@
       "description": {{ with $post.Description }}{{ . | jsonify | safeJS }}{{ else }}{{ $post.Summary | jsonify | safeJS }}{{ end }}
     }{{ if lt (add $i 1) (len $posts) }},{{ end }}
     {{- end }}
-  ]
-  {{- end }}
+  ]{{ end }}
 }
 </script>
 {{- end }}
+
+{{/* JSON-LD: BreadcrumbList — every non-home page that does not already have one */}}
+{{- if and (not .IsHome) (or .IsPage .IsSection) (not (and .IsPage (eq .Section "posts"))) -}}
+{{- $breadcrumbs := slice (dict "name" (i18n "home" | default "Home") "url" site.Home.Permalink) -}}
+{{- range .Ancestors.Reverse -}}
+  {{- if ne .Kind "home" -}}
+    {{- $breadcrumbs = $breadcrumbs | append (dict "name" .Name "url" .Permalink) -}}
+  {{- end -}}
+{{- end -}}
+{{- $breadcrumbs = $breadcrumbs | append (dict "name" .Name "url" .Permalink) -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{- range $i, $bc := $breadcrumbs }}
+    {
+      "@type": "ListItem",
+      "position": {{ add $i 1 }},
+      "name": {{ $bc.name | jsonify | safeJS }},
+      "item": {{ $bc.url | jsonify | safeJS }}
+    }{{ if lt (add $i 1) (len $breadcrumbs) }},{{ end }}
+    {{- end }}
+  ]
+}
+</script>
+{{- end }}
+

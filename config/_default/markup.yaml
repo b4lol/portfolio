@@ -8,4 +8,5 @@ goldmark:
     # Content posts rely on raw HTML (details/table/div) in several guides
     # (hardware-wallet, joinmarket, graphene, macos-security). Disabling this
     # would break their rendering.
+    # TODO: migrate raw HTML blocks to custom shortcodes and set this to false.
     unsafe: true

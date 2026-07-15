@@ -1,6 +1,14 @@
-{{- $isExternal := and (strings.HasPrefix .Destination "http") (not (strings.HasPrefix .Destination site.BaseURL)) -}}
-<a href="{{ .Destination | safeURL }}"
+{{- $dest := .Destination -}}
+{{- $isHTTP := or (strings.HasPrefix $dest "http://") (strings.HasPrefix $dest "https://") -}}
+{{- $destHost := "" -}}
+{{- if $isHTTP -}}{{- with urls.Parse $dest }}{{ $destHost = .Host }}{{ end }}{{- end -}}
+{{- $baseHost := "" -}}
+{{- with urls.Parse site.BaseURL }}{{ $baseHost = .Host }}{{ end -}}
+{{- $isExternal := or (and $isHTTP (ne $destHost $baseHost)) (strings.HasPrefix $dest "//") -}}
+{{- $isAllowed := or $isExternal (strings.HasPrefix $dest "mailto:") (strings.HasPrefix $dest "tel:") (strings.HasPrefix $dest "#") (not (strings.Contains $dest ":")) -}}
+{{- $href := cond $isAllowed $dest "#" -}}
+<a href="{{ $href }}"
   {{- with .Title }} title="{{ . }}"{{ end }}
   {{- if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
-  {{- .Text | safeHTML -}}
+  {{- .Text -}}
 </a>

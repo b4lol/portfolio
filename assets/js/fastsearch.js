@@ -1,23 +1,13 @@
 import * as params from '@params';
 
-// Project-level override of the theme's fastsearch.js.
-// Hugo's asset overlay prefers files under the project's own assets/
-// directory over the theme's, so this shadows
-// themes/WonderMod/assets/js/fastsearch.js with one fix: search result
-// titles/permalinks are HTML-escaped before being inserted via
-// innerHTML, instead of being concatenated into the markup unescaped.
-
 let fuse; // holds our search engine
 let resList = document.getElementById('searchResults');
 let sInput = document.getElementById('searchInput');
 let first, last, current_elem = null
 let resultsAvailable = false;
 
-function escapeHTML(str) {
-    return String(str).replace(/[&<>"']/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-}
+// Build the search index path from Hugo params; fall back to a relative path.
+const searchIndexPath = params.searchIndexPath || '../index.json';
 
 // load our search index
 window.onload = function () {
@@ -61,7 +51,7 @@ window.onload = function () {
             }
         }
     };
-    xhr.open('GET', "../index.json");
+    xhr.open('GET', searchIndexPath);
     xhr.send();
 }
 
@@ -72,9 +62,9 @@ function activeToggle(ae) {
     });
     if (ae) {
         ae.focus()
-        document.activeElement = current_elem = ae;
+        current_elem = ae;
         ae.parentElement.classList.add("focus")
-    } else {
+    } else if (document.activeElement && document.activeElement.parentElement) {
         document.activeElement.parentElement.classList.add("focus")
     }
 }
@@ -98,16 +88,25 @@ sInput.onkeyup = function (e) {
         }
         if (results.length !== 0) {
             // build our html if result exists
-            let resultSet = ''; // our results bucket
+            resList.innerHTML = '';
 
             for (let item in results) {
-                let title = escapeHTML(results[item].item.title);
-                let permalink = escapeHTML(results[item].item.permalink);
-                resultSet += `<li class="post-entry"><header class="entry-header">${title}&nbsp;»</header>` +
-                    `<a href="${permalink}" aria-label="${title}"></a></li>`
-            }
+                const result = results[item].item;
+                const li = document.createElement('li');
+                li.className = 'post-entry';
 
-            resList.innerHTML = resultSet;
+                const header = document.createElement('header');
+                header.className = 'entry-header';
+                header.textContent = result.title + '\u00A0\u00BB'; // nbsp + »
+
+                const a = document.createElement('a');
+                a.href = result.permalink;
+                a.setAttribute('aria-label', result.title);
+
+                li.appendChild(header);
+                li.appendChild(a);
+                resList.appendChild(li);
+            }
             resultsAvailable = true;
             first = resList.firstChild;
             last = resList.lastChild;

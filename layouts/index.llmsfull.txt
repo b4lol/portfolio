@@ -1,23 +1,24 @@
 {{- if eq .Lang "en" -}}
-# {{ site.Title }} — Full Content Dump
+# {{ site.Title }} — {{ i18n "llms_full_content" | default "Full Content Dump" }}
 
 > {{ site.Params.description }}
-> This file contains the full plain-text content of every guide on {{ site.BaseURL }} for LLM ingestion.
-> Generated: {{ now.Format "2006-01-02" }}
+> {{ i18n "llms_full_desc" | default "This file contains the full plain-text content of every guide on" }} {{ site.BaseURL }} {{ i18n "llms_ingestion" | default "for LLM ingestion." }}
+> {{ i18n "llms_generated" | default "Generated" }}: {{ now.Format "2006-01-02" }}
 
 ---
 {{ range where site.RegularPages "Section" "posts" }}
-## {{ .Title }}
+{{- $safeTitle := .Title | replaceRE `([\[\]\|])` `\\$1` -}}
+## {{ $safeTitle }}
 
 URL: {{ .Permalink }}
-Published: {{ .PublishDate.Format "2006-01-02" }}
-Updated: {{ .Lastmod.Format "2006-01-02" }}
-Description: {{ .Description }}
+{{ i18n "llms_published" | default "Published" }}: {{ .PublishDate.Format "2006-01-02" }}
+{{ i18n "updated_on" | default "Updated" }}: {{ .Lastmod.Format "2006-01-02" }}
+{{ i18n "llms_description" | default "Description" }}: {{ .Description | replaceRE `([\[\]\|])` `\\$1` | replaceRE "\n" " " }}
 
-{{ .Plain }}
+{{ trim .Plain "\n" }}
 
 ---
 {{ end }}
 {{- else -}}
-See {{ absURL "/llms-full.txt" }} for the English version.
+{{ i18n "llms_see_english" | default "For the English LLMs feed, see" }} {{ absURL "/llms-full.txt" }}
 {{- end -}}

@@ -50,7 +50,7 @@ howto:
       url: "/email-security#autenticazione-delle-email"
     - name: "Separate recovery from critical accounts"
       text: "Avoid letting a single email account be able to reset every important account."
-      url: "/email-security#passkey-e-il-futuro-dellautenticazione"
+      url: "/email-security#passkeys-decoupling-recovery"
 ---
 
 > **TL;DR** — In this guide, you will learn:

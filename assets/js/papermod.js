@@ -20,10 +20,10 @@ function themeToggle() {
     themeButton.addEventListener("click", () => {
         if (document.body.className.includes("dark")) {
             document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
+            try { localStorage.setItem("pref-theme", 'light'); } catch (e) {}
         } else {
             document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+            try { localStorage.setItem("pref-theme", 'dark'); } catch (e) {}
         }
     })
 }
@@ -32,14 +32,17 @@ function showCodeCopyButtons() {
     document.querySelectorAll('pre > code').forEach((codeblock) => {
         const container = codeblock.parentNode.parentNode;
 
+        const copyLabel = params.codeCopy || 'copy';
+        const copiedLabel = params.codeCopied || 'copied!';
+
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
+        copybutton.textContent = copyLabel;
 
         function copyingDone() {
-            copybutton.innerHTML = 'copied!';
+            copybutton.textContent = copiedLabel;
             setTimeout(() => {
-                copybutton.innerHTML = 'copy';
+                copybutton.textContent = copyLabel;
             }, 2000);
         }
 

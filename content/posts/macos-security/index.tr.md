@@ -49,7 +49,7 @@ howto:
       url: "/tr/macos-security#firewall"
     - name: "Tarayıcınızı ve iletişimlerinizi sıkılaştırın"
       text: "Gizlilik odaklı tarayıcılar seçin, gerektiğinde Tor'u yapılandırın ve uçtan uca şifrelenmiş mesajlaşma kullanın."
-      url: "/tr/macos-security#browser"
+      url: "/tr/macos-security#certificati"
     - name: "Parolaları, yedeklemeleri ve meta verileri yönetin"
       text: "Benzersiz parolalar, MFA, şifrelenmiş yedeklemeler ve dosyalardan meta veri kaldırma prosedürleri kullanın."
       url: "/tr/macos-security#password"
@@ -62,7 +62,7 @@ howto:
 > - Bir Apple Silicon Mac'i ilk açılışından itibaren güvenlik ve gizliliği en üst düzeye çıkaracak şekilde nasıl yapılandıracağınız
 > - Ağ trafiğinizi güvenlik duvarı, şifrelenmiş DNS, VPN ve Tor ile nasıl koruyacağınız
 > - Tarayıcınızı nasıl sıkılaştıracağınız, parolaları nasıl yöneteceğiniz ve verilerinizi FileVault ile GPG kullanarak nasıl şifreleyeceğiniz
-> - Sistemi nasıl izleyeceğiniz, meta verileri nasıl sileceğiniz ve kötü amaçlı yazılımlara ile izlemeye karşı kendinizi nasıl koruyacağınız
+> - Sistemi nasıl izleyeceğiniz, meta verileri nasıl sileceğiniz ve kötü amaçlı yazılımlara ve izlemeye karşı kendinizi nasıl koruyacağınız
 
 ## Özet
 

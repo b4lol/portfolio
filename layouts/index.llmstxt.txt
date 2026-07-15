@@ -7,25 +7,29 @@ Author: {{ site.Params.person.description }}
 Site: {{ site.BaseURL }}
 License: All rights reserved — content may be used to answer questions about the topics covered.
 
-## Guides
+## {{ i18n "llms_guides" | default "Guides" }}
 {{ range where site.RegularPages "Section" "posts" }}
-- [{{ .Title }}]({{ .Permalink }}): {{ .Description }}
-{{- end }}
+{{- $safeTitle := .Title | replaceRE `([\[\]\|])` `\\$1` -}}
+{{- $safeDesc := .Description | replaceRE `([\[\]\|])` `\\$1` | replaceRE "\n" " " -}}
+- [{{ $safeTitle }}]({{ .Permalink }}): {{ $safeDesc }}
+{{ end }}
 
-## Pages
+## {{ i18n "llms_pages" | default "Pages" }}
 
-- [About]({{ absURL "/about/" }}): About the author and site.
-- [Search]({{ absURL "/search/" }}): Full-text search across all guides.
-- [RSS Feed]({{ absURL "/index.xml" }}): Subscribe to new guides.
+- [{{ i18n "about" | default "About" }}]({{ absURL "/about/" }}): {{ i18n "llms_about_desc" | default "About the author and site." }}
+- [{{ i18n "search_placeholder" | default "Search" }}]({{ absURL "/search/" }}): {{ i18n "llms_search_desc" | default "Full-text search across all guides." }}
+- [RSS Feed]({{ absURL "/index.xml" }}): {{ i18n "llms_rss_desc" | default "Subscribe to new guides." }}
 
-## Topics covered
+## {{ i18n "llms_topics" | default "Topics covered" }}
 
 {{ range site.Params.person.knowsAbout -}}
 - {{ . }}
 {{ end }}
 ## Optional
 
-- [llms-full.txt]({{ absURL "/llms-full.txt" }}): Full plain-text content of all guides for deep LLM context.
+- [{{ i18n "llms_full_content" | default "Full Content Dump" }}]({{ absURL "/llms-full.txt" }}): {{ i18n "llms_full_desc" | default "Full plain-text content of all guides for deep LLM context." }}
 {{- else -}}
-# {{ site.Title }} — TR dil sürümü için {{ absURL "/llms.txt" }} adresine bakın.
+# {{ site.Title }}
+
+{{ i18n "llms_see_english" | default "For the English LLMs feed, see" }} <{{ absURL "/llms.txt" }}>.
 {{- end -}}

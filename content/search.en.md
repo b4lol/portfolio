@@ -3,11 +3,9 @@ title: "Search"
 layout: "search"
 summary: "search"
 placeholder: "Search guides..."
-robotsNoIndex: true
+robotsNoIndex: false
 build:
   list: always
   render: always
   publishResources: true
-sitemap:
-  disable: true
 ---

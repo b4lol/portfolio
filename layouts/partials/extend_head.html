@@ -29,11 +29,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="{{ site.Title }}">
 
-{{/* DNS prefetch for external domains linked from content */}}
-<link rel="dns-prefetch" href="https://github.com">
-<link rel="dns-prefetch" href="https://x.com">
-<link rel="dns-prefetch" href="https://t.me">
-<link rel="dns-prefetch" href="https://www.instagram.com">
+{{/* Preconnect & DNS prefetch for external domains */}}
+{{- $preconnectDomains := slice "https://github.com" "https://x.com" "https://t.me" "https://www.instagram.com" -}}
+{{- range $preconnectDomains -}}
+<link rel="preconnect" href="{{ . }}" crossorigin>
+<link rel="dns-prefetch" href="{{ . }}">
+{{- end -}}
 
 {{/* LCP preload: for post pages that have a cover image, preload the
      image early so the browser starts fetching before parsing <body>.

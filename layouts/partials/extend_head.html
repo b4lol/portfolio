@@ -64,12 +64,13 @@
      CSP to an HTTP header with a nonce when a proxy is available. */}}
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
-{{/* JSON-LD: WebSite + Person — homepage only */}}
+{{/* JSON-LD: WebSite + Organization + Person — homepage only */}}
 {{ if .IsHome -}}
 {{- $searchURL := absURL "/search/" -}}
 {{- with site.GetPage "/search" }}{{ $searchURL = .Permalink }}{{ end -}}
 {{- $aboutURL := absURL "/about/" -}}
 {{- with site.GetPage "/about" }}{{ $aboutURL = .Permalink }}{{ end -}}
+{{- $logoURL := site.Params.assets.apple_touch_icon | default "/apple-touch-icon.png" | absURL -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -88,6 +89,14 @@
         },
         "query-input": "required name=search_term_string"
       }
+    },
+    {
+      "@type": "Organization",
+      "name": {{ site.Title | jsonify | safeJS }},
+      "url": {{ site.BaseURL | jsonify | safeJS }},
+      "logo": {{ $logoURL | jsonify | safeJS }},
+      "description": {{ site.Params.description | jsonify | safeJS }}{{- with site.Params.schema.sameAs -}},
+      "sameAs": {{ . | jsonify | safeJS }}{{- end -}}
     },
     {
       "@type": "Person",
@@ -180,6 +189,17 @@
         "name": {{ with .Params.author }}{{ . | jsonify | safeJS }}{{ else }}{{ site.Params.author | jsonify | safeJS }}{{ end }},
         "url": {{ $aboutURL | jsonify | safeJS }}
       },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ site.Title | jsonify | safeJS }},
+        "url": {{ site.BaseURL | jsonify | safeJS }},
+        "logo": {{ (site.Params.assets.apple_touch_icon | default "/apple-touch-icon.png" | absURL) | jsonify | safeJS }}
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": {{ .Permalink | jsonify | safeJS }}
+      },
+      "wordCount": {{ .WordCount }},
       {{- if $image }}
       "image": {{ $image | jsonify | safeJS }},
       {{- end }}
@@ -312,6 +332,27 @@
 }
 </script>
 {{- end }}
+
+{{/* JSON-LD: WebPage — standalone non-post, non-section pages */}}
+{{- if and .IsPage (not (eq .Section "posts")) -}}
+{{- $aboutPage := site.GetPage "/about" -}}
+{{- if not (and $aboutPage (eq .Permalink $aboutPage.Permalink)) -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ .Title | jsonify | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ site.Params.description | jsonify | safeJS }}{{ end }},
+  "inLanguage": {{ site.Language.Locale | jsonify | safeJS }},
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": {{ site.BaseURL | jsonify | safeJS }}
+  }
+}
+</script>
+{{- end -}}
+{{- end -}}
 
 {{/* JSON-LD: Blog — /posts section */}}
 {{- if and .IsSection (eq .Section "posts") -}}

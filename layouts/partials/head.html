@@ -11,14 +11,22 @@
 {{- $title := "" -}}
 {{- if .IsHome -}}
   {{- $title = site.Params.homepageTitle | default site.Title -}}
-{{- else if or .IsPage .IsSection -}}
+{{- else if or .IsPage .IsNode -}}
   {{- $prefix := .Title -}}
-  {{- if and (not .IsPage) (eq .Kind "term") -}}
-    {{- if not (strings.HasSuffix (lower .Title) "guides") -}}
-      {{- $prefix = printf "%s Guides" .Title -}}
+  {{- if eq $prefix "" -}}
+    {{- $title = site.Title -}}
+  {{- else -}}
+    {{- if and .IsSection (eq .Section "posts") -}}
+      {{- if not (strings.HasSuffix (lower $prefix) "guides") -}}
+        {{- $prefix = printf "%s Guides" $prefix -}}
+      {{- end -}}
+    {{- else if eq .Kind "term" -}}
+      {{- if not (strings.HasSuffix (lower $prefix) "guides") -}}
+        {{- $prefix = printf "%s Guides" $prefix -}}
+      {{- end -}}
     {{- end -}}
+    {{- $title = printf "%s | %s" $prefix site.Title -}}
   {{- end -}}
-  {{- $title = printf "%s | %s" $prefix site.Title -}}
 {{- else -}}
   {{- $title = site.Title -}}
 {{- end -}}
@@ -129,6 +137,9 @@
 {{- range .AllTranslations -}}
 <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
 {{ end -}}
+{{- range .Translations -}}
+<meta property="og:locale:alternate" content="{{ replace .Language.Locale "-" "_" }}">
+{{- end -}}
 
 {{- partial "extend_head.html" . -}}
 

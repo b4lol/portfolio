@@ -32,3 +32,9 @@ socialIcons:
   - name: instagram
     title: "Instagram"
     url: "https://www.instagram.com/b4ioi"
+
+social:
+  twitter: "@b4lolx"
+
+images:
+  - "/apple-touch-icon.png"

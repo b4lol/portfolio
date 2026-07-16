@@ -119,6 +119,13 @@
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
 {{ end -}}
+{{- $xDefault := .Permalink -}}
+{{- if ne .Lang "en" -}}
+  {{- range .AllTranslations -}}
+    {{- if eq .Lang "en" -}}{{- $xDefault = .Permalink -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+<link rel="alternate" hreflang="x-default" href="{{ $xDefault }}">
 {{- range .AllTranslations -}}
 <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
 {{ end -}}

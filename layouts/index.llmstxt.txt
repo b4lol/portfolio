@@ -25,9 +25,9 @@ License: All rights reserved — content may be used to answer questions about t
 {{ range site.Params.person.knowsAbout -}}
 - {{ . }}
 {{ end }}
-## Optional
+## {{ i18n "llms_ai_feed" | default "Full Content Feed for AI Crawlers" }}
 
-- [{{ i18n "llms_full_content" | default "Full Content Dump" }}]({{ absURL "/llms-full.txt" }}): {{ i18n "llms_full_desc" | default "Full plain-text content of all guides for deep LLM context." }}
+- [{{ i18n "llms_full_content" | default "Full Content Dump" }}]({{ absURL "/llms-full.txt" }}): {{ i18n "llms_full_desc" | default "Plain-text content of every page on this site for LLM and AI crawler ingestion." }}
 {{- else -}}
 # {{ site.Title }}
 

@@ -335,8 +335,6 @@
 
 {{/* JSON-LD: WebPage — standalone non-post, non-section pages */}}
 {{- if and .IsPage (not (eq .Section "posts")) -}}
-{{- $aboutPage := site.GetPage "/about" -}}
-{{- if not (and $aboutPage (eq .Permalink $aboutPage.Permalink)) -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -351,7 +349,6 @@
   }
 }
 </script>
-{{- end -}}
 {{- end -}}
 
 {{/* JSON-LD: Blog — /posts section */}}

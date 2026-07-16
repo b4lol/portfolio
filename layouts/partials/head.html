@@ -16,13 +16,10 @@
   {{- if eq $prefix "" -}}
     {{- $title = site.Title -}}
   {{- else -}}
-    {{- if and .IsSection (eq .Section "posts") -}}
-      {{- if not (strings.HasSuffix (lower $prefix) "guides") -}}
-        {{- $prefix = printf "%s Guides" $prefix -}}
-      {{- end -}}
-    {{- else if eq .Kind "term" -}}
-      {{- if not (strings.HasSuffix (lower $prefix) "guides") -}}
-        {{- $prefix = printf "%s Guides" $prefix -}}
+    {{- $guidesWord := i18n "guides_section" | default "Guides" -}}
+    {{- if or (and .IsSection (eq .Section "posts")) (eq .Kind "term") -}}
+      {{- if not (strings.Contains (lower $prefix) (lower $guidesWord)) -}}
+        {{- $prefix = printf "%s %s" $prefix $guidesWord -}}
       {{- end -}}
     {{- end -}}
     {{- $title = printf "%s | %s" $prefix site.Title -}}

@@ -2,7 +2,7 @@
 # {{ site.Title }} — {{ i18n "llms_full_content" | default "Full Content Dump" }}
 
 > {{ site.Params.description }}
-> {{ i18n "llms_full_desc" | default "This file contains the full plain-text content of every guide on" }} {{ site.BaseURL }} {{ i18n "llms_ingestion" | default "for LLM ingestion." }}
+> {{ i18n "llms_full_desc" | default "Plain-text content of every page on this site for LLM and AI crawler ingestion." }}
 > {{ i18n "llms_generated" | default "Generated" }}: {{ now.Format "2006-01-02" }}
 
 ---

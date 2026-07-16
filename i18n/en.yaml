@@ -83,7 +83,10 @@
   translation: "Subscribe to new guides."
 
 - id: llms_full_desc
-  translation: "Full plain-text content of all guides for deep LLM context."
+  translation: "Plain-text content of every page on this site for LLM and AI crawler ingestion."
+
+- id: llms_ai_feed
+  translation: "Full Content Feed for AI Crawlers"
 
 - id: llms_see_english
   translation: "For the English LLMs feed, see"
